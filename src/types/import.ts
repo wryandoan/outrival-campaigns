@@ -2,6 +2,7 @@ export interface ImportContact {
   first_name: string;
   last_name: string;
   phone_number: string;
+  personalization_fields?: Record<string, string>;
 }
 
 export interface ImportError {
@@ -30,6 +31,12 @@ export interface FieldMapping {
   firstName?: string;
   lastName?: string;
   phoneNumber?: string;
+  personalization?: PersonalizationField[];
+}
+
+export interface PersonalizationField {
+  key: string;
+  csvHeader: string;
 }
 
 export interface CSVParseResult {

@@ -40,7 +40,11 @@ async function createNewContacts(contacts: ImportResult['contacts'], existingPho
   return data || [];
 }
 
-async function linkContactsToCampaign(campaignId: string, contactIds: string[]) {
+async function linkContactsToCampaign(
+  campaignId: string, 
+  contactIds: string[], 
+  personalizationFields: Record<string, Record<string, string>>
+) {
   const { data: existingLinks } = await supabase
     .from('campaign_contacts')
     .select('contact_id')
@@ -50,10 +54,19 @@ async function linkContactsToCampaign(campaignId: string, contactIds: string[]) 
   const existingContactIds = new Set(existingLinks?.map(link => link.contact_id) || []);
   
   // Only link contacts that aren't already linked to this campaign
-  const { error } = await supabase.rpc('link_contacts_to_campaign', {
-    p_campaign_id: campaignId,
-    p_contact_ids: contactIds.filter(id => !existingContactIds.has(id))
-  });
+  const newLinks = contactIds
+    .filter(id => !existingContactIds.has(id))
+    .map(contactId => ({
+      campaign_id: campaignId,
+      contact_id: contactId,
+      personalization_fields: personalizationFields[contactId] || null
+    }));
+
+  if (newLinks.length === 0) return;
+
+  const { error } = await supabase
+    .from('campaign_contacts')
+    .insert(newLinks);
 
   if (error) throw error;
 }
@@ -79,14 +92,23 @@ export async function uploadContacts(campaignId: string, importResult: ImportRes
     user.id
   );
 
+  // Create a map of phone numbers to personalization fields
+  const personalizationFields: Record<string, Record<string, string>> = {};
+  [...newContacts, ...existingContacts].forEach(contact => {
+    const importContact = importResult.contacts.find(c => c.phone_number === contact.phone_number);
+    if (importContact?.personalization_fields) {
+      personalizationFields[contact.id] = importContact.personalization_fields;
+    }
+  });
+
   // Get contact IDs for both new and existing contacts
   const allContactIds = [
     ...newContacts.map(c => c.id),
     ...existingContacts.map(c => c.id)
   ];
 
-  // Link all contacts to campaign
-  await linkContactsToCampaign(campaignId, allContactIds);
+  // Link all contacts to campaign with personalization fields
+  await linkContactsToCampaign(campaignId, allContactIds, personalizationFields);
 
   // Return updated import result
   return {

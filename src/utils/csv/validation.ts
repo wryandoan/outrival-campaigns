@@ -1,4 +1,4 @@
-import type { FieldMapping } from '../../types/import';
+import type { FieldMapping, PersonalizationField } from '../../types/import';
 import { validateAndFormatPhone } from '../phone/formatter';
 
 export function validateContact(
@@ -32,9 +32,23 @@ export function validateContact(
     return null;
   }
 
+  // Process personalization fields
+  const personalization_fields: Record<string, string> = {};
+  if (mapping.personalization) {
+    for (const field of mapping.personalization) {
+      if (field.key && field.csvHeader) {
+        const fieldIndex = headers.indexOf(field.csvHeader);
+        if (fieldIndex >= 0 && fieldIndex < values.length) {
+          personalization_fields[field.key] = values[fieldIndex].trim();
+        }
+      }
+    }
+  }
+
   return {
     first_name: firstName,
     last_name: lastName,
-    phone_number: phoneResult.formattedNumber!
+    phone_number: phoneResult.formattedNumber!,
+    personalization_fields: Object.keys(personalization_fields).length > 0 ? personalization_fields : undefined
   };
 }
