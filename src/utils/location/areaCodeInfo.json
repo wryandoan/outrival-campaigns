@@ -1,0 +1,3124 @@
+{
+    "201": {
+        "state": "New Jersey",
+        "mainCity": "Jersey City",
+        "country": "USA",
+        "overlayComplex": "201/551",
+        "timeZone": "E"
+    },
+    "202": {
+        "state": "D.C.",
+        "mainCity": "Washington",
+        "country": "USA",
+        "overlayComplex": "202/771",
+        "timeZone": "E"
+    },
+    "203": {
+        "state": "Connecticut",
+        "mainCity": "Bridgeport",
+        "country": "USA",
+        "overlayComplex": "203/475",
+        "timeZone": "E"
+    },
+    "204": {
+        "state": "Manitoba",
+        "mainCity": "Winnipeg",
+        "country": "Canada",
+        "overlayComplex": "204/431/584",
+        "timeZone": "C"
+    },
+    "205": {
+        "state": "Alabama",
+        "mainCity": "Birmingham",
+        "country": "USA",
+        "overlayComplex": "205/659",
+        "timeZone": "C"
+    },
+    "206": {
+        "state": "Washington",
+        "mainCity": "Seattle",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "P"
+    },
+    "207": {
+        "state": "Maine",
+        "mainCity": "Portland",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "E"
+    },
+    "208": {
+        "state": "Idaho",
+        "mainCity": "Meridian",
+        "country": "USA",
+        "overlayComplex": "208/986",
+        "timeZone": "M,P"
+    },
+    "209": {
+        "state": "California",
+        "mainCity": "Stockton",
+        "country": "USA",
+        "overlayComplex": "209/350",
+        "timeZone": "P"
+    },
+    "210": {
+        "state": "Texas",
+        "mainCity": "San Antonio",
+        "country": "USA",
+        "overlayComplex": "210/726",
+        "timeZone": "C"
+    },
+    "212": {
+        "state": "New York",
+        "mainCity": "NYC Manhattan",
+        "country": "USA",
+        "overlayComplex": "212/646/917/332",
+        "timeZone": "E"
+    },
+    "213": {
+        "state": "California",
+        "mainCity": "Los Angeles",
+        "country": "USA",
+        "overlayComplex": "323/213",
+        "timeZone": "P"
+    },
+    "214": {
+        "state": "Texas",
+        "mainCity": "Dallas",
+        "country": "USA",
+        "overlayComplex": "214/972/469/945",
+        "timeZone": "C"
+    },
+    "215": {
+        "state": "Pennsylvania",
+        "mainCity": "Philadelphia",
+        "country": "USA",
+        "overlayComplex": "215/267/445",
+        "timeZone": "E"
+    },
+    "216": {
+        "state": "Ohio",
+        "mainCity": "Cleveland",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "E"
+    },
+    "217": {
+        "state": "Illinois",
+        "mainCity": "Springfield",
+        "country": "USA",
+        "overlayComplex": "217/447",
+        "timeZone": "C"
+    },
+    "218": {
+        "state": "Minnesota",
+        "mainCity": "Duluth",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C"
+    },
+    "219": {
+        "state": "Indiana",
+        "mainCity": "Hammond",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "E,C"
+    },
+    "220": {
+        "state": "Ohio",
+        "mainCity": "Newark",
+        "country": "USA",
+        "overlayComplex": "740/220",
+        "timeZone": "E"
+    },
+    "223": {
+        "state": "Pennsylvania",
+        "mainCity": "Lancaster",
+        "country": "USA",
+        "overlayComplex": "717/223",
+        "timeZone": "E"
+    },
+    "224": {
+        "state": "Illinois",
+        "mainCity": "Elgin",
+        "country": "USA",
+        "overlayComplex": "847/224",
+        "timeZone": "C"
+    },
+    "225": {
+        "state": "Louisiana",
+        "mainCity": "Baton Rouge",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C"
+    },
+    "226": {
+        "state": "Ontario",
+        "mainCity": "London",
+        "country": "Canada",
+        "overlayComplex": "519/226/548/382",
+        "timeZone": "E"
+    },
+    "227": {
+        "state": "Maryland",
+        "mainCity": "Germantown",
+        "country": "USA",
+        "overlayComplex": "301/240/227",
+        "timeZone": "E"
+    },
+    "228": {
+        "state": "Mississippi",
+        "mainCity": "Gulfport",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C"
+    },
+    "229": {
+        "state": "Georgia",
+        "mainCity": "Albany",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "E"
+    },
+    "231": {
+        "state": "Michigan",
+        "mainCity": "Muskegon",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "E"
+    },
+    "234": {
+        "state": "Ohio",
+        "mainCity": "Akron",
+        "country": "USA",
+        "overlayComplex": "330/234",
+        "timeZone": "E"
+    },
+    "235": {
+        "state": "Missouri",
+        "mainCity": "Columbia",
+        "country": "USA",
+        "overlayComplex": "573/235",
+        "timeZone": "C"
+    },
+    "236": {
+        "state": "British Columbia",
+        "mainCity": "Kelowna",
+        "country": "Canada",
+        "overlayComplex": "250/778/236/672, 604/778/236/672",
+        "timeZone": "P"
+    },
+    "239": {
+        "state": "Florida",
+        "mainCity": "Cape Coral",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "E"
+    },
+    "240": {
+        "state": "Maryland",
+        "mainCity": "Germantown",
+        "country": "USA",
+        "overlayComplex": "301/240/227",
+        "timeZone": "E"
+    },
+    "242": {
+        "state": "Bahamas",
+        "mainCity": "Nassau",
+        "country": "Bahamas",
+        "overlayComplex": "",
+        "timeZone": "E"
+    },
+    "246": {
+        "state": "Barbados",
+        "mainCity": "Bridgetown",
+        "country": "Barbados",
+        "overlayComplex": "",
+        "timeZone": "AST"
+    },
+    "248": {
+        "state": "Michigan",
+        "mainCity": "Troy",
+        "country": "USA",
+        "overlayComplex": "248/947",
+        "timeZone": "E"
+    },
+    "249": {
+        "state": "Ontario",
+        "mainCity": "Sudbury",
+        "country": "Canada",
+        "overlayComplex": "705/249/683",
+        "timeZone": "E"
+    },
+    "250": {
+        "state": "British Columbia",
+        "mainCity": "Kelowna",
+        "country": "Canada",
+        "overlayComplex": "250/778/236/672",
+        "timeZone": "P"
+    },
+    "251": {
+        "state": "Alabama",
+        "mainCity": "Mobile",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C"
+    },
+    "252": {
+        "state": "North Carolina",
+        "mainCity": "Greenville",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "E"
+    },
+    "253": {
+        "state": "Washington",
+        "mainCity": "Tacoma",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "P"
+    },
+    "254": {
+        "state": "Texas",
+        "mainCity": "Killeen",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C"
+    },
+    "256": {
+        "state": "Alabama",
+        "mainCity": "Huntsville",
+        "country": "USA",
+        "overlayComplex": "256/938",
+        "timeZone": "C"
+    },
+    "260": {
+        "state": "Indiana",
+        "mainCity": "Fort Wayne",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "E"
+    },
+    "262": {
+        "state": "Wisconsin",
+        "mainCity": "Kenosha",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C"
+    },
+    "263": {
+        "state": "Quebec",
+        "mainCity": "Montreal",
+        "country": "Canada",
+        "overlayComplex": "514/438/263",
+        "timeZone": "E"
+    },
+    "264": {
+        "state": "Anguilla",
+        "mainCity": "North Side",
+        "country": "Anguilla",
+        "overlayComplex": "",
+        "timeZone": "AST"
+    },
+    "267": {
+        "state": "Pennsylvania",
+        "mainCity": "Philadelphia",
+        "country": "USA",
+        "overlayComplex": "215/267/445",
+        "timeZone": "E"
+    },
+    "268": {
+        "state": "Antigua and Barbuda",
+        "mainCity": "Saint John's",
+        "country": "Antigua and Barbuda",
+        "overlayComplex": "",
+        "timeZone": "AST"
+    },
+    "269": {
+        "state": "Michigan",
+        "mainCity": "Kalamazoo",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "E"
+    },
+    "270": {
+        "state": "Kentucky",
+        "mainCity": "Bowling Green",
+        "country": "USA",
+        "overlayComplex": "270/364",
+        "timeZone": "E,C"
+    },
+    "272": {
+        "state": "Pennsylvania",
+        "mainCity": "Scranton",
+        "country": "USA",
+        "overlayComplex": "570/272",
+        "timeZone": "E"
+    },
+    "274": {
+        "state": "Wisconsin",
+        "mainCity": "Green Bay",
+        "country": "USA",
+        "overlayComplex": "920/274",
+        "timeZone": "C"
+    },
+    "276": {
+        "state": "Virginia",
+        "mainCity": "Bristol",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "E"
+    },
+    "279": {
+        "state": "California",
+        "mainCity": "Sacramento",
+        "country": "USA",
+        "overlayComplex": "916/279",
+        "timeZone": "P"
+    },
+    "281": {
+        "state": "Texas",
+        "mainCity": "Houston",
+        "country": "USA",
+        "overlayComplex": "713/281/832/346",
+        "timeZone": "C"
+    },
+    "283": {
+        "state": "Ohio",
+        "mainCity": "Cincinnati",
+        "country": "USA",
+        "overlayComplex": "513/283",
+        "timeZone": "E"
+    },
+    "284": {
+        "state": "British Virgin Islands",
+        "mainCity": "Tortola",
+        "country": "British Virgin Islands",
+        "overlayComplex": "",
+        "timeZone": "AST"
+    },
+    "289": {
+        "state": "Ontario",
+        "mainCity": "Mississauga",
+        "country": "Canada",
+        "overlayComplex": "905/289/365/742",
+        "timeZone": "P"
+    },
+    "301": {
+        "state": "Maryland",
+        "mainCity": "Germantown",
+        "country": "USA",
+        "overlayComplex": "301/240/227",
+        "timeZone": "E"
+    },
+    "302": {
+        "state": "Delaware",
+        "mainCity": "Wilmington",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "E"
+    },
+    "303": {
+        "state": "Colorado",
+        "mainCity": "Denver",
+        "country": "USA",
+        "overlayComplex": "303/720/983",
+        "timeZone": "M"
+    },
+    "304": {
+        "state": "West Virginia",
+        "mainCity": "Charleston",
+        "country": "USA",
+        "overlayComplex": "304/681",
+        "timeZone": "E"
+    },
+    "305": {
+        "state": "Florida",
+        "mainCity": "Miami",
+        "country": "USA",
+        "overlayComplex": "305/786/645",
+        "timeZone": "E"
+    },
+    "306": {
+        "state": "Saskatchewan",
+        "mainCity": "Saskatoon",
+        "country": "Canada",
+        "overlayComplex": "306/639/474",
+        "timeZone": "CST"
+    },
+    "307": {
+        "state": "Wyoming",
+        "mainCity": "Cheyenne",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "M"
+    },
+    "308": {
+        "state": "Nebraska",
+        "mainCity": "Grand Island",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C,M"
+    },
+    "309": {
+        "state": "Illinois",
+        "mainCity": "Peoria",
+        "country": "USA",
+        "overlayComplex": "309/861",
+        "timeZone": "C"
+    },
+    "310": {
+        "state": "California",
+        "mainCity": "Torrance",
+        "country": "USA",
+        "overlayComplex": "310/424",
+        "timeZone": "P"
+    },
+    "312": {
+        "state": "Illinois",
+        "mainCity": "Chicago Downtown",
+        "country": "USA",
+        "overlayComplex": "312/872",
+        "timeZone": "C"
+    },
+    "313": {
+        "state": "Michigan",
+        "mainCity": "Detroit",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "E"
+    },
+    "314": {
+        "state": "Missouri",
+        "mainCity": "St Louis",
+        "country": "USA",
+        "overlayComplex": "314/557",
+        "timeZone": "C"
+    },
+    "315": {
+        "state": "New York",
+        "mainCity": "Syracuse",
+        "country": "USA",
+        "overlayComplex": "315/680",
+        "timeZone": "E"
+    },
+    "316": {
+        "state": "Kansas",
+        "mainCity": "Wichita",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C"
+    },
+    "317": {
+        "state": "Indiana",
+        "mainCity": "Indianapolis",
+        "country": "USA",
+        "overlayComplex": "317/463",
+        "timeZone": "E"
+    },
+    "318": {
+        "state": "Louisiana",
+        "mainCity": "Shreveport",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C"
+    },
+    "319": {
+        "state": "Iowa",
+        "mainCity": "Cedar Rapids",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C"
+    },
+    "320": {
+        "state": "Minnesota",
+        "mainCity": "St Cloud",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C"
+    },
+    "321": {
+        "state": "Florida",
+        "mainCity": "Palm Bay",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "E"
+    },
+    "323": {
+        "state": "California",
+        "mainCity": "Los Angeles",
+        "country": "USA",
+        "overlayComplex": "323/213",
+        "timeZone": "P"
+    },
+    "324": {
+        "state": "Florida",
+        "mainCity": "Jacksonville",
+        "country": "USA",
+        "overlayComplex": "904/324",
+        "timeZone": "E"
+    },
+    "325": {
+        "state": "Texas",
+        "mainCity": "Abilene",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C"
+    },
+    "326": {
+        "state": "Ohio",
+        "mainCity": "Dayton",
+        "country": "USA",
+        "overlayComplex": "937/326",
+        "timeZone": "E"
+    },
+    "327": {
+        "state": "Arkansas",
+        "mainCity": "Jonesboro",
+        "country": "USA",
+        "overlayComplex": "870/327",
+        "timeZone": "C"
+    },
+    "329": {
+        "state": "New York",
+        "mainCity": "New City",
+        "country": "USA",
+        "overlayComplex": "845/329",
+        "timeZone": "E"
+    },
+    "330": {
+        "state": "Ohio",
+        "mainCity": "Akron",
+        "country": "USA",
+        "overlayComplex": "330/234",
+        "timeZone": "E"
+    },
+    "331": {
+        "state": "Illinois",
+        "mainCity": "Aurora",
+        "country": "USA",
+        "overlayComplex": "630/331",
+        "timeZone": "C"
+    },
+    "332": {
+        "state": "New York",
+        "mainCity": "NYC Manhattan",
+        "country": "USA",
+        "overlayComplex": "212/646/917/332",
+        "timeZone": "E"
+    },
+    "334": {
+        "state": "Alabama",
+        "mainCity": "Montgomery",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C"
+    },
+    "336": {
+        "state": "North Carolina",
+        "mainCity": "Greensboro",
+        "country": "USA",
+        "overlayComplex": "336/743",
+        "timeZone": "E"
+    },
+    "337": {
+        "state": "Louisiana",
+        "mainCity": "Lafayette",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C"
+    },
+    "339": {
+        "state": "Massachusetts",
+        "mainCity": "Lynn",
+        "country": "USA",
+        "overlayComplex": "781/339",
+        "timeZone": "E"
+    },
+    "340": {
+        "state": "US Virgin Islands",
+        "mainCity": "Charlotte Amalie",
+        "country": "US Virgin Islands",
+        "overlayComplex": "",
+        "timeZone": "AST"
+    },
+    "341": {
+        "state": "California",
+        "mainCity": "Oakland",
+        "country": "USA",
+        "overlayComplex": "510/341",
+        "timeZone": "P"
+    },
+    "343": {
+        "state": "Ontario",
+        "mainCity": "Ottawa",
+        "country": "Canada",
+        "overlayComplex": "613/343/753",
+        "timeZone": "E"
+    },
+    "345": {
+        "state": "Cayman Islands",
+        "mainCity": "George Town",
+        "country": "Cayman Islands",
+        "overlayComplex": "",
+        "timeZone": "EST"
+    },
+    "346": {
+        "state": "Texas",
+        "mainCity": "Houston",
+        "country": "USA",
+        "overlayComplex": "713/281/832/346",
+        "timeZone": "C"
+    },
+    "347": {
+        "state": "New York",
+        "mainCity": "New York",
+        "country": "USA",
+        "overlayComplex": "718/347/917/929",
+        "timeZone": "E"
+    },
+    "350": {
+        "state": "California",
+        "mainCity": "Stockton",
+        "country": "USA",
+        "overlayComplex": "209/350",
+        "timeZone": "P"
+    },
+    "351": {
+        "state": "Massachusetts",
+        "mainCity": "Lowell",
+        "country": "USA",
+        "overlayComplex": "978/351",
+        "timeZone": "E"
+    },
+    "352": {
+        "state": "Florida",
+        "mainCity": "Gainesville",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "E"
+    },
+    "353": {
+        "state": "Wisconsin",
+        "mainCity": "Madison",
+        "country": "USA",
+        "overlayComplex": "608/353",
+        "timeZone": "C"
+    },
+    "354": {
+        "state": "Quebec",
+        "mainCity": "Laval",
+        "country": "Canada",
+        "overlayComplex": "450/579/354",
+        "timeZone": "E"
+    },
+    "360": {
+        "state": "Washington",
+        "mainCity": "Vancouver",
+        "country": "USA",
+        "overlayComplex": "360/564",
+        "timeZone": "P"
+    },
+    "361": {
+        "state": "Texas",
+        "mainCity": "Corpus Christi",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C"
+    },
+    "363": {
+        "state": "New York",
+        "mainCity": "Hempstead",
+        "country": "USA",
+        "overlayComplex": "516/363",
+        "timeZone": "E"
+    },
+    "364": {
+        "state": "Kentucky",
+        "mainCity": "Bowling Green",
+        "country": "USA",
+        "overlayComplex": "270/364",
+        "timeZone": "E,C"
+    },
+    "365": {
+        "state": "Ontario",
+        "mainCity": "Mississauga",
+        "country": "Canada",
+        "overlayComplex": "905/289/365/742",
+        "timeZone": "E"
+    },
+    "367": {
+        "state": "Quebec",
+        "mainCity": "Quebec City",
+        "country": "Canada",
+        "overlayComplex": "418/581/367",
+        "timeZone": "E"
+    },
+    "368": {
+        "state": "Alberta",
+        "mainCity": "Calgary",
+        "country": "Canada",
+        "overlayComplex": "403/587/825/368, 780/587/825/368",
+        "timeZone": "M"
+    },
+    "369": {
+        "state": "California",
+        "mainCity": "Santa Rosa",
+        "country": "USA",
+        "overlayComplex": "707/369",
+        "timeZone": "P"
+    },
+    "380": {
+        "state": "Ohio",
+        "mainCity": "Columbus",
+        "country": "USA",
+        "overlayComplex": "614/380",
+        "timeZone": "E"
+    },
+    "382": {
+        "state": "Ontario",
+        "mainCity": "London",
+        "country": "Canada",
+        "overlayComplex": "519/226/548/382",
+        "timeZone": "E"
+    },
+    "385": {
+        "state": "Utah",
+        "mainCity": "Salt Lake City",
+        "country": "USA",
+        "overlayComplex": "801/385",
+        "timeZone": "M"
+    },
+    "386": {
+        "state": "Florida",
+        "mainCity": "Deltona",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "E"
+    },
+    "401": {
+        "state": "Rhode Island",
+        "mainCity": "Providence",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "E"
+    },
+    "402": {
+        "state": "Nebraska",
+        "mainCity": "Omaha",
+        "country": "USA",
+        "overlayComplex": "402/531",
+        "timeZone": "C,M"
+    },
+    "403": {
+        "state": "Alberta",
+        "mainCity": "Calgary",
+        "country": "Canada",
+        "overlayComplex": "403/587/825/368",
+        "timeZone": "M"
+    },
+    "404": {
+        "state": "Georgia",
+        "mainCity": "Atlanta",
+        "country": "USA",
+        "overlayComplex": "404/678/470/943",
+        "timeZone": "E"
+    },
+    "405": {
+        "state": "Oklahoma",
+        "mainCity": "Oklahoma City",
+        "country": "USA",
+        "overlayComplex": "405/572",
+        "timeZone": "C"
+    },
+    "406": {
+        "state": "Montana",
+        "mainCity": "Billings",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "M"
+    },
+    "407": {
+        "state": "Florida",
+        "mainCity": "Orlando",
+        "country": "USA",
+        "overlayComplex": "407/321/689",
+        "timeZone": "E"
+    },
+    "408": {
+        "state": "California",
+        "mainCity": "San Jose",
+        "country": "USA",
+        "overlayComplex": "408/669",
+        "timeZone": "P"
+    },
+    "409": {
+        "state": "Texas",
+        "mainCity": "Beaumont",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C"
+    },
+    "410": {
+        "state": "Maryland",
+        "mainCity": "Baltimore",
+        "country": "USA",
+        "overlayComplex": "410/443/667",
+        "timeZone": "E"
+    },
+    "412": {
+        "state": "Pennsylvania",
+        "mainCity": "Pittsburgh",
+        "country": "USA",
+        "overlayComplex": "412/878",
+        "timeZone": "E"
+    },
+    "413": {
+        "state": "Massachusetts",
+        "mainCity": "Springfield",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "E"
+    },
+    "414": {
+        "state": "Wisconsin",
+        "mainCity": "Milwaukee",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C"
+    },
+    "415": {
+        "state": "California",
+        "mainCity": "San Francisco",
+        "country": "USA",
+        "overlayComplex": "415/628",
+        "timeZone": "P"
+    },
+    "416": {
+        "state": "Ontario",
+        "mainCity": "Toronto",
+        "country": "Canada",
+        "overlayComplex": "416/647/437",
+        "timeZone": "E"
+    },
+    "417": {
+        "state": "Missouri",
+        "mainCity": "Springfield",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C"
+    },
+    "418": {
+        "state": "Quebec",
+        "mainCity": "Quebec City",
+        "country": "Canada",
+        "overlayComplex": "418/581/367",
+        "timeZone": "E"
+    },
+    "419": {
+        "state": "Ohio",
+        "mainCity": "Toledo",
+        "country": "USA",
+        "overlayComplex": "419/567",
+        "timeZone": "E"
+    },
+    "423": {
+        "state": "Tennessee",
+        "mainCity": "Chattanooga",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "E,C"
+    },
+    "424": {
+        "state": "California",
+        "mainCity": "Torrance",
+        "country": "USA",
+        "overlayComplex": "310/424",
+        "timeZone": "P"
+    },
+    "425": {
+        "state": "Washington",
+        "mainCity": "Bellevue",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "P"
+    },
+    "428": {
+        "state": "New Brunswick",
+        "mainCity": "Saint John",
+        "country": "Canada",
+        "overlayComplex": "506/428",
+        "timeZone": "A"
+    },
+    "430": {
+        "state": "Texas",
+        "mainCity": "Tyler",
+        "country": "USA",
+        "overlayComplex": "903/430",
+        "timeZone": "C"
+    },
+    "431": {
+        "state": "Manitoba",
+        "mainCity": "Winnipeg",
+        "country": "Canada",
+        "overlayComplex": "204/431/584",
+        "timeZone": "C"
+    },
+    "432": {
+        "state": "Texas",
+        "mainCity": "Midland",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C"
+    },
+    "434": {
+        "state": "Virginia",
+        "mainCity": "Lynchburg",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "E"
+    },
+    "435": {
+        "state": "Utah",
+        "mainCity": "St George",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "M"
+    },
+    "436": {
+        "state": "Ohio",
+        "mainCity": "Lorain",
+        "country": "USA",
+        "overlayComplex": "440/436",
+        "timeZone": "E"
+    },
+    "437": {
+        "state": "Ontario",
+        "mainCity": "Toronto",
+        "country": "Canada",
+        "overlayComplex": "416/647/437",
+        "timeZone": "E"
+    },
+    "438": {
+        "state": "Quebec",
+        "mainCity": "Montreal",
+        "country": "Canada",
+        "overlayComplex": "514/438/263",
+        "timeZone": "E"
+    },
+    "440": {
+        "state": "Ohio",
+        "mainCity": "Lorain",
+        "country": "USA",
+        "overlayComplex": "440/436",
+        "timeZone": "E"
+    },
+    "441": {
+        "state": "Bermuda",
+        "mainCity": "Pembroke",
+        "country": "Bermuda",
+        "overlayComplex": "",
+        "timeZone": "A"
+    },
+    "442": {
+        "state": "California",
+        "mainCity": "Oceanside",
+        "country": "USA",
+        "overlayComplex": "760/442",
+        "timeZone": "P"
+    },
+    "443": {
+        "state": "Maryland",
+        "mainCity": "Baltimore",
+        "country": "USA",
+        "overlayComplex": "410/443/667",
+        "timeZone": "E"
+    },
+    "445": {
+        "state": "Pennsylvania",
+        "mainCity": "Philadelphia",
+        "country": "USA",
+        "overlayComplex": "215/267/445",
+        "timeZone": "E"
+    },
+    "447": {
+        "state": "Illinois",
+        "mainCity": "Springfield",
+        "country": "USA",
+        "overlayComplex": "217/447",
+        "timeZone": "C"
+    },
+    "448": {
+        "state": "Florida",
+        "mainCity": "Tallahassee",
+        "country": "USA",
+        "overlayComplex": "850/448",
+        "timeZone": "E,C"
+    },
+    "450": {
+        "state": "Quebec",
+        "mainCity": "Laval",
+        "country": "Canada",
+        "overlayComplex": "450/579/354",
+        "timeZone": "E"
+    },
+    "458": {
+        "state": "Oregon",
+        "mainCity": "Eugene",
+        "country": "USA",
+        "overlayComplex": "541/458",
+        "timeZone": "M,P"
+    },
+    "463": {
+        "state": "Indiana",
+        "mainCity": "Indianapolis",
+        "country": "USA",
+        "overlayComplex": "317/463",
+        "timeZone": "E"
+    },
+    "464": {
+        "state": "Illinois",
+        "mainCity": "Cicero",
+        "country": "USA",
+        "overlayComplex": "708/464",
+        "timeZone": "C"
+    },
+    "468": {
+        "state": "Quebec",
+        "mainCity": "Gatineau",
+        "country": "Canada",
+        "overlayComplex": "819/873/468",
+        "timeZone": "E"
+    },
+    "469": {
+        "state": "Texas",
+        "mainCity": "Dallas",
+        "country": "USA",
+        "overlayComplex": "214/972/469/945",
+        "timeZone": "C"
+    },
+    "470": {
+        "state": "Georgia",
+        "mainCity": "Atlanta",
+        "country": "USA",
+        "overlayComplex": "404/678/470/943, 770/678/470/943",
+        "timeZone": "E"
+    },
+    "472": {
+        "state": "North Carolina",
+        "mainCity": "Fayetteville",
+        "country": "USA",
+        "overlayComplex": "910/472",
+        "timeZone": "E"
+    },
+    "473": {
+        "state": "Grenada",
+        "mainCity": "Saint George's",
+        "country": "Grenada",
+        "overlayComplex": "",
+        "timeZone": "AST"
+    },
+    "474": {
+        "state": "Saskatchewan",
+        "mainCity": "Saskatoon",
+        "country": "Canada",
+        "overlayComplex": "306/639/474",
+        "timeZone": "CST"
+    },
+    "475": {
+        "state": "Connecticut",
+        "mainCity": "Bridgeport",
+        "country": "USA",
+        "overlayComplex": "203/475",
+        "timeZone": "E"
+    },
+    "478": {
+        "state": "Georgia",
+        "mainCity": "Macon",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "E"
+    },
+    "479": {
+        "state": "Arkansas",
+        "mainCity": "Fort Smith",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C"
+    },
+    "480": {
+        "state": "Arizona",
+        "mainCity": "Phoenix",
+        "country": "USA",
+        "overlayComplex": "480/602/623",
+        "timeZone": "MST"
+    },
+    "484": {
+        "state": "Pennsylvania",
+        "mainCity": "Allentown",
+        "country": "USA",
+        "overlayComplex": "610/484/835",
+        "timeZone": "E"
+    },
+    "501": {
+        "state": "Arkansas",
+        "mainCity": "Little Rock",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C"
+    },
+    "502": {
+        "state": "Kentucky",
+        "mainCity": "Louisville",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "E"
+    },
+    "503": {
+        "state": "Oregon",
+        "mainCity": "Portland",
+        "country": "USA",
+        "overlayComplex": "503/971",
+        "timeZone": "P"
+    },
+    "504": {
+        "state": "Louisiana",
+        "mainCity": "New Orleans",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C"
+    },
+    "505": {
+        "state": "New Mexico",
+        "mainCity": "Albuquerque",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "M"
+    },
+    "506": {
+        "state": "New Brunswick",
+        "mainCity": "Saint John",
+        "country": "Canada",
+        "overlayComplex": "506/428",
+        "timeZone": "A"
+    },
+    "507": {
+        "state": "Minnesota",
+        "mainCity": "Rochester",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C"
+    },
+    "508": {
+        "state": "Massachusetts",
+        "mainCity": "Norfolk",
+        "country": "USA",
+        "overlayComplex": "508/774",
+        "timeZone": "E"
+    },
+    "509": {
+        "state": "Washington",
+        "mainCity": "Spokane",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "P"
+    },
+    "510": {
+        "state": "California",
+        "mainCity": "Oakland",
+        "country": "USA",
+        "overlayComplex": "510/341",
+        "timeZone": "P"
+    },
+    "512": {
+        "state": "Texas",
+        "mainCity": "Austin",
+        "country": "USA",
+        "overlayComplex": "512/737",
+        "timeZone": "C"
+    },
+    "513": {
+        "state": "Ohio",
+        "mainCity": "Cincinnati",
+        "country": "USA",
+        "overlayComplex": "513/283",
+        "timeZone": "E"
+    },
+    "514": {
+        "state": "Quebec",
+        "mainCity": "Montreal",
+        "country": "Canada",
+        "overlayComplex": "514/438/263",
+        "timeZone": "E"
+    },
+    "515": {
+        "state": "Iowa",
+        "mainCity": "Des Moines",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C"
+    },
+    "516": {
+        "state": "New York",
+        "mainCity": "Hempstead",
+        "country": "USA",
+        "overlayComplex": "516/363",
+        "timeZone": "E"
+    },
+    "517": {
+        "state": "Michigan",
+        "mainCity": "Lansing",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "E"
+    },
+    "518": {
+        "state": "New York",
+        "mainCity": "Albany",
+        "country": "USA",
+        "overlayComplex": "518/838",
+        "timeZone": "E"
+    },
+    "519": {
+        "state": "Ontario",
+        "mainCity": "London",
+        "country": "Canada",
+        "overlayComplex": "519/226/548/382",
+        "timeZone": "E"
+    },
+    "520": {
+        "state": "Arizona",
+        "mainCity": "Tucson",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "MST"
+    },
+    "530": {
+        "state": "California",
+        "mainCity": "Chico",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "P"
+    },
+    "531": {
+        "state": "Nebraska",
+        "mainCity": "Omaha",
+        "country": "USA",
+        "overlayComplex": "402/531",
+        "timeZone": "C,M"
+    },
+    "534": {
+        "state": "Wisconsin",
+        "mainCity": "Eau Claire",
+        "country": "USA",
+        "overlayComplex": "715/534",
+        "timeZone": "C"
+    },
+    "539": {
+        "state": "Oklahoma",
+        "mainCity": "Tulsa",
+        "country": "USA",
+        "overlayComplex": "918/539",
+        "timeZone": "C"
+    },
+    "540": {
+        "state": "Virginia",
+        "mainCity": "Roanoke",
+        "country": "USA",
+        "overlayComplex": "540/826",
+        "timeZone": "E"
+    },
+    "541": {
+        "state": "Oregon",
+        "mainCity": "Eugene",
+        "country": "USA",
+        "overlayComplex": "541/458",
+        "timeZone": "M,P"
+    },
+    "548": {
+        "state": "Ontario",
+        "mainCity": "London",
+        "country": "Canada",
+        "overlayComplex": "519/226/548/382",
+        "timeZone": "E"
+    },
+    "551": {
+        "state": "New Jersey",
+        "mainCity": "Jersey City",
+        "country": "USA",
+        "overlayComplex": "201/551",
+        "timeZone": "E"
+    },
+    "557": {
+        "state": "Missouri",
+        "mainCity": "St Louis",
+        "country": "USA",
+        "overlayComplex": "314/557",
+        "timeZone": "C"
+    },
+    "559": {
+        "state": "California",
+        "mainCity": "Fresno",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "P"
+    },
+    "561": {
+        "state": "Florida",
+        "mainCity": "West Palm Beach",
+        "country": "USA",
+        "overlayComplex": "561/728",
+        "timeZone": "E"
+    },
+    "562": {
+        "state": "California",
+        "mainCity": "Long Beach",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "P"
+    },
+    "563": {
+        "state": "Iowa",
+        "mainCity": "Davenport",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C"
+    },
+    "564": {
+        "state": "Washington",
+        "mainCity": "Vancouver",
+        "country": "USA",
+        "overlayComplex": "360/564",
+        "timeZone": "P"
+    },
+    "567": {
+        "state": "Ohio",
+        "mainCity": "Toledo",
+        "country": "USA",
+        "overlayComplex": "419/567",
+        "timeZone": "E"
+    },
+    "570": {
+        "state": "Pennsylvania",
+        "mainCity": "Scranton",
+        "country": "USA",
+        "overlayComplex": "570/272",
+        "timeZone": "E"
+    },
+    "571": {
+        "state": "Virginia",
+        "mainCity": "Arlington",
+        "country": "USA",
+        "overlayComplex": "703/571",
+        "timeZone": "E"
+    },
+    "572": {
+        "state": "Oklahoma",
+        "mainCity": "Oklahoma City",
+        "country": "USA",
+        "overlayComplex": "405/572",
+        "timeZone": "C"
+    },
+    "573": {
+        "state": "Missouri",
+        "mainCity": "Columbia",
+        "country": "USA",
+        "overlayComplex": "573/235",
+        "timeZone": "C"
+    },
+    "574": {
+        "state": "Indiana",
+        "mainCity": "South Bend",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "E,C"
+    },
+    "575": {
+        "state": "New Mexico",
+        "mainCity": "Las Cruces",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "M"
+    },
+    "579": {
+        "state": "Quebec",
+        "mainCity": "Laval",
+        "country": "Canada",
+        "overlayComplex": "450/579/354",
+        "timeZone": "E"
+    },
+    "580": {
+        "state": "Oklahoma",
+        "mainCity": "Lawton",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C"
+    },
+    "581": {
+        "state": "Quebec",
+        "mainCity": "Quebec City",
+        "country": "Canada",
+        "overlayComplex": "418/581/367",
+        "timeZone": "E"
+    },
+    "582": {
+        "state": "Pennsylvania",
+        "mainCity": "Erie",
+        "country": "USA",
+        "overlayComplex": "814/582",
+        "timeZone": "E"
+    },
+    "584": {
+        "state": "Manitoba",
+        "mainCity": "Winnipeg",
+        "country": "Canada",
+        "overlayComplex": "204/431/584",
+        "timeZone": "C"
+    },
+    "585": {
+        "state": "New York",
+        "mainCity": "Rochester",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "E"
+    },
+    "586": {
+        "state": "Michigan",
+        "mainCity": "Warren",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "E"
+    },
+    "587": {
+        "state": "Alberta",
+        "mainCity": "Calgary",
+        "country": "Canada",
+        "overlayComplex": "403/587/825/368, 780/587/825/368",
+        "timeZone": "M"
+    },
+    "601": {
+        "state": "Mississippi",
+        "mainCity": "Jackson",
+        "country": "USA",
+        "overlayComplex": "601/769",
+        "timeZone": "C"
+    },
+    "602": {
+        "state": "Arizona",
+        "mainCity": "Phoenix",
+        "country": "USA",
+        "overlayComplex": "480/602/623",
+        "timeZone": "MST"
+    },
+    "603": {
+        "state": "New Hampshire",
+        "mainCity": "Manchester",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "E"
+    },
+    "604": {
+        "state": "British Columbia",
+        "mainCity": "Vancouver",
+        "country": "Canada",
+        "overlayComplex": "604/778/236/672",
+        "timeZone": "P"
+    },
+    "605": {
+        "state": "South Dakota",
+        "mainCity": "Sioux Falls",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C,M"
+    },
+    "606": {
+        "state": "Kentucky",
+        "mainCity": "Ashland",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "E,C"
+    },
+    "607": {
+        "state": "New York",
+        "mainCity": "Binghamton",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "E"
+    },
+    "608": {
+        "state": "Wisconsin",
+        "mainCity": "Madison",
+        "country": "USA",
+        "overlayComplex": "608/353",
+        "timeZone": "C"
+    },
+    "609": {
+        "state": "New Jersey",
+        "mainCity": "Trenton",
+        "country": "USA",
+        "overlayComplex": "609/640",
+        "timeZone": "E"
+    },
+    "610": {
+        "state": "Pennsylvania",
+        "mainCity": "Allentown",
+        "country": "USA",
+        "overlayComplex": "610/484/835",
+        "timeZone": "E"
+    },
+    "612": {
+        "state": "Minnesota",
+        "mainCity": "Minneapolis",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C"
+    },
+    "613": {
+        "state": "Ontario",
+        "mainCity": "Ottawa",
+        "country": "Canada",
+        "overlayComplex": "613/343/753",
+        "timeZone": "E"
+    },
+    "614": {
+        "state": "Ohio",
+        "mainCity": "Columbus",
+        "country": "USA",
+        "overlayComplex": "614/380",
+        "timeZone": "E"
+    },
+    "615": {
+        "state": "Tennessee",
+        "mainCity": "Nashville",
+        "country": "USA",
+        "overlayComplex": "615/629",
+        "timeZone": "C"
+    },
+    "616": {
+        "state": "Michigan",
+        "mainCity": "Grand Rapids",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "E"
+    },
+    "617": {
+        "state": "Massachusetts",
+        "mainCity": "Boston",
+        "country": "USA",
+        "overlayComplex": "617/857",
+        "timeZone": "E"
+    },
+    "618": {
+        "state": "Illinois",
+        "mainCity": "Belleville",
+        "country": "USA",
+        "overlayComplex": "618/730",
+        "timeZone": "C"
+    },
+    "619": {
+        "state": "California",
+        "mainCity": "San Diego",
+        "country": "USA",
+        "overlayComplex": "619/858",
+        "timeZone": "P"
+    },
+    "620": {
+        "state": "Kansas",
+        "mainCity": "Hutchinson",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C,M"
+    },
+    "623": {
+        "state": "Arizona",
+        "mainCity": "Phoenix",
+        "country": "USA",
+        "overlayComplex": "480/602/623",
+        "timeZone": "MST"
+    },
+    "624": {
+        "state": "New York",
+        "mainCity": "Buffalo",
+        "country": "USA",
+        "overlayComplex": "716/624",
+        "timeZone": "E"
+    },
+    "626": {
+        "state": "California",
+        "mainCity": "Pasadena",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "P"
+    },
+    "628": {
+        "state": "California",
+        "mainCity": "San Francisco",
+        "country": "USA",
+        "overlayComplex": "415/628",
+        "timeZone": "P"
+    },
+    "629": {
+        "state": "Tennessee",
+        "mainCity": "Nashville",
+        "country": "USA",
+        "overlayComplex": "615/629",
+        "timeZone": "C"
+    },
+    "630": {
+        "state": "Illinois",
+        "mainCity": "Aurora",
+        "country": "USA",
+        "overlayComplex": "630/331",
+        "timeZone": "C"
+    },
+    "631": {
+        "state": "New York",
+        "mainCity": "Brentwood",
+        "country": "USA",
+        "overlayComplex": "631/934",
+        "timeZone": "E"
+    },
+    "636": {
+        "state": "Missouri",
+        "mainCity": "O'Fallon",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C"
+    },
+    "639": {
+        "state": "Saskatchewan",
+        "mainCity": "Saskatoon",
+        "country": "Canada",
+        "overlayComplex": "306/639/474",
+        "timeZone": "CST"
+    },
+    "640": {
+        "state": "New Jersey",
+        "mainCity": "Trenton",
+        "country": "USA",
+        "overlayComplex": "609/640",
+        "timeZone": "E"
+    },
+    "641": {
+        "state": "Iowa",
+        "mainCity": "Mason City",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C"
+    },
+    "645": {
+        "state": "Florida",
+        "mainCity": "Miami",
+        "country": "USA",
+        "overlayComplex": "305/786/645",
+        "timeZone": "E"
+    },
+    "646": {
+        "state": "New York",
+        "mainCity": "NYC Manhattan",
+        "country": "USA",
+        "overlayComplex": "212/646/917/332",
+        "timeZone": "E"
+    },
+    "647": {
+        "state": "Ontario",
+        "mainCity": "Toronto",
+        "country": "Canada",
+        "overlayComplex": "416/647/437",
+        "timeZone": "E"
+    },
+    "649": {
+        "state": "Turks and Caicos",
+        "mainCity": "Honda Road",
+        "country": "Turks and Caicos",
+        "overlayComplex": "",
+        "timeZone": "E"
+    },
+    "650": {
+        "state": "California",
+        "mainCity": "Daly City",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "P"
+    },
+    "651": {
+        "state": "Minnesota",
+        "mainCity": "St Paul",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C"
+    },
+    "656": {
+        "state": "Florida",
+        "mainCity": "Tampa",
+        "country": "USA",
+        "overlayComplex": "813/656",
+        "timeZone": "E"
+    },
+    "657": {
+        "state": "California",
+        "mainCity": "Anaheim",
+        "country": "USA",
+        "overlayComplex": "714/657",
+        "timeZone": "P"
+    },
+    "658": {
+        "state": "Jamaica",
+        "mainCity": "Kingston",
+        "country": "Jamaica",
+        "overlayComplex": "876/658",
+        "timeZone": "EST"
+    },
+    "659": {
+        "state": "Alabama",
+        "mainCity": "Birmingham",
+        "country": "USA",
+        "overlayComplex": "205/659",
+        "timeZone": "C"
+    },
+    "660": {
+        "state": "Missouri",
+        "mainCity": "Sedalia",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C"
+    },
+    "661": {
+        "state": "California",
+        "mainCity": "Bakersfield",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "P"
+    },
+    "662": {
+        "state": "Mississippi",
+        "mainCity": "Southaven",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C"
+    },
+    "664": {
+        "state": "Montserrat",
+        "mainCity": "Look Out",
+        "country": "Montserrat",
+        "overlayComplex": "",
+        "timeZone": "AST"
+    },
+    "667": {
+        "state": "Maryland",
+        "mainCity": "Baltimore",
+        "country": "USA",
+        "overlayComplex": "410/443/667",
+        "timeZone": "E"
+    },
+    "669": {
+        "state": "California",
+        "mainCity": "San Jose",
+        "country": "USA",
+        "overlayComplex": "408/669",
+        "timeZone": "P"
+    },
+    "670": {
+        "state": "Northern Mariana",
+        "mainCity": "Saipan",
+        "country": "Northern Mariana",
+        "overlayComplex": "",
+        "timeZone": "ChST"
+    },
+    "671": {
+        "state": "Guam",
+        "mainCity": "Dededo",
+        "country": "Guam",
+        "overlayComplex": "",
+        "timeZone": "ChST"
+    },
+    "672": {
+        "state": "British Columbia",
+        "mainCity": "Kelowna",
+        "country": "Canada",
+        "overlayComplex": "250/778/236/672, 604/778/236/672",
+        "timeZone": "P"
+    },
+    "678": {
+        "state": "Georgia",
+        "mainCity": "Atlanta",
+        "country": "USA",
+        "overlayComplex": "404/678/470/943, 770/678/470/943",
+        "timeZone": "E"
+    },
+    "680": {
+        "state": "New York",
+        "mainCity": "Syracuse",
+        "country": "USA",
+        "overlayComplex": "315/680",
+        "timeZone": "E"
+    },
+    "681": {
+        "state": "West Virginia",
+        "mainCity": "Charleston",
+        "country": "USA",
+        "overlayComplex": "304/681",
+        "timeZone": "E"
+    },
+    "682": {
+        "state": "Texas",
+        "mainCity": "Fort Worth",
+        "country": "USA",
+        "overlayComplex": "817/682",
+        "timeZone": "C"
+    },
+    "683": {
+        "state": "Ontario",
+        "mainCity": "Sudbury",
+        "country": "Canada",
+        "overlayComplex": "705/249/683",
+        "timeZone": "E"
+    },
+    "684": {
+        "state": "American Samoa",
+        "mainCity": "Tafuna",
+        "country": "American Samoa",
+        "overlayComplex": "",
+        "timeZone": "SST"
+    },
+    "686": {
+        "state": "Virginia",
+        "mainCity": "Richmond",
+        "country": "USA",
+        "overlayComplex": "804/686",
+        "timeZone": "E"
+    },
+    "689": {
+        "state": "Florida",
+        "mainCity": "Orlando",
+        "country": "USA",
+        "overlayComplex": "407/321/689",
+        "timeZone": "E"
+    },
+    "701": {
+        "state": "North Dakota",
+        "mainCity": "Fargo",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C,M"
+    },
+    "702": {
+        "state": "Nevada",
+        "mainCity": "Las Vegas",
+        "country": "USA",
+        "overlayComplex": "702/725",
+        "timeZone": "P"
+    },
+    "703": {
+        "state": "Virginia",
+        "mainCity": "Arlington",
+        "country": "USA",
+        "overlayComplex": "703/571",
+        "timeZone": "E"
+    },
+    "704": {
+        "state": "North Carolina",
+        "mainCity": "Charlotte",
+        "country": "USA",
+        "overlayComplex": "704/980",
+        "timeZone": "E"
+    },
+    "705": {
+        "state": "Ontario",
+        "mainCity": "Sudbury",
+        "country": "Canada",
+        "overlayComplex": "705/249/683",
+        "timeZone": "E"
+    },
+    "706": {
+        "state": "Georgia",
+        "mainCity": "Augusta",
+        "country": "USA",
+        "overlayComplex": "706/762",
+        "timeZone": "E"
+    },
+    "707": {
+        "state": "California",
+        "mainCity": "Santa Rosa",
+        "country": "USA",
+        "overlayComplex": "707/369",
+        "timeZone": "P"
+    },
+    "708": {
+        "state": "Illinois",
+        "mainCity": "Cicero",
+        "country": "USA",
+        "overlayComplex": "708/464",
+        "timeZone": "C"
+    },
+    "709": {
+        "state": "Newfoundland and Labrador",
+        "mainCity": "St John's",
+        "country": "Canada",
+        "overlayComplex": "709/879",
+        "timeZone": "N"
+    },
+    "712": {
+        "state": "Iowa",
+        "mainCity": "Sioux City",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C"
+    },
+    "713": {
+        "state": "Texas",
+        "mainCity": "Houston",
+        "country": "USA",
+        "overlayComplex": "713/281/832/346",
+        "timeZone": "C"
+    },
+    "714": {
+        "state": "California",
+        "mainCity": "Anaheim",
+        "country": "USA",
+        "overlayComplex": "714/657",
+        "timeZone": "P"
+    },
+    "715": {
+        "state": "Wisconsin",
+        "mainCity": "Eau Claire",
+        "country": "USA",
+        "overlayComplex": "715/534",
+        "timeZone": "C"
+    },
+    "716": {
+        "state": "New York",
+        "mainCity": "Buffalo",
+        "country": "USA",
+        "overlayComplex": "716/624",
+        "timeZone": "E"
+    },
+    "717": {
+        "state": "Pennsylvania",
+        "mainCity": "Lancaster",
+        "country": "USA",
+        "overlayComplex": "717/223",
+        "timeZone": "E"
+    },
+    "718": {
+        "state": "New York",
+        "mainCity": "New York",
+        "country": "USA",
+        "overlayComplex": "718/347/917/929",
+        "timeZone": "E"
+    },
+    "719": {
+        "state": "Colorado",
+        "mainCity": "Colorado Springs",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "M"
+    },
+    "720": {
+        "state": "Colorado",
+        "mainCity": "Denver",
+        "country": "USA",
+        "overlayComplex": "303/720/983",
+        "timeZone": "M"
+    },
+    "721": {
+        "state": "Sint Maarten",
+        "mainCity": "Lower Prince's Quarter",
+        "country": "Sint Maarten",
+        "overlayComplex": "",
+        "timeZone": "AST"
+    },
+    "724": {
+        "state": "Pennsylvania",
+        "mainCity": "New Castle",
+        "country": "USA",
+        "overlayComplex": "724/878",
+        "timeZone": "E"
+    },
+    "725": {
+        "state": "Nevada",
+        "mainCity": "Las Vegas",
+        "country": "USA",
+        "overlayComplex": "702/725",
+        "timeZone": "P"
+    },
+    "726": {
+        "state": "Texas",
+        "mainCity": "San Antonio",
+        "country": "USA",
+        "overlayComplex": "210/726",
+        "timeZone": "C"
+    },
+    "727": {
+        "state": "Florida",
+        "mainCity": "St Petersburg",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "E"
+    },
+    "728": {
+        "state": "Florida",
+        "mainCity": "West Palm Beach",
+        "country": "USA",
+        "overlayComplex": "561/728",
+        "timeZone": "E"
+    },
+    "730": {
+        "state": "Illinois",
+        "mainCity": "Belleville",
+        "country": "USA",
+        "overlayComplex": "618/730",
+        "timeZone": "C"
+    },
+    "731": {
+        "state": "Tennessee",
+        "mainCity": "Jackson",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C"
+    },
+    "732": {
+        "state": "New Jersey",
+        "mainCity": "Toms River",
+        "country": "USA",
+        "overlayComplex": "732/848",
+        "timeZone": "E"
+    },
+    "734": {
+        "state": "Michigan",
+        "mainCity": "Ann Arbor",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "E"
+    },
+    "737": {
+        "state": "Texas",
+        "mainCity": "Austin",
+        "country": "USA",
+        "overlayComplex": "512/737",
+        "timeZone": "C"
+    },
+    "740": {
+        "state": "Ohio",
+        "mainCity": "Newark",
+        "country": "USA",
+        "overlayComplex": "740/220",
+        "timeZone": "E"
+    },
+    "742": {
+        "state": "Ontario",
+        "mainCity": "Mississauga",
+        "country": "Canada",
+        "overlayComplex": "905/289/365/742",
+        "timeZone": "E"
+    },
+    "743": {
+        "state": "North Carolina",
+        "mainCity": "Greensboro",
+        "country": "USA",
+        "overlayComplex": "336/743",
+        "timeZone": "E"
+    },
+    "747": {
+        "state": "California",
+        "mainCity": "Glendale",
+        "country": "USA",
+        "overlayComplex": "818/747",
+        "timeZone": "P"
+    },
+    "753": {
+        "state": "Ontario",
+        "mainCity": "Ottawa",
+        "country": "Canada",
+        "overlayComplex": "613/343/753",
+        "timeZone": "E"
+    },
+    "754": {
+        "state": "Florida",
+        "mainCity": "Fort Lauderdale",
+        "country": "USA",
+        "overlayComplex": "954/754",
+        "timeZone": "E"
+    },
+    "757": {
+        "state": "Virginia",
+        "mainCity": "Virginia Beach",
+        "country": "USA",
+        "overlayComplex": "757/948",
+        "timeZone": "E"
+    },
+    "758": {
+        "state": "Saint Lucia",
+        "mainCity": "Castries",
+        "country": "Saint Lucia",
+        "overlayComplex": "",
+        "timeZone": "AST"
+    },
+    "760": {
+        "state": "California",
+        "mainCity": "Oceanside",
+        "country": "USA",
+        "overlayComplex": "760/442",
+        "timeZone": "P"
+    },
+    "762": {
+        "state": "Georgia",
+        "mainCity": "Augusta",
+        "country": "USA",
+        "overlayComplex": "706/762",
+        "timeZone": "E"
+    },
+    "763": {
+        "state": "Minnesota",
+        "mainCity": "Brooklyn Park",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C"
+    },
+    "765": {
+        "state": "Indiana",
+        "mainCity": "Lafayette",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "E"
+    },
+    "767": {
+        "state": "Dominica",
+        "mainCity": "Roseau",
+        "country": "Dominica",
+        "overlayComplex": "",
+        "timeZone": "AST"
+    },
+    "769": {
+        "state": "Mississippi",
+        "mainCity": "Jackson",
+        "country": "USA",
+        "overlayComplex": "601/769",
+        "timeZone": "C"
+    },
+    "770": {
+        "state": "Georgia",
+        "mainCity": "Roswell",
+        "country": "USA",
+        "overlayComplex": "770/678/470/943",
+        "timeZone": "E"
+    },
+    "771": {
+        "state": "D.C.",
+        "mainCity": "Washington",
+        "country": "USA",
+        "overlayComplex": "202/771",
+        "timeZone": "E"
+    },
+    "772": {
+        "state": "Florida",
+        "mainCity": "Port St Lucie",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "E"
+    },
+    "773": {
+        "state": "Illinois",
+        "mainCity": "Chicago",
+        "country": "USA",
+        "overlayComplex": "773/872",
+        "timeZone": "C"
+    },
+    "774": {
+        "state": "Massachusetts",
+        "mainCity": "Norfolk",
+        "country": "USA",
+        "overlayComplex": "508/774",
+        "timeZone": "E"
+    },
+    "775": {
+        "state": "Nevada",
+        "mainCity": "Reno",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "P"
+    },
+    "778": {
+        "state": "British Columbia",
+        "mainCity": "Vancouver",
+        "country": "Canada",
+        "overlayComplex": "604/778/236/672, 250/778/236/672",
+        "timeZone": "P"
+    },
+    "779": {
+        "state": "Illinois",
+        "mainCity": "Joliet",
+        "country": "USA",
+        "overlayComplex": "815/779",
+        "timeZone": "C"
+    },
+    "780": {
+        "state": "Alberta",
+        "mainCity": "Edmonton",
+        "country": "Canada",
+        "overlayComplex": "780/587/825/368",
+        "timeZone": "M"
+    },
+    "781": {
+        "state": "Massachusetts",
+        "mainCity": "Lynn",
+        "country": "USA",
+        "overlayComplex": "781/339",
+        "timeZone": "E"
+    },
+    "782": {
+        "state": "Nova Scotia-Prince Edward Island",
+        "mainCity": "Halifax",
+        "country": "Canada",
+        "overlayComplex": "902/782",
+        "timeZone": "A"
+    },
+    "784": {
+        "state": "Saint Vincent",
+        "mainCity": "Calliaqua",
+        "country": "Saint Vincent",
+        "overlayComplex": "",
+        "timeZone": "AST"
+    },
+    "785": {
+        "state": "Kansas",
+        "mainCity": "Topeka",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C,M"
+    },
+    "786": {
+        "state": "Florida",
+        "mainCity": "Miami",
+        "country": "USA",
+        "overlayComplex": "305/786/645",
+        "timeZone": "E"
+    },
+    "787": {
+        "state": "Puerto Rico",
+        "mainCity": "San Juan",
+        "country": "Puerto Rico",
+        "overlayComplex": "787/939",
+        "timeZone": "AST"
+    },
+    "800": {
+        "state": "Toll free",
+        "mainCity": "",
+        "country": "All NANP",
+        "overlayComplex": "",
+        "timeZone": ""
+    },
+    "801": {
+        "state": "Utah",
+        "mainCity": "Salt Lake City",
+        "country": "USA",
+        "overlayComplex": "801/385",
+        "timeZone": "M"
+    },
+    "802": {
+        "state": "Vermont",
+        "mainCity": "Woodbury",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "E"
+    },
+    "803": {
+        "state": "South Carolina",
+        "mainCity": "Columbia",
+        "country": "USA",
+        "overlayComplex": "803/839",
+        "timeZone": "E"
+    },
+    "804": {
+        "state": "Virginia",
+        "mainCity": "Richmond",
+        "country": "USA",
+        "overlayComplex": "804/686",
+        "timeZone": "E"
+    },
+    "805": {
+        "state": "California",
+        "mainCity": "Oxnard",
+        "country": "USA",
+        "overlayComplex": "805/820",
+        "timeZone": "P"
+    },
+    "806": {
+        "state": "Texas",
+        "mainCity": "Lubbock",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C"
+    },
+    "807": {
+        "state": "Ontario",
+        "mainCity": "Thunder Bay",
+        "country": "Canada",
+        "overlayComplex": "",
+        "timeZone": "E,C"
+    },
+    "808": {
+        "state": "Hawaii",
+        "mainCity": "Honolulu",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "HST"
+    },
+    "809": {
+        "state": "Dominican Republic",
+        "mainCity": "Santo Domingo",
+        "country": "Dominican Republic",
+        "overlayComplex": "809/829/849",
+        "timeZone": "AST"
+    },
+    "810": {
+        "state": "Michigan",
+        "mainCity": "Flint",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "E"
+    },
+    "812": {
+        "state": "Indiana",
+        "mainCity": "Evansville",
+        "country": "USA",
+        "overlayComplex": "812/930",
+        "timeZone": "E,C"
+    },
+    "813": {
+        "state": "Florida",
+        "mainCity": "Tampa",
+        "country": "USA",
+        "overlayComplex": "813/656",
+        "timeZone": "E"
+    },
+    "814": {
+        "state": "Pennsylvania",
+        "mainCity": "Erie",
+        "country": "USA",
+        "overlayComplex": "814/582",
+        "timeZone": "E"
+    },
+    "815": {
+        "state": "Illinois",
+        "mainCity": "Joliet",
+        "country": "USA",
+        "overlayComplex": "815/779",
+        "timeZone": "C"
+    },
+    "816": {
+        "state": "Missouri",
+        "mainCity": "Kansas City",
+        "country": "USA",
+        "overlayComplex": "816/975",
+        "timeZone": "C"
+    },
+    "817": {
+        "state": "Texas",
+        "mainCity": "Fort Worth",
+        "country": "USA",
+        "overlayComplex": "817/682",
+        "timeZone": "C"
+    },
+    "818": {
+        "state": "California",
+        "mainCity": "Glendale",
+        "country": "USA",
+        "overlayComplex": "818/747",
+        "timeZone": "P"
+    },
+    "819": {
+        "state": "Quebec",
+        "mainCity": "Gatineau",
+        "country": "Canada",
+        "overlayComplex": "819/873/468",
+        "timeZone": "E"
+    },
+    "820": {
+        "state": "California",
+        "mainCity": "Oxnard",
+        "country": "USA",
+        "overlayComplex": "805/820",
+        "timeZone": "P"
+    },
+    "825": {
+        "state": "Alberta",
+        "mainCity": "Calgary",
+        "country": "Canada",
+        "overlayComplex": "403/587/825/368, 780/587/825/368",
+        "timeZone": "M"
+    },
+    "826": {
+        "state": "Virginia",
+        "mainCity": "Roanoke",
+        "country": "USA",
+        "overlayComplex": "540/826",
+        "timeZone": "E"
+    },
+    "828": {
+        "state": "North Carolina",
+        "mainCity": "Asheville",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "E"
+    },
+    "829": {
+        "state": "Dominican Republic",
+        "mainCity": "Santo Domingo",
+        "country": "Dominican Republic",
+        "overlayComplex": "809/829/849",
+        "timeZone": "AST"
+    },
+    "830": {
+        "state": "Texas",
+        "mainCity": "New Braunfels",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C"
+    },
+    "831": {
+        "state": "California",
+        "mainCity": "Salinas",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "P"
+    },
+    "832": {
+        "state": "Texas",
+        "mainCity": "Houston",
+        "country": "USA",
+        "overlayComplex": "713/281/832/346",
+        "timeZone": "C"
+    },
+    "833": {
+        "state": "Toll free",
+        "mainCity": "",
+        "country": "All NANP",
+        "overlayComplex": "",
+        "timeZone": ""
+    },
+    "835": {
+        "state": "Pennsylvania",
+        "mainCity": "Allentown",
+        "country": "USA",
+        "overlayComplex": "610/484/835",
+        "timeZone": "E"
+    },
+    "838": {
+        "state": "New York",
+        "mainCity": "Albany",
+        "country": "USA",
+        "overlayComplex": "518/838",
+        "timeZone": "E"
+    },
+    "839": {
+        "state": "South Carolina",
+        "mainCity": "Columbia",
+        "country": "USA",
+        "overlayComplex": "803/839",
+        "timeZone": "E"
+    },
+    "840": {
+        "state": "California",
+        "mainCity": "San Bernardino",
+        "country": "USA",
+        "overlayComplex": "909/840",
+        "timeZone": "P"
+    },
+    "843": {
+        "state": "South Carolina",
+        "mainCity": "Charleston",
+        "country": "USA",
+        "overlayComplex": "843/854",
+        "timeZone": "E"
+    },
+    "844": {
+        "state": "Toll free",
+        "mainCity": "",
+        "country": "All NANP",
+        "overlayComplex": "",
+        "timeZone": ""
+    },
+    "845": {
+        "state": "New York",
+        "mainCity": "New City",
+        "country": "USA",
+        "overlayComplex": "845/329",
+        "timeZone": "E"
+    },
+    "847": {
+        "state": "Illinois",
+        "mainCity": "Elgin",
+        "country": "USA",
+        "overlayComplex": "847/224",
+        "timeZone": "C"
+    },
+    "848": {
+        "state": "New Jersey",
+        "mainCity": "Toms River",
+        "country": "USA",
+        "overlayComplex": "732/848",
+        "timeZone": "E"
+    },
+    "849": {
+        "state": "Dominican Republic",
+        "mainCity": "Santo Domingo",
+        "country": "Dominican Republic",
+        "overlayComplex": "809/829/849",
+        "timeZone": "AST"
+    },
+    "850": {
+        "state": "Florida",
+        "mainCity": "Tallahassee",
+        "country": "USA",
+        "overlayComplex": "850/448",
+        "timeZone": "E,C"
+    },
+    "854": {
+        "state": "South Carolina",
+        "mainCity": "Charleston",
+        "country": "USA",
+        "overlayComplex": "843/854",
+        "timeZone": "E"
+    },
+    "855": {
+        "state": "Toll free",
+        "mainCity": "",
+        "country": "All NANP",
+        "overlayComplex": "",
+        "timeZone": ""
+    },
+    "856": {
+        "state": "New Jersey",
+        "mainCity": "Camden",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "E"
+    },
+    "857": {
+        "state": "Massachusetts",
+        "mainCity": "Boston",
+        "country": "USA",
+        "overlayComplex": "617/857",
+        "timeZone": "E"
+    },
+    "858": {
+        "state": "California",
+        "mainCity": "San Diego",
+        "country": "USA",
+        "overlayComplex": "619/858",
+        "timeZone": "P"
+    },
+    "859": {
+        "state": "Kentucky",
+        "mainCity": "Lexington",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "E"
+    },
+    "860": {
+        "state": "Connecticut",
+        "mainCity": "Hartford",
+        "country": "USA",
+        "overlayComplex": "860/959",
+        "timeZone": "E"
+    },
+    "861": {
+        "state": "Illinois",
+        "mainCity": "Peoria",
+        "country": "USA",
+        "overlayComplex": "309/861",
+        "timeZone": "C"
+    },
+    "862": {
+        "state": "New Jersey",
+        "mainCity": "Newark",
+        "country": "USA",
+        "overlayComplex": "973/862",
+        "timeZone": "E"
+    },
+    "863": {
+        "state": "Florida",
+        "mainCity": "Lakeland",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "E"
+    },
+    "864": {
+        "state": "South Carolina",
+        "mainCity": "Greenville",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "E"
+    },
+    "865": {
+        "state": "Tennessee",
+        "mainCity": "Knoxville",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "E"
+    },
+    "866": {
+        "state": "Toll free",
+        "mainCity": "",
+        "country": "All NANP",
+        "overlayComplex": "",
+        "timeZone": ""
+    },
+    "867": {
+        "state": "Yukon-Northwest Territories-Nunavut",
+        "mainCity": "Whitehorse",
+        "country": "Canada",
+        "overlayComplex": "",
+        "timeZone": "C,M,P"
+    },
+    "868": {
+        "state": "Trinidad and Tobago",
+        "mainCity": "Chaguanas",
+        "country": "Trinidad and Tobago",
+        "overlayComplex": "",
+        "timeZone": "AST"
+    },
+    "869": {
+        "state": "Saint Kitts and Nevis",
+        "mainCity": "Basseterre",
+        "country": "Saint Kitts and Nevis",
+        "overlayComplex": "",
+        "timeZone": "AST"
+    },
+    "870": {
+        "state": "Arkansas",
+        "mainCity": "Jonesboro",
+        "country": "USA",
+        "overlayComplex": "870/327",
+        "timeZone": "C"
+    },
+    "872": {
+        "state": "Illinois",
+        "mainCity": "Chicago Downtown",
+        "country": "USA",
+        "overlayComplex": "312/872, 773/872",
+        "timeZone": "C"
+    },
+    "873": {
+        "state": "Quebec",
+        "mainCity": "Gatineau",
+        "country": "Canada",
+        "overlayComplex": "819/873/468",
+        "timeZone": "E"
+    },
+    "876": {
+        "state": "Jamaica",
+        "mainCity": "Kingston",
+        "country": "Jamaica",
+        "overlayComplex": "876/658",
+        "timeZone": "EST"
+    },
+    "877": {
+        "state": "Toll free",
+        "mainCity": "",
+        "country": "All NANP",
+        "overlayComplex": "",
+        "timeZone": ""
+    },
+    "878": {
+        "state": "Pennsylvania",
+        "mainCity": "Pittsburgh",
+        "country": "USA",
+        "overlayComplex": "412/878, 724/878",
+        "timeZone": "E"
+    },
+    "879": {
+        "state": "Newfoundland and Labrador",
+        "mainCity": "St John's",
+        "country": "Canada",
+        "overlayComplex": "709/879",
+        "timeZone": "N"
+    },
+    "888": {
+        "state": "Toll free",
+        "mainCity": "",
+        "country": "All NANP",
+        "overlayComplex": "",
+        "timeZone": ""
+    },
+    "901": {
+        "state": "Tennessee",
+        "mainCity": "Memphis",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C"
+    },
+    "902": {
+        "state": "Nova Scotia-Prince Edward Island",
+        "mainCity": "Halifax",
+        "country": "Canada",
+        "overlayComplex": "902/782",
+        "timeZone": "A"
+    },
+    "903": {
+        "state": "Texas",
+        "mainCity": "Tyler",
+        "country": "USA",
+        "overlayComplex": "903/430",
+        "timeZone": "C"
+    },
+    "904": {
+        "state": "Florida",
+        "mainCity": "Jacksonville",
+        "country": "USA",
+        "overlayComplex": "904/324",
+        "timeZone": "E"
+    },
+    "905": {
+        "state": "Ontario",
+        "mainCity": "Mississauga",
+        "country": "Canada",
+        "overlayComplex": "905/289/365/742",
+        "timeZone": "E"
+    },
+    "906": {
+        "state": "Michigan",
+        "mainCity": "Marquette",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "E,C"
+    },
+    "907": {
+        "state": "Alaska",
+        "mainCity": "Anchorage",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "AK,H"
+    },
+    "908": {
+        "state": "New Jersey",
+        "mainCity": "Elizabeth",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "E"
+    },
+    "909": {
+        "state": "California",
+        "mainCity": "San Bernardino",
+        "country": "USA",
+        "overlayComplex": "909/840",
+        "timeZone": "P"
+    },
+    "910": {
+        "state": "North Carolina",
+        "mainCity": "Fayetteville",
+        "country": "USA",
+        "overlayComplex": "910/472",
+        "timeZone": "E"
+    },
+    "912": {
+        "state": "Georgia",
+        "mainCity": "Savannah",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "E"
+    },
+    "913": {
+        "state": "Kansas",
+        "mainCity": "Overland Park",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C"
+    },
+    "914": {
+        "state": "New York",
+        "mainCity": "Yonkers",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "E"
+    },
+    "915": {
+        "state": "Texas",
+        "mainCity": "El Paso",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "M,C"
+    },
+    "916": {
+        "state": "California",
+        "mainCity": "Sacramento",
+        "country": "USA",
+        "overlayComplex": "916/279",
+        "timeZone": "P"
+    },
+    "917": {
+        "state": "New York",
+        "mainCity": "NYC Manhattan",
+        "country": "USA",
+        "overlayComplex": "212/646/917/332, 718/347/917/929",
+        "timeZone": "E"
+    },
+    "918": {
+        "state": "Oklahoma",
+        "mainCity": "Tulsa",
+        "country": "USA",
+        "overlayComplex": "918/539",
+        "timeZone": "C"
+    },
+    "919": {
+        "state": "North Carolina",
+        "mainCity": "Raleigh",
+        "country": "USA",
+        "overlayComplex": "919/984",
+        "timeZone": "E"
+    },
+    "920": {
+        "state": "Wisconsin",
+        "mainCity": "Green Bay",
+        "country": "USA",
+        "overlayComplex": "920/274",
+        "timeZone": "C"
+    },
+    "925": {
+        "state": "California",
+        "mainCity": "Concord",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "P"
+    },
+    "928": {
+        "state": "Arizona",
+        "mainCity": "Yuma",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "MST,M"
+    },
+    "929": {
+        "state": "New York",
+        "mainCity": "New York",
+        "country": "USA",
+        "overlayComplex": "718/347/917/929",
+        "timeZone": "E"
+    },
+    "930": {
+        "state": "Indiana",
+        "mainCity": "Evansville",
+        "country": "USA",
+        "overlayComplex": "812/930",
+        "timeZone": "E,C"
+    },
+    "931": {
+        "state": "Tennessee",
+        "mainCity": "Clarksville",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "E,C"
+    },
+    "934": {
+        "state": "New York",
+        "mainCity": "Brentwood",
+        "country": "USA",
+        "overlayComplex": "631/934",
+        "timeZone": "E"
+    },
+    "936": {
+        "state": "Texas",
+        "mainCity": "Conroe",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C"
+    },
+    "937": {
+        "state": "Ohio",
+        "mainCity": "Dayton",
+        "country": "USA",
+        "overlayComplex": "937/326",
+        "timeZone": "E"
+    },
+    "938": {
+        "state": "Alabama",
+        "mainCity": "Huntsville",
+        "country": "USA",
+        "overlayComplex": "256/938",
+        "timeZone": "C"
+    },
+    "939": {
+        "state": "Puerto Rico",
+        "mainCity": "San Juan",
+        "country": "Puerto Rico",
+        "overlayComplex": "787/939",
+        "timeZone": "AST"
+    },
+    "940": {
+        "state": "Texas",
+        "mainCity": "Denton",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C"
+    },
+    "941": {
+        "state": "Florida",
+        "mainCity": "North Port",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "E"
+    },
+    "943": {
+        "state": "Georgia",
+        "mainCity": "Atlanta",
+        "country": "USA",
+        "overlayComplex": "404/678/470/943, 770/678/470/943",
+        "timeZone": "E"
+    },
+    "945": {
+        "state": "Texas",
+        "mainCity": "Dallas",
+        "country": "USA",
+        "overlayComplex": "214/972/469/945",
+        "timeZone": "C"
+    },
+    "947": {
+        "state": "Michigan",
+        "mainCity": "Troy",
+        "country": "USA",
+        "overlayComplex": "248/947",
+        "timeZone": "E"
+    },
+    "948": {
+        "state": "Virginia",
+        "mainCity": "Virginia Beach",
+        "country": "USA",
+        "overlayComplex": "757/948",
+        "timeZone": "E"
+    },
+    "949": {
+        "state": "California",
+        "mainCity": "Irvine",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "P"
+    },
+    "951": {
+        "state": "California",
+        "mainCity": "Riverside",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "P"
+    },
+    "952": {
+        "state": "Minnesota",
+        "mainCity": "Lakeville",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C"
+    },
+    "954": {
+        "state": "Florida",
+        "mainCity": "Fort Lauderdale",
+        "country": "USA",
+        "overlayComplex": "954/754",
+        "timeZone": "E"
+    },
+    "956": {
+        "state": "Texas",
+        "mainCity": "Laredo",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C"
+    },
+    "959": {
+        "state": "Connecticut",
+        "mainCity": "Hartford",
+        "country": "USA",
+        "overlayComplex": "860/959",
+        "timeZone": "E"
+    },
+    "970": {
+        "state": "Colorado",
+        "mainCity": "Fort Collins",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "M"
+    },
+    "971": {
+        "state": "Oregon",
+        "mainCity": "Portland",
+        "country": "USA",
+        "overlayComplex": "503/971",
+        "timeZone": "P"
+    },
+    "972": {
+        "state": "Texas",
+        "mainCity": "Dallas",
+        "country": "USA",
+        "overlayComplex": "214/972/469/945",
+        "timeZone": "C"
+    },
+    "973": {
+        "state": "New Jersey",
+        "mainCity": "Newark",
+        "country": "USA",
+        "overlayComplex": "973/862",
+        "timeZone": "E"
+    },
+    "975": {
+        "state": "Missouri",
+        "mainCity": "Kansas City",
+        "country": "USA",
+        "overlayComplex": "816/975",
+        "timeZone": "C"
+    },
+    "978": {
+        "state": "Massachusetts",
+        "mainCity": "Lowell",
+        "country": "USA",
+        "overlayComplex": "978/351",
+        "timeZone": "E"
+    },
+    "979": {
+        "state": "Texas",
+        "mainCity": "College Station",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C"
+    },
+    "980": {
+        "state": "North Carolina",
+        "mainCity": "Charlotte",
+        "country": "USA",
+        "overlayComplex": "704/980",
+        "timeZone": "E"
+    },
+    "983": {
+        "state": "Colorado",
+        "mainCity": "Denver",
+        "country": "USA",
+        "overlayComplex": "303/720/983",
+        "timeZone": "M"
+    },
+    "984": {
+        "state": "North Carolina",
+        "mainCity": "Raleigh",
+        "country": "USA",
+        "overlayComplex": "919/984",
+        "timeZone": "E"
+    },
+    "985": {
+        "state": "Louisiana",
+        "mainCity": "Houma",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "C"
+    },
+    "986": {
+        "state": "Idaho",
+        "mainCity": "Meridian",
+        "country": "USA",
+        "overlayComplex": "208/986",
+        "timeZone": "M,P"
+    },
+    "989": {
+        "state": "Michigan",
+        "mainCity": "Saginaw",
+        "country": "USA",
+        "overlayComplex": "",
+        "timeZone": "E"
+    }
+}
