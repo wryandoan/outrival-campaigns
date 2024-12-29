@@ -37,6 +37,7 @@ export function CampaignConfiguration({ campaign, onUpdate }: CampaignConfigurat
 
       <ScriptViewer
         scripts={campaign.configuration?.scripts}
+        campaign={campaign}
         onUpdate={(scripts) => handleConfigUpdate({ scripts })}
         disabled={isUpdating}
       />

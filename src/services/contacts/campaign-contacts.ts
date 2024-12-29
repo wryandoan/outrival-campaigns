@@ -27,6 +27,7 @@ export async function getCampaignContacts(campaignId: string): Promise<CampaignC
       contact_id,
       contact_status,
       last_responded_date,
+      personalization_fields,
       contacts (
         id,
         first_name,
@@ -50,6 +51,7 @@ export async function getCampaignContacts(campaignId: string): Promise<CampaignC
     preferred_name: row.contacts.preferred_name,
     phone_number: row.contacts.phone_number,
     contact_status: row.contact_status,
-    last_responded_date: row.last_responded_date
+    last_responded_date: row.last_responded_date,
+    personalization_fields: row.personalization_fields,
   }));
 }
