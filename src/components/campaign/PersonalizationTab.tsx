@@ -93,8 +93,8 @@ export function PersonalizationTab({ campaign }: PersonalizationTabProps) {
 
   return (
     <div className="bg-white dark:bg-dark-50 rounded-lg shadow-sm p-6">
-      <h3 className="text-lg font-semibold text-gray-900 dark:text-dark-600 mb-4">
-        Available Personalization Fields
+      <h3 className="text-md text-gray-900 dark:text-dark-600 mb-4">
+        Personalization fields are automatically integrated into conversations where appropriate.
       </h3>
       
       <div className="space-y-6">
@@ -108,9 +108,6 @@ export function PersonalizationTab({ campaign }: PersonalizationTabProps) {
                 <h4 className="text-sm font-medium text-gray-900 dark:text-dark-600">
                   {field}
                 </h4>
-                <p className="text-sm text-gray-500 dark:text-dark-400 mt-1">
-                  Use <code className="px-1 py-0.5 bg-gray-100 dark:bg-dark-200 rounded">{'{{' + field + '}}'}</code> in your scripts
-                </p>
               </div>
               <span className="text-sm text-gray-500 dark:text-dark-400">
                 {stats.percentage.toFixed(1)}% of contacts

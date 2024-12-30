@@ -1,6 +1,6 @@
 import React from 'react';
 import { Plus } from 'lucide-react';
-import { ThemeToggle } from './ThemeToggle';
+import Logo from './Logo';
 import { Campaign } from '../types';
 
 interface SidebarProps {
@@ -16,17 +16,17 @@ export function Sidebar({ campaigns, activeCampaign, onSelectCampaign, onNewCamp
       {/* Fixed Header */}
       <div className="p-4 border-b border-gray-200 dark:border-dark-200">
         <div className="flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-gray-700 dark:text-dark-600">Campaigns</h2>
           <div className="flex items-center gap-2">
-            <ThemeToggle />
-            <button
-              onClick={onNewCampaign}
-              className="p-2 hover:bg-gray-200 dark:hover:bg-dark-100 rounded-full transition-colors"
-              aria-label="New campaign"
-            >
-              <Plus className="w-5 h-5 text-gray-600 dark:text-dark-600" />
-            </button>
+            <Logo className="w-8 h-8 text-dark-600" />
+            <h2 className="text-lg font-semibold text-gray-700 dark:text-dark-600">Campaigns</h2>
           </div>
+          <button
+            onClick={onNewCampaign}
+            className="p-2 hover:bg-gray-200 dark:hover:bg-dark-100 rounded-full transition-colors"
+            aria-label="New campaign"
+          >
+            <Plus className="w-5 h-5 text-gray-600 dark:text-dark-600" />
+          </button>
         </div>
       </div>
       

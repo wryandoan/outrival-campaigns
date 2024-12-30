@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useContacts } from './contacts/useContacts';
 import { ContactsTableActions } from './contacts/ContactsTableActions';
-import { ContactsTableContent } from './contacts/ContactsTableContent';
+import { ContactsTableContent } from './ContactsTableContent';
 import { ImportModal } from './contacts/ImportModal';
 import { ContactStatusDetails } from './ContactStatusDetails';
 import { ContactRemovalUploader } from './contacts/ContactRemovalUploader';
+import { Search, Filter } from 'lucide-react';
 import { removeContactsFromCampaign, removeContactsByPhoneNumbers } from '../../services/contacts/remove';
 import type { CampaignContact } from '../../services/contacts/types';
 import type { ImportResult } from '../../types/import';
@@ -28,17 +29,25 @@ export function ContactsTable({
   const [showRemovalUploader, setShowRemovalUploader] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState<{ status: string; contactId: string } | null>(null);
   const [isRemoving, setIsRemoving] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [statusFilter, setStatusFilter] = useState<string>('all');
 
-  // Reset states when campaign changes
-  useEffect(() => {
-    setSelectedContacts(new Set());
-    setShowUploader(false);
-    setShowRemovalUploader(false);
-    setSelectedStatus(null);
-  }, [campaignId]);
+  // Filter contacts based on search term and status
+  const filteredContacts = contacts.filter(contact => {
+    const matchesSearch = searchTerm === '' || 
+      `${contact.first_name} ${contact.last_name}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      contact.phone_number.includes(searchTerm);
+    
+    const matchesStatus = statusFilter === 'all' || contact.contact_status === statusFilter;
+    
+    return matchesSearch && matchesStatus;
+  });
+
+  // Get unique statuses for filter dropdown
+  const uniqueStatuses = Array.from(new Set(contacts.map(c => c.contact_status)));
 
   const handleSelectAll = (checked: boolean) => {
-    setSelectedContacts(checked ? new Set(contacts.map(c => c.contact_id)) : new Set());
+    setSelectedContacts(checked ? new Set(filteredContacts.map(c => c.contact_id)) : new Set());
   };
 
   const handleSelectContact = (contactId: string, checked: boolean) => {
@@ -74,7 +83,6 @@ export function ContactsTable({
         console.log(`Deleted ${result.deletedContacts} contacts from system`);
       }
       
-      // Clear selection and refresh the list
       setSelectedContacts(new Set());
       refresh();
     } catch (err) {
@@ -89,13 +97,11 @@ export function ContactsTable({
       setIsRemoving(true);
       
       if (result.removeOthers && result.toRemoveIfEnabled) {
-        // Remove contacts not in the CSV
         const contactIdsToRemove = result.toRemoveIfEnabled.map(c => c.contact_id);
         if (contactIdsToRemove.length > 0) {
           await removeContactsFromCampaign(campaignId, contactIdsToRemove);
         }
       } else {
-        // Remove contacts from the CSV
         const phoneNumbers = result.contacts.map(c => c.phone_number);
         await removeContactsByPhoneNumbers(campaignId, phoneNumbers);
       }
@@ -156,9 +162,38 @@ export function ContactsTable({
         isRemoving={isRemoving}
       />
 
+      <div className="mb-4 flex gap-4">
+        <div className="flex-1 relative">
+          <input
+            type="text"
+            placeholder="Search contacts..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 dark:border-dark-300 bg-white dark:bg-dark-50 text-gray-900 dark:text-dark-600"
+          />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+        </div>
+
+        <div className="relative">
+          <select
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
+            className="appearance-none pl-10 pr-8 py-2 rounded-lg border border-gray-300 dark:border-dark-300 bg-white dark:bg-dark-50 text-gray-900 dark:text-dark-600"
+          >
+            <option value="all">All Statuses</option>
+            {uniqueStatuses.map(status => (
+              <option key={status} value={status}>
+                {status.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+              </option>
+            ))}
+          </select>
+          <Filter className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+        </div>
+      </div>
+
       <div className="flex-1 overflow-hidden rounded-lg">
         <ContactsTableContent
-          contacts={contacts}
+          contacts={filteredContacts}
           selectedContacts={selectedContacts}
           onSelectAll={handleSelectAll}
           onSelectContact={handleSelectContact}
