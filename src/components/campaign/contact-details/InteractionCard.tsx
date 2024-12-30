@@ -38,11 +38,11 @@ export function InteractionCard({ interaction }: InteractionCardProps) {
   const Icon = getIcon();
   
   // Parse notes to get room_id if available
-  let roomId: string | null = null;
+  let roomName: string | null = null;
   if (interaction.notes) {
     try {
       const notes = JSON.parse(interaction.notes);
-      roomId = notes.room_id;
+      roomName = notes.room_name;
     } catch (e) {
       console.error('Failed to parse interaction notes:', e);
     }
@@ -73,10 +73,10 @@ export function InteractionCard({ interaction }: InteractionCardProps) {
           </div>
         )}
 
-        {roomId && (
+        {roomName && (
           <div className="mt-2">
             <RecordingPlayer 
-              roomId={roomId} 
+              roomName={roomName} 
               interactionId={interaction.interaction_id}
             />
           </div>

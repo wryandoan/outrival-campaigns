@@ -42,9 +42,9 @@ export async function initiateOutboundCall(campaignContactId: string, phoneNumbe
     const responseData = data ? JSON.parse(data) : null;
     
     // Update interaction notes with room_id
-    if (responseData?.room_id) {
+    if (responseData?.room_name) {
       await updateInteractionNotes(interaction.interaction_id, {
-        room_id: responseData.room_id
+        room_name: responseData.room_name
       });
     }
 
