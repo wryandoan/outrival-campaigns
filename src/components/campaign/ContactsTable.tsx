@@ -1,7 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import { useContacts } from './contacts/useContacts';
+import { useCallQueue } from '../../hooks/useCallQueue';
 import { ContactsTableActions } from './contacts/ContactsTableActions';
-import { ContactsTableContent } from './ContactsTableContent';
+import { ContactsTableContent } from './contacts/ContactsTableContent';
 import { ImportModal } from './contacts/ImportModal';
 import { ContactStatusDetails } from './ContactStatusDetails';
 import { ContactRemovalUploader } from './contacts/ContactRemovalUploader';
@@ -24,6 +25,7 @@ export function ContactsTable({
   uploadComponent 
 }: ContactsTableProps) {
   const { contacts, loading, error, refresh } = useContacts(campaignId, refreshTrigger);
+  const { initiateCall, isCallInProgress, error: callError } = useCallQueue();
   const [selectedContacts, setSelectedContacts] = useState<Set<string>>(new Set());
   const [showUploader, setShowUploader] = useState(false);
   const [showRemovalUploader, setShowRemovalUploader] = useState(false);
@@ -43,26 +45,22 @@ export function ContactsTable({
     return matchesSearch && matchesStatus;
   });
 
-  // Get unique statuses for filter dropdown
-  const uniqueStatuses = Array.from(new Set(contacts.map(c => c.contact_status)));
-
-  const handleSelectAll = (checked: boolean) => {
-    setSelectedContacts(checked ? new Set(filteredContacts.map(c => c.contact_id)) : new Set());
-  };
-
-  const handleSelectContact = (contactId: string, checked: boolean) => {
-    const newSelected = new Set(selectedContacts);
-    if (checked) {
-      newSelected.add(contactId);
-    } else {
-      newSelected.delete(contactId);
-    }
-    setSelectedContacts(newSelected);
-  };
-
   const handleCallSelected = async () => {
-    // TODO: Implement call functionality
-    console.log('Calling selected contacts:', Array.from(selectedContacts));
+    if (selectedContacts.size === 0) return;
+
+    try {
+      const selectedContactDetails = contacts.filter(
+        contact => selectedContacts.has(contact.contact_id)
+      );
+
+      console.log('Initiating calls for:', selectedContactDetails);
+      await initiateCall(selectedContactDetails);
+      
+      // Clear selection after successful call
+      setSelectedContacts(new Set());
+    } catch (err) {
+      console.error('Failed to initiate calls:', err);
+    }
   };
 
   const handleRemoveSelected = async () => {
@@ -115,14 +113,28 @@ export function ContactsTable({
     }
   };
 
+  const handleSelectAll = (checked: boolean) => {
+    setSelectedContacts(checked ? new Set(filteredContacts.map(c => c.contact_id)) : new Set());
+  };
+
+  const handleSelectContact = (contactId: string, checked: boolean) => {
+    const newSelected = new Set(selectedContacts);
+    if (checked) {
+      newSelected.add(contactId);
+    } else {
+      newSelected.delete(contactId);
+    }
+    setSelectedContacts(newSelected);
+  };
+
   if (loading) {
     return <div className="text-center py-4 text-gray-600 dark:text-dark-600">Loading contacts...</div>;
   }
 
-  if (error) {
+  if (error || callError) {
     return (
       <div className="p-4 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-md">
-        <p className="text-red-800 dark:text-red-200">{error}</p>
+        <p className="text-red-800 dark:text-red-200">{error || callError}</p>
       </div>
     );
   }
@@ -160,6 +172,7 @@ export function ContactsTable({
         onRemoveSelected={handleRemoveSelected}
         onImport={() => setShowUploader(true)}
         isRemoving={isRemoving}
+        isCallInProgress={isCallInProgress}
       />
 
       <div className="mb-4 flex gap-4">
@@ -169,7 +182,7 @@ export function ContactsTable({
             placeholder="Search contacts..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 dark:border-dark-300 bg-white dark:bg-dark-50 text-gray-900 dark:text-dark-600 placeholder:text-gray-400 dark:placeholder:text-dark-400"
+            className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 dark:border-dark-300 bg-white dark:bg-dark-50 text-gray-900 dark:text-dark-600 placeholder:text-dark-400"
           />
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
         </div>
@@ -181,7 +194,7 @@ export function ContactsTable({
             className="appearance-none pl-10 pr-8 py-2 rounded-lg border border-gray-300 dark:border-dark-300 bg-white dark:bg-dark-50 text-gray-900 dark:text-dark-600"
           >
             <option value="all">All Statuses</option>
-            {uniqueStatuses.map(status => (
+            {Array.from(new Set(contacts.map(c => c.contact_status))).map(status => (
               <option key={status} value={status}>
                 {status.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
               </option>
