@@ -3,11 +3,11 @@ import { Play, Pause, Loader2 } from 'lucide-react';
 import { getRecordingLink } from '../../services/recordings/get-link';
 
 interface RecordingPlayerProps {
-  roomId: string;
+  roomName: string;
   interactionId: string;
 }
 
-export function RecordingPlayer({ roomId, interactionId }: RecordingPlayerProps) {
+export function RecordingPlayer({ roomName, interactionId }: RecordingPlayerProps) {
   const [recordingUrl, setRecordingUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -16,7 +16,7 @@ export function RecordingPlayer({ roomId, interactionId }: RecordingPlayerProps)
   useEffect(() => {
     async function fetchRecordingUrl() {
       try {
-        const url = await getRecordingLink(roomId, interactionId);
+        const url = await getRecordingLink(roomName, interactionId);
         setRecordingUrl(url);
       } catch (err) {
         setError('Failed to load recording');
@@ -26,10 +26,10 @@ export function RecordingPlayer({ roomId, interactionId }: RecordingPlayerProps)
     }
 
     fetchRecordingUrl();
-  }, [roomId, interactionId]);
+  }, [roomName, interactionId]);
 
   const handlePlayPause = () => {
-    const audio = document.getElementById(`recording-${roomId}`) as HTMLAudioElement;
+    const audio = document.getElementById(`recording-${roomName}`) as HTMLAudioElement;
     if (isPlaying) {
       audio.pause();
     } else {
@@ -69,7 +69,7 @@ export function RecordingPlayer({ roomId, interactionId }: RecordingPlayerProps)
       </button>
       
       <audio
-        id={`recording-${roomId}`}
+        id={`recording-${roomName}`}
         src={recordingUrl}
         onEnded={() => setIsPlaying(false)}
         className="hidden"

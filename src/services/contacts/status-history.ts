@@ -15,7 +15,6 @@ export async function getContactStatusHistory(campaignContactId: string): Promis
       history_id,
       contact_status,
       notes,
-      changed_by,
       created_at
     `)
     .eq('campaign_contact_id', campaignContactId)

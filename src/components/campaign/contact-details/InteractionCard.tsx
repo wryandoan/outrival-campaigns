@@ -37,7 +37,7 @@ export function InteractionCard({ interaction }: InteractionCardProps) {
 
   const Icon = getIcon();
   
-  // Parse notes to get room_id if available
+  // Parse notes to get room_name if available
   let roomName: string | null = null;
   if (interaction.notes) {
     try {

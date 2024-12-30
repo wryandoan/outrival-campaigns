@@ -11,7 +11,7 @@ export async function getRecordingLink(roomId: string, interactionId: string): P
     }
 
     const data = await response.json();
-    return data.url || null;
+    return data.recording_link || null;
   } catch (error) {
     console.error('Error fetching recording link:', error);
     return null;
