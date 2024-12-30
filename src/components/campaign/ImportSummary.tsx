@@ -87,14 +87,14 @@ export function ImportSummary({ result, onClose, onConfirm, isUploading }: Impor
         <div className="mt-6 flex gap-3">
           <button
             onClick={onClose}
-            className="flex-1 py-2 px-4 bg-gray-100 hover:bg-gray-200 dark:bg-dark-100 dark:hover:bg-dark-400 text-gray-900 dark:text-dark-600 rounded-lg transition-colors"
+            className="flex-1 py-2 px-4 bg-gray-50 hover:bg-gray-200 dark:bg-dark-100 dark:hover:bg-dark-400 text-gray-900 dark:text-dark-600 rounded-lg transition-colors"
           >
             Cancel
           </button>
           <button
             onClick={onConfirm}
             disabled={isUploading || (result.successful === 0 && !result.inSystem?.length) }
-            className="flex-1 py-2 px-4 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white rounded-lg transition-colors disabled:cursor-not-allowed"
+            className="flex-1 py-2 px-4 bg-dark-100 hover:bg-dark-400 disabled:bg-dark-400 text-white rounded-lg transition-colors disabled:cursor-not-allowed"
           >
             {isUploading ? 'Uploading...' : 'Confirm Import'}
           </button>
