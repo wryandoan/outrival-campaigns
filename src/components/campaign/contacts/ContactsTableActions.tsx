@@ -8,6 +8,7 @@ interface ContactsTableActionsProps {
   onRemoveSelected: () => void;
   onImport: () => void;
   isRemoving?: boolean;
+  isCallInProgress?: boolean;
 }
 
 export function ContactsTableActions({
@@ -15,7 +16,8 @@ export function ContactsTableActions({
   onCallSelected,
   onRemoveSelected,
   onImport,
-  isRemoving
+  isRemoving,
+  isCallInProgress
 }: ContactsTableActionsProps) {
   return (
     <div className="flex gap-2 mb-4">
@@ -23,9 +25,9 @@ export function ContactsTableActions({
         variant="secondary"
         icon={Phone}
         onClick={onCallSelected}
-        disabled={selectedCount === 0}
+        disabled={selectedCount === 0 || isCallInProgress}
       >
-        Call Contacts ({selectedCount})
+        {isCallInProgress ? 'Calling...' : `Call Contacts (${selectedCount})`}
       </Button>
       <Button
         variant="secondary"
