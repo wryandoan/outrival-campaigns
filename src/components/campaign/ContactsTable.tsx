@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import { useContacts } from './contacts/useContacts';
 import { useCallQueue } from '../../hooks/useCallQueue';
 import { ContactsTableActions } from './contacts/ContactsTableActions';
@@ -6,9 +6,10 @@ import { ContactsTableContent } from './contacts/ContactsTableContent';
 import { ImportModal } from './contacts/ImportModal';
 import { ContactStatusDetails } from './ContactStatusDetails';
 import { ContactRemovalUploader } from './contacts/ContactRemovalUploader';
-import { Search, Filter } from 'lucide-react';
+import { SearchBar } from './contacts/SearchBar';
+import { StatusFilter } from './contacts/StatusFilter';
+import { useContactFilters } from './contacts/useContactFilters';
 import { removeContactsFromCampaign, removeContactsByPhoneNumbers } from '../../services/contacts/remove';
-import type { CampaignContact } from '../../services/contacts/types';
 import type { ImportResult } from '../../types/import';
 
 interface ContactsTableProps {
@@ -31,19 +32,14 @@ export function ContactsTable({
   const [showRemovalUploader, setShowRemovalUploader] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState<{ status: string; contactId: string } | null>(null);
   const [isRemoving, setIsRemoving] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [statusFilter, setStatusFilter] = useState<string>('all');
 
-  // Filter contacts based on search term and status
-  const filteredContacts = contacts.filter(contact => {
-    const matchesSearch = searchTerm === '' || 
-      `${contact.first_name} ${contact.last_name}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      contact.phone_number.includes(searchTerm);
-    
-    const matchesStatus = statusFilter === 'all' || contact.contact_status === statusFilter;
-    
-    return matchesSearch && matchesStatus;
-  });
+  const {
+    searchTerm,
+    setSearchTerm,
+    statusFilter,
+    setStatusFilter,
+    filteredContacts
+  } = useContactFilters(contacts);
 
   const handleCallSelected = async () => {
     if (selectedContacts.size === 0) return;
@@ -52,12 +48,9 @@ export function ContactsTable({
       const selectedContactDetails = contacts.filter(
         contact => selectedContacts.has(contact.contact_id)
       );
-
-      console.log('Initiating calls for:', selectedContactDetails);
       await initiateCall(selectedContactDetails);
-      
-      // Clear selection after successful call
       setSelectedContacts(new Set());
+      refresh();
     } catch (err) {
       console.error('Failed to initiate calls:', err);
     }
@@ -71,16 +64,7 @@ export function ContactsTable({
     
     try {
       setIsRemoving(true);
-      const result = await removeContactsFromCampaign(
-        campaignId,
-        Array.from(selectedContacts)
-      );
-      
-      console.log(`Removed ${result.removedFromCampaign} contacts from campaign`);
-      if (result.deletedContacts > 0) {
-        console.log(`Deleted ${result.deletedContacts} contacts from system`);
-      }
-      
+      await removeContactsFromCampaign(campaignId, Array.from(selectedContacts));
       setSelectedContacts(new Set());
       refresh();
     } catch (err) {
@@ -111,20 +95,6 @@ export function ContactsTable({
     } finally {
       setIsRemoving(false);
     }
-  };
-
-  const handleSelectAll = (checked: boolean) => {
-    setSelectedContacts(checked ? new Set(filteredContacts.map(c => c.contact_id)) : new Set());
-  };
-
-  const handleSelectContact = (contactId: string, checked: boolean) => {
-    const newSelected = new Set(selectedContacts);
-    if (checked) {
-      newSelected.add(contactId);
-    } else {
-      newSelected.delete(contactId);
-    }
-    setSelectedContacts(newSelected);
   };
 
   if (loading) {
@@ -176,40 +146,30 @@ export function ContactsTable({
       />
 
       <div className="mb-4 flex gap-4">
-        <div className="flex-1 relative">
-          <input
-            type="text"
-            placeholder="Search contacts..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 dark:border-dark-300 bg-white dark:bg-dark-50 text-gray-900 dark:text-dark-600 placeholder:text-dark-400"
-          />
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-        </div>
-
-        <div className="relative">
-          <select
-            value={statusFilter}
-            onChange={(e) => setStatusFilter(e.target.value)}
-            className="appearance-none pl-10 pr-8 py-2 rounded-lg border border-gray-300 dark:border-dark-300 bg-white dark:bg-dark-50 text-gray-900 dark:text-dark-600"
-          >
-            <option value="all">All Statuses</option>
-            {Array.from(new Set(contacts.map(c => c.contact_status))).map(status => (
-              <option key={status} value={status}>
-                {status.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
-              </option>
-            ))}
-          </select>
-          <Filter className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-        </div>
+        <SearchBar value={searchTerm} onChange={setSearchTerm} />
+        <StatusFilter 
+          value={statusFilter} 
+          onChange={setStatusFilter}
+          contacts={contacts}
+        />
       </div>
 
       <div className="flex-1 overflow-hidden rounded-lg">
         <ContactsTableContent
           contacts={filteredContacts}
           selectedContacts={selectedContacts}
-          onSelectAll={handleSelectAll}
-          onSelectContact={handleSelectContact}
+          onSelectAll={(checked) => {
+            setSelectedContacts(checked ? new Set(filteredContacts.map(c => c.contact_id)) : new Set())
+          }}
+          onSelectContact={(contactId, checked) => {
+            const newSelected = new Set(selectedContacts);
+            if (checked) {
+              newSelected.add(contactId);
+            } else {
+              newSelected.delete(contactId);
+            }
+            setSelectedContacts(newSelected);
+          }}
           onContactClick={onSelectContact}
           onStatusClick={(status, contactId) => setSelectedStatus({ status, contactId })}
         />

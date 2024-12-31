@@ -7,7 +7,10 @@ export async function initiateOutboundCall(campaignContactId: string, phoneNumbe
   console.log('Initiating call to:', phoneNumber);
   
   try {
-    // Create interaction record first
+    // Update contact status to in_progress and get updated contacts first
+    const updatedContacts = await updateContactStatuses([campaignContactId], 'in_progress');
+
+    // Create interaction record
     const interaction = await createInteraction({
       campaign_contact_id: campaignContactId,
       phone_number: phoneNumber,
@@ -15,11 +18,8 @@ export async function initiateOutboundCall(campaignContactId: string, phoneNumbe
       communication_type: 'call'
     });
 
-    // Update contact status to in_progress and get updated contacts
-    const updatedContacts = await updateContactStatuses([campaignContactId], 'in_progress');
-
     // Make API call to initiate the call
-    const url = `${API_BASE_URL}/api/v1/outbound_call`;
+    const url = `${API_BASE_URL}/api/v1/outbound_cal`;
     console.log('Making request to:', url);
 
     const response = await fetch(url, {
@@ -40,9 +40,14 @@ export async function initiateOutboundCall(campaignContactId: string, phoneNumbe
     console.log('Response data:', data);
 
     if (!response.ok) {
-      // If call fails, update status back to awaiting_contact
-      const resetContacts = await updateContactStatuses([campaignContactId], 'awaiting_contact');
-      throw new Error(`API call failed: ${response.status} ${response.statusText} ${data}`);
+      // If call fails, update status back to awaiting_contact with error note
+      const errorMessage = `Call failed: ${response.status} ${response.statusText}`;
+      await updateContactStatuses(
+        [campaignContactId], 
+        'awaiting_contact',
+        errorMessage
+      );
+      /*throw new Error(`API call failed: ${response.status} ${response.statusText} ${data}`);*/
     }
 
     const responseData = data ? JSON.parse(data) : null;
@@ -57,8 +62,13 @@ export async function initiateOutboundCall(campaignContactId: string, phoneNumbe
     return { ...responseData, updatedContacts };
   } catch (error) {
     console.error('Call initiation error:', error);
-    // Ensure status is reset on error
-    const resetContacts = await updateContactStatuses([campaignContactId], 'awaiting_contact');
+    // Ensure status is reset on error with note
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+    await updateContactStatuses(
+      [campaignContactId], 
+      'awaiting_contact',
+      errorMessage
+    );
     throw error;
   }
 }

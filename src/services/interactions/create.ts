@@ -14,8 +14,7 @@ export async function createInteraction(data: {
       phone_number: data.phone_number,
       type: data.type,
       communication_type: data.communication_type,
-      interaction_status: 'Pending',
-      sent_date_time: new Date().toISOString()
+      interaction_status: 'Pending'
     })
     .select()
     .single();
