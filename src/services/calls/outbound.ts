@@ -1,5 +1,4 @@
 import { API_BASE_URL } from '../api';
-import { createInteraction } from '../interactions/create';
 import { updateInteractionNotes } from '../interactions/update';
 import { updateContactStatuses } from '../contacts/status';
 
@@ -9,14 +8,6 @@ export async function initiateOutboundCall(campaignContactId: string, phoneNumbe
   try {
     // Update contact status to in_progress and get updated contacts first
     const updatedContacts = await updateContactStatuses([campaignContactId], 'in_progress');
-
-    // Create interaction record
-    const interaction = await createInteraction({
-      campaign_contact_id: campaignContactId,
-      phone_number: phoneNumber,
-      type: 'outbound',
-      communication_type: 'call'
-    });
 
     // Make API call to initiate the call
     const url = `${API_BASE_URL}/api/v1/outbound_cal`;
@@ -29,8 +20,7 @@ export async function initiateOutboundCall(campaignContactId: string, phoneNumbe
         'Accept': 'application/json'
       },
       body: JSON.stringify({
-        phone_number: phoneNumber,
-        request_id: interaction.interaction_id
+        phone_number: phoneNumber
       }),
     });
 

@@ -19,7 +19,7 @@ async function updatePreviousStatusNote(contactId: string, notes: string): Promi
     console.log("Updating history note for sure", { notes })
     const { error: updateError } = await supabase
       .from('contact_status_history')
-      .update(notes)
+      .update({notes})
       .eq('history_id', latestHistory.history_id);
     console.log("update error", updateError)
     if (updateError) throw updateError;
