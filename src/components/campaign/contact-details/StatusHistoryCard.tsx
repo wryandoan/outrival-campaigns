@@ -1,5 +1,5 @@
 import React from 'react';
-import { Clock, MessageSquare } from 'lucide-react';
+import { Clock, Info } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import { statusConfig } from '../../../utils/status';
 import type { StatusHistoryEntry } from '../../../services/contacts/status-history';
@@ -29,7 +29,7 @@ export function StatusHistoryCard({ entry }: StatusHistoryCardProps) {
 
         {entry.notes && (
           <div className="flex items-start gap-2 mt-2 bg-gray-50 dark:bg-dark-100 p-3 rounded-lg">
-            <MessageSquare className="w-4 h-4 text-gray-400 dark:text-dark-400 mt-0.5" />
+            <Info className="w-4 h-4 text-gray-400 dark:text-dark-400 mt-0.5" />
             <p className="text-sm text-gray-600 dark:text-dark-400">
               {entry.notes}
             </p>

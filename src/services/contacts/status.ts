@@ -1,8 +1,18 @@
 import { supabase } from '../../lib/supabase/client';
 import type { CampaignContact } from './types';
 
+export async function getContactStatus(contactId: string): Promise<string | null> {
+  const { data, error } = await supabase
+    .from('campaign_contacts')
+    .select('contact_status')
+    .eq('campaign_user_id', contactId)
+    .single();
+
+  if (error) throw error;
+  return data?.contact_status || null;
+}
+
 async function updatePreviousStatusNote(contactId: string, notes: string): Promise<void> {
-  // Get the most recent status history entry
   const { data: latestHistory, error: historyError } = await supabase
     .from('contact_status_history')
     .select('history_id, contact_status')
@@ -11,17 +21,14 @@ async function updatePreviousStatusNote(contactId: string, notes: string): Promi
     .limit(1)
     .single();
 
-  console.log(historyError, latestHistory, notes)
-
   if (historyError) throw historyError;
 
   if (latestHistory) {
-    console.log("Updating history note for sure", { notes })
     const { error: updateError } = await supabase
       .from('contact_status_history')
-      .update({notes})
+      .update({ notes })
       .eq('history_id', latestHistory.history_id);
-    console.log("update error", updateError)
+
     if (updateError) throw updateError;
   }
 }
@@ -31,13 +38,10 @@ export async function updateContactStatuses(
   status: string,
   notes?: string
 ): Promise<CampaignContact[]> {
-  // First update notes on previous status if provided
   if (notes) {
-    console.log("Updating Notes")
     await Promise.all(contactIds.map(id => updatePreviousStatusNote(id, notes)));
   }
 
-  // Then update campaign_contacts table with new status
   const { data: updatedContacts, error } = await supabase
     .from('campaign_contacts')
     .update({ contact_status: status })
