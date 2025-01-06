@@ -13,13 +13,22 @@ interface SidebarProps {
 export function Sidebar({ campaigns, activeCampaign, onSelectCampaign, onNewCampaign }: SidebarProps) {
   return (
     <aside className="w-64 h-screen bg-gray-50 dark:bg-dark-25 border-r border-gray-200 dark:border-dark-200 flex flex-col">
-      {/* Fixed Header */}
+      {/* Brand Header */}
       <div className="p-4 border-b border-gray-200 dark:border-dark-200">
+        <div className="flex items-center gap-2">
+          <Logo className="w-8 h-8 text-dark-600" />
+          <span className="text-lg font-semibold text-gray-700 dark:text-dark-600">
+            OutRival
+          </span>
+        </div>
+      </div>
+      
+      {/* Campaigns Header */}
+      <div className="px-4 py-2">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Logo className="w-8 h-8 text-dark-600" />
-            <h2 className="text-lg font-semibold text-gray-700 dark:text-dark-600">Campaigns</h2>
-          </div>
+          <h2 className="text-sm font-medium text-gray-500 dark:text-dark-600">
+            Campaigns
+          </h2>
           <button
             onClick={onNewCampaign}
             className="p-2 hover:bg-gray-200 dark:hover:bg-dark-100 rounded-full transition-colors"

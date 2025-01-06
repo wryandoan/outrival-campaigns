@@ -20,7 +20,7 @@ export function useCallQueue() {
       const contact = contacts[0];
       console.log('Initiating call for contact:', contact);
       
-      const result = await initiateOutboundCall(contact.id, contact.phone_number);
+      const result = await initiateOutboundCall(contact.id);
       console.log('Call initiated successfully:', result);
       
       return result;

@@ -2,6 +2,7 @@ import { supabase } from '../../lib/supabase/client';
 
 export interface StatusHistoryEntry {
   history_id: string;
+  campaign_contact_id: string;
   contact_status: string;
   notes: string | null;
   changed_by: string;
@@ -13,6 +14,7 @@ export async function getContactStatusHistory(campaignContactId: string): Promis
     .from('contact_status_history')
     .select(`
       history_id,
+      campaign_contact_id,
       contact_status,
       notes,
       created_at

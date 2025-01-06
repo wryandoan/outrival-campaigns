@@ -59,7 +59,9 @@ async function linkContactsToCampaign(
     .map(contactId => ({
       campaign_id: campaignId,
       contact_id: contactId,
-      personalization_fields: personalizationFields[contactId] || null
+      contact_status: 'awaiting_contact',
+      personalization_fields: personalizationFields[contactId] || null,
+      assigned_date: new Date().toISOString()
     }));
 
   if (newLinks.length === 0) return;
@@ -95,7 +97,11 @@ export async function uploadContacts(campaignId: string, importResult: ImportRes
   // Create a map of phone numbers to personalization fields
   const personalizationFields: Record<string, Record<string, string>> = {};
   [...newContacts, ...existingContacts].forEach(contact => {
-    const importContact = importResult.contacts.find(c => c.phone_number === contact.phone_number);
+    const importContact = [
+      ...importResult.contacts,
+      ...(importResult.inSystem || [])
+    ].find(c => c.phone_number === contact.phone_number);
+    
     if (importContact?.personalization_fields) {
       personalizationFields[contact.id] = importContact.personalization_fields;
     }
