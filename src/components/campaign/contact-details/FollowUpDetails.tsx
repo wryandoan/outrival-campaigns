@@ -1,25 +1,32 @@
 import React from 'react';
-import { useCampaignContact } from '../../../hooks/useCampaignContact';
 import { FollowUpInfo } from './FollowUpInfo';
 
 interface FollowUpDetailsProps {
-  campaignContactId: string;
+  notes: string;
 }
 
-export default function FollowUpDetails({ campaignContactId }: FollowUpDetailsProps) {
-  const { details, loading, error } = useCampaignContact(campaignContactId);
+interface FollowUpData {
+  followup_details: {
+    type: 'call' | 'sms';
+    time: string;
+  };
+}
 
-  if (loading) {
-    return <div className="mt-2 text-sm text-gray-500">Loading follow-up details...</div>;
-  }
+export default function FollowUpDetails({ notes }: FollowUpDetailsProps) {
+  try {
+    const parsedNotes = JSON.parse(notes) as FollowUpData;
+    if (!parsedNotes?.followup_details) {
+      console.log('No follow-up details found in notes:', notes);
+      return null;
+    }
 
-  if (error || !details) {
+    return (
+      <div className="mt-2">
+        <FollowUpInfo followupDetails={parsedNotes.followup_details} />
+      </div>
+    );
+  } catch (e) {
+    console.error('Failed to parse follow-up details:', e, 'Notes:', notes);
     return null;
   }
-
-  return (
-    <div className="mt-2">
-      <FollowUpInfo details={details} />
-    </div>
-  );
 }

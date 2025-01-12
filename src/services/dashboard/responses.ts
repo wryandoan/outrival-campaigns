@@ -70,7 +70,9 @@ export async function getResponseRates(campaignId: string) {
       outbound_attempted: {
         network_error: countInsightsInGroup(outboundCalls, ['network_error']),
         invalid_number: countInsightsInGroup(outboundCalls, ['invalid_number']),
-        no_answer: countInsightsInGroup(outboundCalls, ['no_answer', 'line_busy', 'unreachable'])
+        line_busy: countInsightsInGroup(outboundCalls, ['line_busy']),
+        unreachable: countInsightsInGroup(outboundCalls, ['unreachable']),
+        hangup: countInsightsInGroup(outboundCalls, ['hangup']),
       },
       inbound: {
         success_response: countInsightsInGroup(inboundCalls, ['success_response']),

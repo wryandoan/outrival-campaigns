@@ -29,13 +29,15 @@ export function ContactsTableRow({
       onClick={handleRowClick}
       className="hover:bg-gray-50 dark:hover:bg-dark-100 transition-colors cursor-pointer"
     >
-      <td className="w-[50px] px-6 py-4" onClick={(e) => e.stopPropagation()}>
-        <input
-          type="checkbox"
-          checked={selected}
-          onChange={(e) => onSelect(e.target.checked)}
-          className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-        />
+      <td className="w-12 pl-6 pr-0 py-4" onClick={(e) => e.stopPropagation()}>
+        <div className="flex items-center">
+          <input
+            type="checkbox"
+            checked={selected}
+            onChange={(e) => onSelect(e.target.checked)}
+            className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+          />
+        </div>
       </td>
 
       <td className="w-1/3 px-6 py-4">
@@ -52,7 +54,7 @@ export function ContactsTableRow({
         </span>
       </td>
 
-      <td className="w-[120px] px-6 py-4 whitespace-nowrap">
+      <td className="w-[140px] px-6 py-4 whitespace-nowrap">
         <button
           onClick={(e) => {
             e.stopPropagation();
@@ -64,18 +66,16 @@ export function ContactsTableRow({
         </button>
       </td>
 
-      <td className="w-[100px] px-6 py-4">
-        <div className="flex items-center justify-end">
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              onClick();
-            }}
-            className="text-sm text-blue-600 dark:text-dark-400 hover:text-dark-800 dark:hover:text-dark-600"
-          >
-            View Contact
-          </button>
-        </div>
+      <td className="w-[120px] px-6 py-4 text-right">
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            onClick();
+          }}
+          className="text-sm text-blue-600 dark:text-dark-400 hover:text-dark-800 dark:hover:text-dark-600"
+        >
+          View Contact
+        </button>
       </td>
     </tr>
   );

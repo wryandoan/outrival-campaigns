@@ -9,7 +9,7 @@ export async function getInteractionTimeline(campaignId: string): Promise<Intera
       campaign_contacts!inner(campaign_id)
     `)
     .eq('campaign_contacts.campaign_id', campaignId)
-    .eq('interaction_status', 'Completed')
+    .in('interaction_status', ['Completed', 'Failed'])
     .order('sent_date_time', { ascending: false })
     .limit(10);
 

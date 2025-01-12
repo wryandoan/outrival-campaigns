@@ -11,11 +11,6 @@ interface ScriptViewerProps {
   disabled?: boolean;
 }
 
-interface ScriptStep {
-  step: string;
-  content: string;
-}
-
 type ScriptType = 'outbound' | 'inbound' | 'voicemail' | 'personalization';
 
 export function ScriptViewer({ scripts: initialScripts, campaign, onUpdate, disabled }: ScriptViewerProps) {
@@ -26,9 +21,13 @@ export function ScriptViewer({ scripts: initialScripts, campaign, onUpdate, disa
   const [editContent, setEditContent] = useState('');
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
 
-  const handleDragStart = useCallback((index: number) => {
+  const handleDragStart = useCallback((index: number, e: React.DragEvent) => {
+    if (editingIndex !== null) {
+      e.preventDefault();
+      return;
+    }
     setDraggedIndex(index);
-  }, []);
+  }, [editingIndex]);
 
   const handleDragOver = useCallback((e: React.DragEvent, index: number) => {
     e.preventDefault();
@@ -50,7 +49,7 @@ export function ScriptViewer({ scripts: initialScripts, campaign, onUpdate, disa
     setDraggedIndex(null);
   }, []);
 
-  const startEditing = useCallback((index: number, step: ScriptStep) => {
+  const startEditing = useCallback((index: number, step: { step: string; content: string }) => {
     setEditingIndex(index);
     setEditStep(step.step);
     setEditContent(step.content);
@@ -69,6 +68,8 @@ export function ScriptViewer({ scripts: initialScripts, campaign, onUpdate, disa
       }));
     }
     setEditingIndex(null);
+    setEditStep('');
+    setEditContent('');
   }, [editStep, editContent, scripts, activeType, editingIndex]);
 
   const deleteStep = useCallback((index: number) => {
@@ -100,6 +101,13 @@ export function ScriptViewer({ scripts: initialScripts, campaign, onUpdate, disa
     onUpdate?.(scripts);
   }, [scripts, onUpdate]);
 
+  const handleTabChange = (type: ScriptType) => {
+    setActiveType(type);
+    setEditingIndex(null);
+    setEditStep('');
+    setEditContent('');
+  };
+
   return (
     <div className="bg-white dark:bg-dark-50 rounded-lg shadow-sm p-4">
       <div className="flex items-center justify-between mb-4">
@@ -110,7 +118,7 @@ export function ScriptViewer({ scripts: initialScripts, campaign, onUpdate, disa
         <button
           onClick={handleSave}
           disabled={disabled}
-          className="flex items-center gap-1 px-2 py-1 rounded-lg text-sm font-medium text-green-500 hover:bg-green-50 dark:text-dark-600 bg-dark-100 hover:bg-dark-200 dark:bg-dark-100 dark:hover:bg-dark-400"
+          className="flex items-center gap-1 px-2 py-1 rounded-lg text-sm font-medium text-dark-600 bg-dark-100 hover:bg-dark-200 dark:bg-dark-100 dark:hover:bg-dark-400 disabled:opacity-50"
         >
           <Check className="w-4 h-4" />
           Save Changes
@@ -121,7 +129,7 @@ export function ScriptViewer({ scripts: initialScripts, campaign, onUpdate, disa
         {(['outbound', 'inbound', 'voicemail', 'personalization'] as ScriptType[]).map((type) => (
           <button
             key={type}
-            onClick={() => setActiveType(type)}
+            onClick={() => handleTabChange(type)}
             className={`
               px-4 py-2 rounded-lg text-sm font-medium capitalize
               ${activeType === type
@@ -141,8 +149,8 @@ export function ScriptViewer({ scripts: initialScripts, campaign, onUpdate, disa
           {scripts[activeType].map((step, index) => (
             <div
               key={index}
-              draggable
-              onDragStart={() => handleDragStart(index)}
+              draggable={editingIndex === null}
+              onDragStart={(e) => handleDragStart(index, e)}
               onDragOver={(e) => handleDragOver(e, index)}
               onDragEnd={handleDragEnd}
               className="group bg-gray-50 dark:bg-dark-100 px-3 py-2 rounded-lg"

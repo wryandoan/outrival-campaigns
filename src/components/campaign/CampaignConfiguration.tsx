@@ -41,12 +41,6 @@ export function CampaignConfiguration({ campaign, onUpdate }: CampaignConfigurat
         onUpdate={(scripts) => handleConfigUpdate({ scripts })}
         disabled={isUpdating}
       />
-      
-      <FunnelStages
-        stages={campaign.configuration?.funnel_stages || []}
-        onUpdate={(funnel_stages) => handleConfigUpdate({ funnel_stages })}
-        disabled={isUpdating}
-      />
 
       <PhoneNumbersCard 
         campaign={campaign}

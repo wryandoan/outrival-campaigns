@@ -1,14 +1,17 @@
 import { supabase } from '../../lib/supabase/client';
 import { generateCampaignConfiguration } from '../ai/generateCampaignConfiguration';
-import { DEFAULT_PHONE_NUMBERS } from './constants';
+import { generatePhoneNumbers } from '../numbers/generatePhoneNumbers';
 import type { Campaign, NewCampaign, CampaignUpdate } from './types';
 
 export async function createCampaign(campaign: { name: string; goal: string }): Promise<Campaign> {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) throw new Error('User not authenticated');
 
-  // Generate AI scripts
-  const configuration = await generateCampaignConfiguration(campaign.goal);
+  // Generate AI scripts and fetch phone numbers in parallel
+  const [configuration, phoneNumbers] = await Promise.all([
+    generateCampaignConfiguration(campaign.goal),
+    generatePhoneNumbers()
+  ]);
 
   const { data, error } = await supabase
     .from('campaigns')
@@ -19,7 +22,7 @@ export async function createCampaign(campaign: { name: string; goal: string }): 
       status: 'Active',
       start_date: new Date().toISOString().split('T')[0],
       configuration,
-      phone_numbers: DEFAULT_PHONE_NUMBERS
+      phone_numbers: phoneNumbers
     }])
     .select()
     .single();

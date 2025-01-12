@@ -45,6 +45,14 @@ async function linkContactsToCampaign(
   contactIds: string[], 
   personalizationFields: Record<string, Record<string, string>>
 ) {
+  // Get contact names for all contacts
+  const { data: contacts, error: contactsError } = await supabase
+    .from('contacts')
+    .select('id, first_name, last_name')
+    .in('id', contactIds);
+
+  if (contactsError) throw contactsError;
+
   const { data: existingLinks } = await supabase
     .from('campaign_contacts')
     .select('contact_id')
@@ -56,13 +64,24 @@ async function linkContactsToCampaign(
   // Only link contacts that aren't already linked to this campaign
   const newLinks = contactIds
     .filter(id => !existingContactIds.has(id))
-    .map(contactId => ({
-      campaign_id: campaignId,
-      contact_id: contactId,
-      contact_status: 'awaiting_contact',
-      personalization_fields: personalizationFields[contactId] || null,
-      assigned_date: new Date().toISOString()
-    }));
+    .map(contactId => {
+      const contact = contacts?.find(c => c.id === contactId);
+      const contactName = contact ? `${contact.first_name} ${contact.last_name}`.trim() : '';
+      
+      // Merge existing personalization fields with Name field
+      const fields = {
+        ...personalizationFields[contactId],
+        'Contact Name': contactName
+      };
+
+      return {
+        campaign_id: campaignId,
+        contact_id: contactId,
+        contact_status: 'awaiting_contact',
+        personalization_fields: fields,
+        assigned_date: new Date().toISOString()
+      };
+    });
 
   if (newLinks.length === 0) return;
 

@@ -11,6 +11,13 @@ export function validateAndFormatPhone(phone: string, defaultCountry: CountryCod
     // Clean the phone number by removing non-digit characters except +
     const cleanedPhone = phone.trim().replace(/[^+\d]/g, '');
 
+    if (!cleanedPhone) {
+      return {
+        isValid: false,
+        error: 'Phone number is required'
+      };
+    }
+
     // Add default country code if the number doesn't start with +
     const phoneWithPrefix = cleanedPhone.startsWith('+')
       ? cleanedPhone
@@ -23,7 +30,7 @@ export function validateAndFormatPhone(phone: string, defaultCountry: CountryCod
     if (!phoneNumber || !phoneNumber.isValid()) {
       return {
         isValid: false,
-        error: `Invalid phone number format: ${phone}`
+        error: `Must be a valid ${defaultCountry} phone number with a valid area code`
       };
     }
 
@@ -35,7 +42,7 @@ export function validateAndFormatPhone(phone: string, defaultCountry: CountryCod
   } catch (error) {
     return {
       isValid: false,
-      error: `Invalid phone number format: ${phone}`
+      error: `Invalid phone number format: ${phone} - must start with + followed by country code`
     };
   }
 }

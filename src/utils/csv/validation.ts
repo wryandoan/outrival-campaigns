@@ -1,12 +1,19 @@
 import type { FieldMapping, PersonalizationField } from '../../types/import';
 import { validateAndFormatPhone } from '../phone/formatter';
 
+interface ValidationError {
+  field: string;
+  message: string;
+}
+
 export function validateContact(
   values: string[],
   headers: string[],
   mapping: FieldMapping,
   rowNumber: number
 ) {
+  const errors: ValidationError[] = [];
+  
   // Get field indices
   const firstNameIndex = headers.indexOf(mapping.firstName!);
   const lastNameIndex = headers.indexOf(mapping.lastName!);
@@ -14,7 +21,7 @@ export function validateContact(
 
   // Check if we have enough values
   if (values.length <= Math.max(firstNameIndex, lastNameIndex, phoneIndex)) {
-    return null;
+    throw new Error('Row is missing required columns');
   }
 
   const firstName = values[firstNameIndex].trim();
@@ -22,14 +29,21 @@ export function validateContact(
   const rawPhone = values[phoneIndex].trim();
 
   // Validate name fields
-  if (!firstName || !lastName) {
-    return null;
+  if (!firstName) {
+    errors.push({ field: 'firstName', message: 'First name is required' });
+  }
+  if (!lastName) {
+    errors.push({ field: 'lastName', message: 'Last name is required' });
   }
 
   // Validate phone
   const phoneResult = validateAndFormatPhone(rawPhone);
   if (!phoneResult.isValid) {
-    return null;
+    errors.push({ field: 'phone', message: phoneResult.error || 'Invalid phone number' });
+  }
+
+  if (errors.length > 0) {
+    throw new Error(errors.map(e => e.message).join(', '));
   }
 
   // Process personalization fields

@@ -8,6 +8,7 @@ import { ContactStatusDetails } from './ContactStatusDetails';
 import { ContactRemovalUploader } from './contacts/ContactRemovalUploader';
 import { SearchBar } from './contacts/SearchBar';
 import { StatusFilter } from './contacts/StatusFilter';
+import { RefreshCw } from 'lucide-react';
 import { useContactFilters } from './contacts/useContactFilters';
 import { removeContactsFromCampaign, removeContactsByPhoneNumbers } from '../../services/contacts/remove';
 import type { ImportResult } from '../../types/import';
@@ -25,7 +26,7 @@ export function ContactsTable({
   onSelectContact,
   uploadComponent 
 }: ContactsTableProps) {
-  const { contacts, loading, error, refresh } = useContacts(campaignId, refreshTrigger);
+  const { contacts, loading, error, refresh, isRefreshing } = useContacts(campaignId, refreshTrigger);
   const { initiateCall, isCallInProgress, error: callError } = useCallQueue();
   const [selectedContacts, setSelectedContacts] = useState<Set<string>>(new Set());
   const [showUploader, setShowUploader] = useState(false);
@@ -145,13 +146,26 @@ export function ContactsTable({
         isCallInProgress={isCallInProgress}
       />
 
-      <div className="mb-4 flex gap-4">
+      <div className="mb-4 flex items-center gap-4">
         <SearchBar value={searchTerm} onChange={setSearchTerm} />
         <StatusFilter 
           value={statusFilter} 
           onChange={setStatusFilter}
           contacts={contacts}
         />
+        <button
+          onClick={refresh}
+          disabled={isRefreshing}
+          className={`
+            flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-300 dark:border-dark-300 
+            bg-white dark:bg-dark-50 text-gray-900 dark:text-dark-600 
+            hover:bg-gray-50 dark:hover:bg-dark-100 disabled:opacity-50
+            ${isRefreshing ? 'cursor-not-allowed' : 'cursor-pointer'}
+          `}
+        >
+          <RefreshCw className={`w-4 h-4 ${isRefreshing ? 'animate-spin' : ''}`} />
+          Refresh
+        </button>
       </div>
 
       <div className="flex-1 overflow-hidden rounded-lg">

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Phone, MessageSquare, Mail, Clock, ChevronDown, ChevronRight } from 'lucide-react';
+import { Phone, MessageSquare, Mail, Clock, ChevronDown, ChevronRight, AlertCircle } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import { ConversationContent } from './ConversationContent';
 import { RecordingPlayer } from '../../recordings/RecordingPlayer';
@@ -28,12 +28,14 @@ export function InteractionCard({ interaction }: InteractionCardProps) {
 
   const Icon = getIcon();
   
-  // Parse notes to get room_name if available
+  // Parse notes to get room_name and errors if available
   let roomName: string | null = null;
+  let errors: string | null = null;
   if (interaction.notes) {
     try {
       const notes = JSON.parse(interaction.notes);
       roomName = notes.room_name;
+      errors = notes.error;
     } catch (e) {
       console.error('Failed to parse interaction notes:', e);
     }
@@ -95,6 +97,15 @@ export function InteractionCard({ interaction }: InteractionCardProps) {
             </button>
           )}
         </div>
+
+        {errors && (
+          <div className="flex items-start gap-2 mt-2 bg-gray-50 dark:bg-dark-100 p-3 rounded-lg">
+            <AlertCircle className="w-4 h-4 text-gray-400 dark:text-dark-400 mt-0.5" />
+            <p className="text-sm text-gray-600 dark:text-dark-400">
+              {errors}
+            </p>
+          </div>
+        )}
 
         {isExpanded && (
           <div className="space-y-3 pt-0">

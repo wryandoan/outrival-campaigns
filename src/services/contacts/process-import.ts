@@ -13,7 +13,7 @@ export function processCSVImport(csvData: CSVParseResult, mapping: FieldMapping)
       } else {
         errors.push({
           rowNumber: row.rowNumber,
-          message: 'Invalid contact data',
+          message: 'Missing or invalid required fields',
           data: {
             name: `${row.values[csvData.headers.indexOf(mapping.firstName || '')] || ''} ${
               row.values[csvData.headers.indexOf(mapping.lastName || '')] || ''

@@ -17,9 +17,9 @@ export function PhoneNumbersCard({ campaign, onUpdate }: PhoneNumbersCardProps) 
     onUpdate
   });
 
-  if (!campaign.phone_numbers?.phone_numbers) return null;
+  if (!campaign.phone_numbers) return null;
 
-  const { primary, secondary = [], cnam } = campaign.phone_numbers.phone_numbers;
+  const { primary, secondary = [], cnam } = campaign.phone_numbers;
 
   const handleSaveCnam = async () => {
     try {

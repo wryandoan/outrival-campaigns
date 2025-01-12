@@ -41,7 +41,6 @@ const InsightGroup = ({ title, outcomes, total }: {
     <h4 className="text-sm font-semibold text-gray-900 dark:text-dark-600">{title}</h4>
     <div className="space-y-3">
       {Object.entries(outcomes).map(([key, value]) => {
-        if (value === 0) return null;
         const config = getInsightConfig(key);
         return (
           <InsightBar
@@ -106,21 +105,17 @@ export function InsightDistribution({ campaignId }: InsightDistributionProps) {
       </h3>
       
       <div className="space-y-8">
-        {outboundTotal > 0 && (
-          <InsightGroup
-            title="Outbound Calls"
-            outcomes={outboundOutcomes}
-            total={outboundTotal}
-          />
-        )}
+        <InsightGroup
+          title="Outbound Calls"
+          outcomes={outboundOutcomes}
+          total={outboundTotal}
+        />
 
-        {inboundTotal > 0 && (
-          <InsightGroup
-            title="Inbound Calls"
-            outcomes={inboundOutcomes}
-            total={inboundTotal}
-          />
-        )}
+        <InsightGroup
+          title="Inbound Calls"
+          outcomes={inboundOutcomes}
+          total={inboundTotal}
+        />
       </div>
     </div>
   );

@@ -2,8 +2,11 @@ import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase/client';
 
 export interface CampaignContactDetails {
-  next_follow_up_date_time: string | null;
-  follow_up_action_item: 'call_back' | 'send_text' | 'none' | null;
+  contact_status: string;
+  followup_details?: {
+    type: 'call' | 'sms';
+    time: string;
+  };
 }
 
 export function useCampaignContact(campaignContactId: string) {
@@ -21,14 +24,32 @@ export function useCampaignContact(campaignContactId: string) {
 
       try {
         const { data, error } = await supabase
-          .from('campaign_contacts')
-          .select('next_follow_up_date_time, follow_up_action_item')
-          .eq('campaign_user_id', campaignContactId)
+          .from('contact_status_history')
+          .select('contact_status, notes, created_at')
+          .eq('campaign_contact_id', campaignContactId)
+          .in('contact_status', ['awaiting_followup', 'awaiting_reattempt'])
+          .order('created_at', { ascending: false })
+          .limit(1)
           .single();
 
         if (error) throw error;
-        console.log("useCampaignContact", campaignContactId, data)
-        setDetails(data);
+
+        let followupDetails;
+        if (data?.notes) {
+          try {
+            const parsed = JSON.parse(data.notes);
+            if (parsed.followup_details) {
+              followupDetails = parsed.followup_details;
+            }
+          } catch (e) {
+            console.error('Failed to parse follow-up details:', e);
+          }
+        }
+
+        setDetails({
+          contact_status: data?.contact_status || 'unknown',
+          followup_details: followupDetails
+        });
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Failed to load contact details');
       } finally {

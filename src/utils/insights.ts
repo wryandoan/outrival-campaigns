@@ -34,6 +34,10 @@ export const insightMap = {
     label: 'Voicemail Full',
     color: 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-200'
   },
+  'hangup': {
+    label: 'Hangup',
+    color: 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-200'
+  },
 
   // Error states
   'network_error': {
@@ -46,17 +50,13 @@ export const insightMap = {
   },
 
   // No answer states
-  'no_answer': {
-    label: 'No Answer',
-    color: 'bg-gray-100 dark:bg-gray-900/30 text-gray-800 dark:text-gray-200'
-  },
   'line_busy': {
     label: 'Line Busy',
     color: 'bg-gray-100 dark:bg-gray-900/30 text-gray-800 dark:text-gray-200'
   },
   'unreachable': {
     label: 'Unreachable',
-    color: 'bg-gray-100 dark:bg-gray-900/30 text-gray-800 dark:text-gray-200'
+    color: 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-200'
   }
 } as const;
 

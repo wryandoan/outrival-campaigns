@@ -25,16 +25,11 @@ export function ConversationContent({ content, contactName }: ConversationConten
     );
   }
 
-  // Filter out system messages and skip the first user message
-  const visibleMessages = messages
-    .filter(msg => msg.role !== 'system')
-    .reduce((acc: Message[], msg, index, array) => {
-      // Skip the first user message
-      if (index === 0 && msg.role === 'user') {
-        return acc;
-      }
-      return [...acc, msg];
-    }, []);
+  // Filter out system messages and the initial prompt
+  const visibleMessages = messages.filter(msg => 
+    msg.role !== 'system' && 
+    msg.content !== 'Proceed to the first step of the conversation flow.'
+  );
 
   return (
     <div>
@@ -43,13 +38,13 @@ export function ConversationContent({ content, contactName }: ConversationConten
         {visibleMessages.map((message, index) => (
           <div
             key={index}
-            className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+            className={`flex ${message.role === 'user' ? 'justify-start' : 'justify-end'}`}
           >
             <div
               className={`max-w-[80%] rounded-lg px-4 py-2 ${
-                message.role === 'user'
-                  ? 'bg-blue-100 dark:bg-dark-500 text-dark-300 dark:text-white-600'
-                  : 'bg-gray-100 dark:bg-dark-200 text-gray-800 dark:text-dark-400'
+                message.role === 'assistant'
+                  ? 'bg-gray-100 dark:bg-dark-200 text-gray-800 dark:text-dark-400'
+                  : 'bg-blue-100 dark:bg-dark-500 text-dark-300 dark:text-white-600'
               }`}
             >
               <div className="flex items-center gap-2 text-xs font-medium mb-1">
