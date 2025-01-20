@@ -12,7 +12,7 @@ interface CampaignConfigurationProps {
 }
 
 export function CampaignConfiguration({ campaign, onUpdate }: CampaignConfigurationProps) {
-  const { updateConfiguration, isUpdating, error } = useCampaignConfiguration({
+  const { updateConfiguration, publishToLive, isUpdating, error } = useCampaignConfiguration({
     campaign,
     onUpdate
   });
@@ -31,6 +31,17 @@ export function CampaignConfiguration({ campaign, onUpdate }: CampaignConfigurat
     }
   };
 
+  const handlePublishToLive = async () => {
+    try {
+      await publishToLive();
+    } catch (err) {
+      // Error is handled by the hook
+    }
+  };
+
+  // Determine if this is a live campaign (no parent campaign)
+  const isLiveCampaign = !campaign.parent_campaign;
+
   return (
     <div className="space-y-8">
       {error && <ErrorMessage message={error} />}
@@ -39,12 +50,14 @@ export function CampaignConfiguration({ campaign, onUpdate }: CampaignConfigurat
         scripts={campaign.configuration?.scripts}
         campaign={campaign}
         onUpdate={(scripts) => handleConfigUpdate({ scripts })}
-        disabled={isUpdating}
+        onPublish={handlePublishToLive}
+        disabled={isUpdating || isLiveCampaign}
       />
 
       <PhoneNumbersCard 
         campaign={campaign}
         onUpdate={onUpdate}
+        disabled={isLiveCampaign}
       />
     </div>
   );

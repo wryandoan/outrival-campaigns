@@ -8,7 +8,8 @@ interface ContactsTableRowProps {
   selected: boolean;
   onSelect: (checked: boolean) => void;
   onClick: () => void;
-  onStatusClick: (status: string, campaignUserId: string) => void;
+  onStatusClick: (status: string) => void;
+  canEdit: boolean;
 }
 
 export function ContactsTableRow({ 
@@ -16,29 +17,34 @@ export function ContactsTableRow({
   selected, 
   onSelect, 
   onClick,
-  onStatusClick 
+  onStatusClick,
+  canEdit
 }: ContactsTableRowProps) {
   const status = statusConfig[contact.contact_status as keyof typeof statusConfig];
 
   const handleRowClick = () => {
-    onSelect(!selected);
+    if (canEdit) {
+      onSelect(!selected);
+    }
   };
 
   return (
     <tr 
       onClick={handleRowClick}
-      className="hover:bg-gray-50 dark:hover:bg-dark-100 transition-colors cursor-pointer"
+      className={`hover:bg-gray-50 dark:hover:bg-dark-100 transition-colors ${canEdit ? 'cursor-pointer' : ''}`}
     >
-      <td className="w-12 pl-6 pr-0 py-4" onClick={(e) => e.stopPropagation()}>
-        <div className="flex items-center">
-          <input
-            type="checkbox"
-            checked={selected}
-            onChange={(e) => onSelect(e.target.checked)}
-            className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-          />
-        </div>
-      </td>
+      {canEdit && (
+        <td className="w-12 pl-6 pr-0 py-4" onClick={(e) => e.stopPropagation()}>
+          <div className="flex items-center">
+            <input
+              type="checkbox"
+              checked={selected}
+              onChange={(e) => onSelect(e.target.checked)}
+              className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+            />
+          </div>
+        </td>
+      )}
 
       <td className="w-1/3 px-6 py-4">
         <div>
@@ -58,7 +64,7 @@ export function ContactsTableRow({
         <button
           onClick={(e) => {
             e.stopPropagation();
-            onStatusClick(contact.contact_status, contact.id);
+            onStatusClick(contact.contact_status);
           }}
           className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${status?.color} hover:opacity-100 hover:shadow-md hover:scale-105 transition-all`}
         >

@@ -8,12 +8,14 @@ import { uploadContacts } from '../../services/contacts/upload';
 import type { Campaign } from '../../types';
 import type { ImportResult } from '../../types/import';
 import type { CampaignContact } from '../../services/contacts/types';
+import type { CampaignMemberRole } from '../../services/campaigns/members';
 
 interface CampaignContactsProps {
   campaign: Campaign;
+  userRole: CampaignMemberRole | 'owner' | null;
 }
 
-export function CampaignContacts({ campaign }: CampaignContactsProps) {
+export function CampaignContacts({ campaign, userRole }: CampaignContactsProps) {
   const [error, setError] = useState<string | null>(null);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
   const [importResult, setImportResult] = useState<ImportResult | null>(null);
@@ -59,6 +61,7 @@ export function CampaignContacts({ campaign }: CampaignContactsProps) {
         campaignId={campaign.campaign_id}
         refreshTrigger={refreshTrigger}
         onSelectContact={setSelectedContact}
+        userRole={userRole}
         uploadComponent={
           <CSVUploader
             campaignId={campaign.campaign_id}

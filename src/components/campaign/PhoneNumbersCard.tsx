@@ -7,9 +7,10 @@ import type { Campaign } from '../../types';
 interface PhoneNumbersCardProps {
   campaign: Campaign;
   onUpdate?: (campaign: Campaign) => void;
+  disabled?: boolean;
 }
 
-export function PhoneNumbersCard({ campaign, onUpdate }: PhoneNumbersCardProps) {
+export function PhoneNumbersCard({ campaign, onUpdate, disabled }: PhoneNumbersCardProps) {
   const [isEditingCnam, setIsEditingCnam] = useState(false);
   const [cnamValue, setCnamValue] = useState('');
   const { updatePhoneNumbers, isUpdating, error } = usePhoneNumbers({
@@ -44,6 +45,7 @@ export function PhoneNumbersCard({ campaign, onUpdate }: PhoneNumbersCardProps) 
   };
 
   const startEditingCnam = () => {
+    if (disabled) return;
     setCnamValue(cnam || '');
     setIsEditingCnam(true);
   };
@@ -70,25 +72,27 @@ export function PhoneNumbersCard({ campaign, onUpdate }: PhoneNumbersCardProps) 
           </div>
         </div>
 
-        {/* Backup Numbers */}
-        <div>
-          <h4 className="text-sm font-medium text-gray-700 dark:text-dark-600 mb-2">
-            Backup Numbers
-          </h4>
-          <div className="space-y-2">
-            {secondary.map((phone, index) => (
-              <div 
-                key={index}
-                className="flex items-center gap-2 p-3 bg-gray-50 dark:bg-dark-100 rounded-lg"
-              >
-                <Phone className="w-4 h-4 text-gray-400 dark:text-dark-400" />
-                <span className="text-gray-900 dark:text-dark-600">
-                  {phone.number}
-                </span>
-              </div>
-            ))}
+        {/* Backup Numbers - Only show if there are any */}
+        {secondary.length > 0 && (
+          <div>
+            <h4 className="text-sm font-medium text-gray-700 dark:text-dark-600 mb-2">
+              Backup Numbers
+            </h4>
+            <div className="space-y-2">
+              {secondary.map((phone, index) => (
+                <div 
+                  key={index}
+                  className="flex items-center gap-2 p-3 bg-gray-50 dark:bg-dark-100 rounded-lg"
+                >
+                  <Phone className="w-4 h-4 text-gray-400 dark:text-dark-400" />
+                  <span className="text-gray-900 dark:text-dark-600">
+                    {phone.number}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* CNAM */}
         <div>
@@ -129,12 +133,16 @@ export function PhoneNumbersCard({ campaign, onUpdate }: PhoneNumbersCardProps) 
           ) : (
             <div 
               onClick={startEditingCnam}
-              className="p-3 bg-gray-50 dark:bg-dark-100 rounded-lg flex items-center justify-between cursor-pointer hover:bg-gray-100 dark:hover:bg-dark-100"
+              className={`p-3 bg-gray-50 dark:bg-dark-100 rounded-lg flex items-center justify-between ${
+                disabled ? 'cursor-not-allowed' : 'cursor-pointer hover:bg-gray-100 dark:hover:bg-dark-100'
+              }`}
             >
               <span className="text-gray-900 dark:text-dark-600">
-                {cnam || ''}
+                {cnam || 'No caller ID set'}
               </span>
-              <Edit2 className="w-4 h-4 text-gray-500 dark:text-dark-400" />
+              {!disabled && (
+                <Edit2 className="w-4 h-4 text-gray-500 dark:text-dark-400" />
+              )}
             </div>
           )}
         </div>

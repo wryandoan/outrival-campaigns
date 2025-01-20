@@ -11,7 +11,9 @@ export async function getContactCampaigns(contactId: string): Promise<Campaign[]
         status,
         goal,
         start_date,
-        end_date
+        end_date,
+        parent_campaign,
+        child_campaign
       )
     `)
     .eq('contact_id', contactId);

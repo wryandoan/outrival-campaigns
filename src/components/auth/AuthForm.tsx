@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../lib/supabase/auth';
+import { acceptInvitation } from '../../services/invitations';
 import Logo from '../Logo';
 
 export function AuthForm() {
@@ -7,7 +8,18 @@ export function AuthForm() {
   const [password, setPassword] = useState('');
   const [isSignUp, setIsSignUp] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [inviteToken, setInviteToken] = useState<string | null>(null);
   const { signIn, signUp } = useAuth();
+
+  useEffect(() => {
+    // Check for invite token in URL
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get('invite');
+    if (token) {
+      setInviteToken(token);
+      setIsSignUp(true); // Force sign up mode for invites
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -16,11 +28,39 @@ export function AuthForm() {
     try {
       if (isSignUp) {
         await signUp(email, password);
+        
+        // If this was an invite, accept it after signup
+        if (inviteToken) {
+          const success = await acceptInvitation(inviteToken);
+          if (!success) {
+            setError('Failed to accept invitation. Please contact the campaign owner.');
+          }
+          // Remove invite token from URL after successful signup
+          window.history.replaceState({}, '', window.location.pathname);
+        }
       } else {
         await signIn(email, password);
+        // Remove invite token from URL after successful login
+        if (window.location.search.includes('invite=')) {
+          window.history.replaceState({}, '', window.location.pathname);
+        }
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
+      if (err instanceof Error) {
+        // If user exists during signup, suggest signing in
+        if (err.message.includes('already registered')) {
+          setError('This email is already registered. Please sign in instead.');
+          return;
+        }
+        // If invalid login, give a clear message
+        if (err.message.includes('Invalid login')) {
+          setError('Invalid email or password. Please try again.');
+          return;
+        }
+        setError(err.message);
+      } else {
+        setError('An error occurred. Please try again.');
+      }
     }
   };
 
@@ -30,8 +70,18 @@ export function AuthForm() {
         <div className="flex flex-col items-center">
           <Logo className="w-16 h-16 text-dark-600" />
           <h2 className="mt-6 text-center text-3xl font-extrabold text-dark-600">
-            {isSignUp ? 'Create your account' : 'Sign in to your account'}
+            {inviteToken 
+              ? 'Accept Campaign Invitation'
+              : isSignUp 
+                ? 'Create your account' 
+                : 'Sign in to your account'
+            }
           </h2>
+          {inviteToken && (
+            <p className="mt-2 text-center text-sm text-dark-400">
+              Create an account to join the campaign
+            </p>
+          )}
         </div>
 
         {error && (
@@ -79,15 +129,23 @@ export function AuthForm() {
             </button>
           </div>
 
-          <div className="text-sm text-center">
-            <button
-              type="button"
-              onClick={() => setIsSignUp(!isSignUp)}
-              className="font-medium text-dark-400 hover:text-dark-600"
-            >
-              {isSignUp ? 'Already have an account? Sign in' : "Don't have an account? Sign up"}
-            </button>
-          </div>
+          {!inviteToken && (
+            <div className="text-sm text-center">
+              <button
+                type="button"
+                onClick={() => {
+                  setIsSignUp(!isSignUp);
+                  setError(null);
+                }}
+                className="font-medium text-dark-400 hover:text-dark-600"
+              >
+                {isSignUp 
+                  ? 'Already have an account? Sign in' 
+                  : "Don't have an account? Sign up"
+                }
+              </button>
+            </div>
+          )}
         </form>
       </div>
     </div>

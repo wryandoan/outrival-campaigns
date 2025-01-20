@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Loader2 } from 'lucide-react';
 import { useForm } from '../hooks/useForm';
 
@@ -12,8 +12,16 @@ interface CampaignFormProps {
   error: string | null;
 }
 
+const loadingStates = [
+  "Creating new campaign",
+  "Optimizing conversation flows",
+  "Setting up phone numbers",
+  "Creating dashboards"
+];
+
 export function CampaignForm({ onSubmit, error }: CampaignFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [loadingStateIndex, setLoadingStateIndex] = useState(0);
   const { values, handleChange, handleSubmit: handleFormSubmit } = useForm<CampaignFormData>({
     initialValues: { name: '', goal: '' },
     onSubmit: async (data) => {
@@ -25,6 +33,19 @@ export function CampaignForm({ onSubmit, error }: CampaignFormProps) {
       }
     }
   });
+
+  // Rotate through loading states every 2 seconds
+  useEffect(() => {
+    if (!isSubmitting) return;
+
+    const interval = setInterval(() => {
+      setLoadingStateIndex((current) => 
+        current === loadingStates.length - 1 ? 0 : current + 1
+      );
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, [isSubmitting]);
 
   return (
     <div className="max-w-2xl mx-auto p-6">
@@ -79,7 +100,9 @@ export function CampaignForm({ onSubmit, error }: CampaignFormProps) {
           {isSubmitting ? (
             <>
               <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-              Creating Campaign...
+              <span className="min-w-[180px] transition-all duration-300">
+                {loadingStates[loadingStateIndex]}...
+              </span>
             </>
           ) : (
             'Create Campaign'

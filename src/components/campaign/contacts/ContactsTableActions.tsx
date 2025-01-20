@@ -9,6 +9,7 @@ interface ContactsTableActionsProps {
   onImport: () => void;
   isRemoving?: boolean;
   isCallInProgress?: boolean;
+  canEdit: boolean;
 }
 
 export function ContactsTableActions({
@@ -17,8 +18,11 @@ export function ContactsTableActions({
   onRemoveSelected,
   onImport,
   isRemoving,
-  isCallInProgress
+  isCallInProgress,
+  canEdit
 }: ContactsTableActionsProps) {
+  if (!canEdit) return null;
+
   return (
     <div className="flex gap-2 mb-4">
       <Button

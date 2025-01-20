@@ -12,19 +12,22 @@ import { RefreshCw } from 'lucide-react';
 import { useContactFilters } from './contacts/useContactFilters';
 import { removeContactsFromCampaign, removeContactsByPhoneNumbers } from '../../services/contacts/remove';
 import type { ImportResult } from '../../types/import';
+import type { CampaignMemberRole } from '../../services/campaigns/members';
 
 interface ContactsTableProps {
   campaignId: string;
   refreshTrigger: number;
   onSelectContact: (contact: CampaignContact) => void;
   uploadComponent: React.ReactNode;
+  userRole: CampaignMemberRole | 'owner' | null;
 }
 
 export function ContactsTable({ 
   campaignId, 
   refreshTrigger, 
   onSelectContact,
-  uploadComponent 
+  uploadComponent,
+  userRole
 }: ContactsTableProps) {
   const { contacts, loading, error, refresh, isRefreshing } = useContacts(campaignId, refreshTrigger);
   const { initiateCall, isCallInProgress, error: callError } = useCallQueue();
@@ -42,8 +45,11 @@ export function ContactsTable({
     filteredContacts
   } = useContactFilters(contacts);
 
+  // Check if user has edit permissions
+  const canEdit = userRole === 'owner' || userRole === 'editor' || userRole === 'admin';
+
   const handleCallSelected = async () => {
-    if (selectedContacts.size === 0) return;
+    if (selectedContacts.size === 0 || !canEdit) return;
 
     try {
       const selectedContactDetails = contacts.filter(
@@ -58,6 +64,8 @@ export function ContactsTable({
   };
 
   const handleRemoveSelected = async () => {
+    if (!canEdit) return;
+    
     if (selectedContacts.size === 0) {
       setShowRemovalUploader(true);
       return;
@@ -76,6 +84,8 @@ export function ContactsTable({
   };
 
   const handleRemovalUpload = async (result: ImportResult) => {
+    if (!canEdit) return;
+
     try {
       setIsRemoving(true);
       
@@ -126,10 +136,7 @@ export function ContactsTable({
           <h3 className="text-lg font-medium text-gray-900 dark:text-dark-600 mb-2">
             No contacts added yet
           </h3>
-          <p className="text-gray-600 dark:text-dark-400 mb-6">
-            Upload a CSV file to add contacts to your campaign
-          </p>
-          {uploadComponent}
+          {canEdit && uploadComponent}
         </div>
       </div>
     );
@@ -144,6 +151,7 @@ export function ContactsTable({
         onImport={() => setShowUploader(true)}
         isRemoving={isRemoving}
         isCallInProgress={isCallInProgress}
+        canEdit={canEdit}
       />
 
       <div className="mb-4 flex items-center gap-4">
@@ -173,23 +181,28 @@ export function ContactsTable({
           contacts={filteredContacts}
           selectedContacts={selectedContacts}
           onSelectAll={(checked) => {
-            setSelectedContacts(checked ? new Set(filteredContacts.map(c => c.contact_id)) : new Set())
+            if (canEdit) {
+              setSelectedContacts(checked ? new Set(filteredContacts.map(c => c.contact_id)) : new Set())
+            }
           }}
           onSelectContact={(contactId, checked) => {
-            const newSelected = new Set(selectedContacts);
-            if (checked) {
-              newSelected.add(contactId);
-            } else {
-              newSelected.delete(contactId);
+            if (canEdit) {
+              const newSelected = new Set(selectedContacts);
+              if (checked) {
+                newSelected.add(contactId);
+              } else {
+                newSelected.delete(contactId);
+              }
+              setSelectedContacts(newSelected);
             }
-            setSelectedContacts(newSelected);
           }}
           onContactClick={onSelectContact}
           onStatusClick={(status, contactId) => setSelectedStatus({ status, contactId })}
+          canEdit={canEdit}
         />
       </div>
 
-      {showUploader && (
+      {showUploader && canEdit && (
         <ImportModal onClose={() => setShowUploader(false)} title="Import Contacts To Add">
           {React.cloneElement(uploadComponent as React.ReactElement, {
             onSuccess: (result: ImportResult) => {
@@ -202,7 +215,7 @@ export function ContactsTable({
         </ImportModal>
       )}
 
-      {showRemovalUploader && (
+      {showRemovalUploader && canEdit && (
         <ImportModal onClose={() => setShowRemovalUploader(false)} title="Import Contacts To Remove">
           <ContactRemovalUploader
             campaignId={campaignId}

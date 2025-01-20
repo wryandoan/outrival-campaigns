@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { useStatusHistory } from '../../../hooks/useStatusHistory';
-import { statusConfig } from '../../../utils/status';
-import { getCampaignContactId } from '../../../services/contacts/campaign-contacts';
+import React, { useState, useEffect } from 'react';
 import { formatDistanceToNow } from 'date-fns';
+import { statusConfig } from '../../../utils/status';
+import { useStatusHistory } from '../../../hooks/useStatusHistory';
+import { getCampaignContactId } from '../../../services/contacts/campaign-contacts';
 import type { Campaign } from '../../../types';
 
-interface ContactCampaignsProps {
-  campaigns: Campaign[];
+interface CampaignStatusProps {
+  campaignId: string;
   contactId: string;
 }
 
-function CampaignStatus({ campaignId, contactId }: { campaignId: string; contactId: string }) {
+function CampaignStatus({ campaignId, contactId }: CampaignStatusProps) {
   const [campaignContactId, setCampaignContactId] = useState<string | null>(null);
   const { history, loading: historyLoading, error: historyError } = useStatusHistory(campaignContactId || '');
   const [loading, setLoading] = useState(true);
@@ -57,6 +57,11 @@ function CampaignStatus({ campaignId, contactId }: { campaignId: string; contact
   );
 }
 
+interface ContactCampaignsProps {
+  campaigns: Campaign[];
+  contactId: string;
+}
+
 export function ContactCampaigns({ campaigns, contactId }: ContactCampaignsProps) {
   return (
     <div className="bg-white dark:bg-dark-50 rounded-lg shadow-sm">
@@ -78,9 +83,20 @@ export function ContactCampaigns({ campaigns, contactId }: ContactCampaignsProps
               >
                 <div className="flex justify-between items-start gap-4">
                   <div className="min-w-0 flex-1">
-                    <h4 className="text-sm font-medium text-gray-900 dark:text-dark-600 truncate">
-                      {campaign.name}
-                    </h4>
+                    <div className="flex items-center gap-2">
+                      <h4 className="text-sm font-medium text-gray-900 dark:text-dark-600 truncate">
+                        {campaign.name}
+                      </h4>
+                      <div className={`
+                        px-2 py-0.5 text-xs font-medium rounded-full
+                        ${campaign.parent_campaign 
+                          ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-200'
+                          : 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200'
+                        }
+                      `}>
+                        {campaign.parent_campaign ? 'Test' : 'Live'}
+                      </div>
+                    </div>
                     <p className="mt-1 text-sm text-gray-500 dark:text-dark-400 line-clamp-2">
                       {campaign.goal}
                     </p>

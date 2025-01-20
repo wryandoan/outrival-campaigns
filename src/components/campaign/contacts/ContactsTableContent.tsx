@@ -10,6 +10,7 @@ interface ContactsTableContentProps {
   onSelectContact: (contactId: string, checked: boolean) => void;
   onContactClick: (contact: CampaignContact) => void;
   onStatusClick: (status: string, contactId: string) => void;
+  canEdit: boolean;
 }
 
 export function ContactsTableContent({
@@ -18,7 +19,8 @@ export function ContactsTableContent({
   onSelectAll,
   onSelectContact,
   onContactClick,
-  onStatusClick
+  onStatusClick,
+  canEdit
 }: ContactsTableContentProps) {
   return (
     <div className="h-full flex flex-col bg-white dark:bg-dark-50">
@@ -28,6 +30,7 @@ export function ContactsTableContent({
             onSelectAll={onSelectAll}
             allSelected={selectedContacts.size === contacts.length}
             someSelected={selectedContacts.size > 0 && selectedContacts.size < contacts.length}
+            canEdit={canEdit}
           />
         </table>
       </div>
@@ -42,6 +45,7 @@ export function ContactsTableContent({
                 onSelect={(checked) => onSelectContact(contact.contact_id, checked)}
                 onClick={() => onContactClick(contact)}
                 onStatusClick={(status) => onStatusClick(status, contact.id)}
+                canEdit={canEdit}
               />
             ))}
           </tbody>
