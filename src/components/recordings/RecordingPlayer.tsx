@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Play, Pause, Loader2 } from 'lucide-react';
+import { Play, Pause, Loader2, Download } from 'lucide-react';
 import { getRecordingLink } from '../../services/recordings/get-link';
 
 interface RecordingPlayerProps {
@@ -26,24 +26,28 @@ export function RecordingPlayer({ roomName, interactionId }: RecordingPlayerProp
       setIsPlaying(false);
       return;
     }
-
-    // Fetch recording URL if not already loaded
+  
     if (!recordingUrl && !loading) {
       try {
         setLoading(true);
         const url = await getRecordingLink(roomName, interactionId);
-        setRecordingUrl(url);
-        setError(null);
         
         if (url) {
-          audio.src = url;
+          // Buffer the audio before playing
+          const response = await fetch(url);
+          const blob = await response.blob();
+          const objectUrl = URL.createObjectURL(blob);
+          
+          audio.src = objectUrl;
+          setRecordingUrl(objectUrl);
           await audio.play();
           setIsPlaying(true);
+          setError(null);
         } else {
           setError('Recording not available');
         }
       } catch (err) {
-        setError('Failed to load recording');
+        setError(err instanceof Error ? err.message : 'Failed to load recording');
         console.error('Error loading recording:', err);
       } finally {
         setLoading(false);
@@ -51,6 +55,52 @@ export function RecordingPlayer({ roomName, interactionId }: RecordingPlayerProp
     } else if (recordingUrl) {
       await audio.play();
       setIsPlaying(true);
+    }
+  };
+
+  const handleDownload = async () => {
+    if (!recordingUrl && !loading) {
+      try {
+        setLoading(true);
+        const url = await getRecordingLink(roomName, interactionId);
+        
+        if (url) {
+          const response = await fetch(url);
+          if (!response.ok) throw new Error('Download failed');
+          
+          const blob = await response.blob();
+          const objectUrl = URL.createObjectURL(blob);
+          
+          setRecordingUrl(objectUrl);
+          await triggerDownload(objectUrl);
+          setError(null);
+        } else {
+          setError('Recording not available');
+        }
+      } catch (err) {
+        setError('Failed to download recording');
+        console.error('Error:', err);
+      } finally {
+        setLoading(false);
+      }
+    } else if (recordingUrl) {
+      await triggerDownload(recordingUrl);
+    }
+  };
+  
+  const triggerDownload = async (url: string) => {
+    try {
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `recording-${interactionId}.mp4`;
+      a.style.display = 'none';
+      document.body.appendChild(a);
+      a.click();
+      URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    } catch (err) {
+      setError('Download failed');
+      console.error('Download error:', err);
     }
   };
 
@@ -83,7 +133,18 @@ export function RecordingPlayer({ roomName, interactionId }: RecordingPlayerProp
 
   return (
     <div className="w-full bg-gray-50 dark:bg-dark-100 rounded-lg p-4">
-      <h4 className="text-sm font-medium text-gray-700 dark:text-dark-600 mb-3">Recording</h4>
+      <div className="flex items-center justify-between mb-3">
+        <h4 className="text-sm font-medium text-gray-700 dark:text-dark-600">Recording</h4>
+        <button
+          onClick={handleDownload}
+          disabled={loading}
+          className="p-2 hover:bg-gray-200 dark:hover:bg-dark-200 rounded-full transition-colors"
+          title="Download recording"
+        >
+          <Download className="w-4 h-4 text-gray-500 dark:text-dark-400" />
+        </button>
+      </div>
+
       <div className="flex items-center gap-4">
         <button
           onClick={handlePlayPause}
