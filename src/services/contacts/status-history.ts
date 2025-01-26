@@ -25,29 +25,3 @@ export async function getContactStatusHistory(campaignContactId: string): Promis
   if (error) throw error;
   return data || [];
 }
-
-export async function updateContactStatus(
-  campaignContactId: string,
-  status: string,
-  notes?: string
-): Promise<void> {
-  const { error: updateError } = await supabase
-    .from('campaign_contacts')
-    .update({ contact_status: status })
-    .eq('campaign_user_id', campaignContactId);
-
-  if (updateError) throw updateError;
-
-  if (notes) {
-    const { error: historyError } = await supabase
-      .from('contact_status_history')
-      .insert({
-        campaign_contact_id: campaignContactId,
-        contact_status: status,
-        notes,
-        changed_by: (await supabase.auth.getUser()).data.user?.id
-      });
-
-    if (historyError) throw historyError;
-  }
-}

@@ -1,162 +1,173 @@
-import { supabase } from '../../lib/supabase/client';
-import { generateCampaignConfiguration } from '../ai/generateCampaignConfiguration';
-import { generatePhoneNumbers } from '../numbers/generatePhoneNumbers';
+import { API_BASE_URL } from '../api';
 import type { Campaign, NewCampaign, CampaignUpdate } from './types';
+import { supabase } from '../../lib/supabase/client';
 
-export async function createCampaign(campaign: { name: string; goal: string }): Promise<Campaign> {
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) throw new Error('User not authenticated');
+interface CreateCampaignRequest {
+  name: string;
+  goal: string;
+  phone_region?: string;
+  phone_city?: string;
+  number_of_primary_numbers?: number;
+  number_of_test_numbers?: number;
+}
 
-  // Generate AI scripts and fetch phone numbers in parallel
-  const [configuration, phoneNumbers, testPhoneNumber] = await Promise.all([
-    generateCampaignConfiguration(campaign.goal),
-    generatePhoneNumbers(),
-    generatePhoneNumbers({
-      region: "FL",
-      city: "Miami",
-      count: 1
-    }),
-  ]);
+// Helper function to handle timeouts
+async function withTimeout<T>(promise: Promise<T>, timeoutMs: number = 90000): Promise<T> {
+  const timeoutPromise = new Promise<T>((_, reject) => {
+    setTimeout(() => reject(new Error('Request timed out')), timeoutMs);
+  });
+  return Promise.race([promise, timeoutPromise]);
+}
 
-  // First create the parent campaign
-  const { data: parentCampaign, error: parentError } = await supabase
-    .from('campaigns')
-    .insert([{
-      name: campaign.name,
-      goal: campaign.goal,
-      owner: user.id,
-      status: 'Active',
-      start_date: new Date().toISOString().split('T')[0],
-      configuration,
-      phone_numbers: phoneNumbers
-    }])
-    .select()
-    .single();
+// Helper to get auth token
+async function getAuthToken(): Promise<string> {
+  const { data: { session } } = await supabase.auth.getSession();
+  if (!session?.access_token) {
+    throw new Error('Not authenticated');
+  }
+  return session.access_token;
+}
 
-  if (parentError) throw parentError;
+export async function createCampaign(campaign: CreateCampaignRequest): Promise<Campaign> {
+  try {
+    console.log('[Campaigns] Creating campaign:', campaign.name);
+    
+    // Get auth token and user in parallel
+    const [token, { data: { user } }] = await Promise.all([
+      getAuthToken(),
+      supabase.auth.getUser()
+    ]);
+    
+    if (!user) throw new Error('User not authenticated');
 
-  // Then create the test campaign linked to the parent
-  const { data: testCampaign, error: testError } = await supabase
-    .from('campaigns')
-    .insert([{
-      name: campaign.name,
-      goal: campaign.goal,
-      owner: user.id,
-      status: 'Active',
-      start_date: new Date().toISOString().split('T')[0],
-      configuration,
-      phone_numbers: testPhoneNumber,
-      parent_campaign: parentCampaign.campaign_id // Link to parent campaign
-    }])
-    .select()
-    .single();
+    const response = await withTimeout(fetch(`${API_BASE_URL}/api/v1/campaigns`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        name: campaign.name,
+        goal: campaign.goal,
+        phone_region: campaign.phone_region || 'FL',
+        phone_city: campaign.phone_city || 'Miami',
+        number_of_primary_numbers: campaign.number_of_primary_numbers || 3,
+        number_of_test_numbers: campaign.number_of_test_numbers || 1,
+        user_id: user.id
+      })
+    }));
 
-  if (testError) throw testError;
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.detail || 'Failed to create campaign');
+    }
 
-  // Update parent campaign with child reference
-  const { error: updateError } = await supabase
-    .from('campaigns')
-    .update({ child_campaign: testCampaign.campaign_id })
-    .eq('campaign_id', parentCampaign.campaign_id);
-
-  if (updateError) throw updateError;
-
-  return parentCampaign;
+    return response.json();
+  } catch (error) {
+    console.error('[Campaigns] Error creating campaign:', error);
+    throw error;
+  }
 }
 
 export async function getCampaign(campaignId: string): Promise<Campaign> {
-  const { data, error } = await supabase
-    .from('campaigns')
-    .select('*')
-    .eq('campaign_id', campaignId)
-    .single();
+  try {
+    console.log('[Campaigns] Getting campaign:', campaignId);
+    const token = await getAuthToken();
 
-  if (error) throw error;
-  if (!data) throw new Error('Campaign not found');
+    const response = await withTimeout(fetch(`${API_BASE_URL}/api/v1/campaigns/${campaignId}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    }));
 
-  return data;
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.detail || 'Failed to get campaign');
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error('[Campaigns] Error getting campaign:', error);
+    throw error;
+  }
 }
 
 export async function getCampaigns(): Promise<Campaign[]> {
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) throw new Error('User not authenticated');
+  try {
+    console.log('[Campaigns] Getting all campaigns');
+    
+    // Get auth token and user in parallel
+    const [token, { data: { user } }] = await Promise.all([
+      getAuthToken(),
+      supabase.auth.getUser()
+    ]);
+    
+    if (!user) throw new Error('User not authenticated');
 
-  // First get all campaigns where user is a member
-  const { data: memberCampaigns, error: memberError } = await supabase
-    .from('campaign_members')
-    .select('campaign_id')
-    .eq('user_id', user.id);
+    const response = await withTimeout(fetch(
+      `${API_BASE_URL}/api/v1/campaigns?user_id=${user.id}`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+    }));
 
-  if (memberError) throw memberError;
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.detail || 'Failed to get campaigns');
+    }
 
-  // If user is a member of any campaigns, include those in the query
-  const campaignIds = memberCampaigns?.map(c => c.campaign_id) || [];
-  
-  if (campaignIds.length === 0) {
-    // If user isn't a member of any campaigns, just get owned campaigns
-    const { data, error } = await supabase
-      .from('campaigns')
-      .select('*')
-      .eq('owner', user.id)
-      .order('created_at', { ascending: false });
-
-    if (error) throw error;
+    const data = await response.json();
+    console.log('[Campaigns] Got campaigns:', data?.length || 0);
     return data || [];
+  } catch (error) {
+    console.error('[Campaigns] Error getting campaigns:', error);
+    throw error;
   }
-
-  // Get both owned campaigns and member campaigns
-  const { data, error } = await supabase
-    .from('campaigns')
-    .select('*')
-    .or(`owner.eq.${user.id},campaign_id.in.(${campaignIds.map(id => `"${id}"`).join(',')})`)
-    .order('created_at', { ascending: false });
-
-  if (error) throw error;
-  return data || [];
 }
 
 export async function updateCampaign(
   campaignId: string, 
   updates: Partial<CampaignUpdate>
 ): Promise<Campaign> {
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) throw new Error('User not authenticated');
+  try {
+    console.log('[Campaigns] Updating campaign:', campaignId);
+    const token = await getAuthToken();
 
-  const { data, error } = await supabase
-    .from('campaigns')
-    .update({ ...updates, updated_at: new Date().toISOString() })
-    .eq('campaign_id', campaignId)
-    .select()
-    .single();
+    const response = await withTimeout(fetch(`${API_BASE_URL}/api/v1/campaigns/${campaignId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(updates)
+    }));
 
-  if (error) throw error;
-  if (!data) throw new Error('Campaign not found or unauthorized');
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.detail || 'Failed to update campaign');
+    }
 
-  return data;
+    return response.json();
+  } catch (error) {
+    console.error('[Campaigns] Error updating campaign:', error);
+    throw error;
+  }
 }
 
-export async function deleteCampaign(campaignId: string): Promise<void> {
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) throw new Error('User not authenticated');
-
-  const { error } = await supabase
-    .from('campaigns')
-    .delete()
-    .eq('campaign_id', campaignId);
-
-  if (error) throw error;
+export async function launchCampaign(campaignId: string): Promise<Campaign> {
+  // Add 30 second timeout for launch
+  return withTimeout(
+    updateCampaign(campaignId, { status: 'Active' }),
+    90000
+  );
 }
 
-export async function updateCampaignStatus(
-  campaignId: string, 
-  status: 'Active' | 'Completed'
-): Promise<Campaign> {
-  return updateCampaign(campaignId, { status });
-}
-
-export async function completeCampaign(campaignId: string): Promise<Campaign> {
-  return updateCampaign(campaignId, { 
-    status: 'Completed',
-    end_date: new Date().toISOString().split('T')[0]
-  });
+export async function pauseCampaign(campaignId: string): Promise<Campaign> {
+  // Add 30 second timeout for pause
+  return withTimeout(
+    updateCampaign(campaignId, { status: 'Paused' }),
+    90000
+  );
 }

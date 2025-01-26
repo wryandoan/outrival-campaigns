@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useContacts } from './contacts/useContacts';
-import { useCallQueue } from '../../hooks/useCallQueue';
 import { ContactsTableActions } from './contacts/ContactsTableActions';
 import { ContactsTableContent } from './contacts/ContactsTableContent';
 import { ImportModal } from './contacts/ImportModal';
@@ -30,7 +29,6 @@ export function ContactsTable({
   userRole
 }: ContactsTableProps) {
   const { contacts, loading, error, refresh, isRefreshing } = useContacts(campaignId, refreshTrigger);
-  const { initiateCall, isCallInProgress, error: callError } = useCallQueue();
   const [selectedContacts, setSelectedContacts] = useState<Set<string>>(new Set());
   const [showUploader, setShowUploader] = useState(false);
   const [showRemovalUploader, setShowRemovalUploader] = useState(false);
@@ -47,21 +45,6 @@ export function ContactsTable({
 
   // Check if user has edit permissions
   const canEdit = userRole === 'owner' || userRole === 'editor' || userRole === 'admin';
-
-  const handleCallSelected = async () => {
-    if (selectedContacts.size === 0 || !canEdit) return;
-
-    try {
-      const selectedContactDetails = contacts.filter(
-        contact => selectedContacts.has(contact.contact_id)
-      );
-      await initiateCall(selectedContactDetails);
-      setSelectedContacts(new Set());
-      refresh();
-    } catch (err) {
-      console.error('Failed to initiate calls:', err);
-    }
-  };
 
   const handleRemoveSelected = async () => {
     if (!canEdit) return;
@@ -112,10 +95,10 @@ export function ContactsTable({
     return <div className="text-center py-4 text-gray-600 dark:text-dark-600">Loading contacts...</div>;
   }
 
-  if (error || callError) {
+  if (error) {
     return (
       <div className="p-4 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-md">
-        <p className="text-red-800 dark:text-red-200">{error || callError}</p>
+        <p className="text-red-800 dark:text-red-200">{error}</p>
       </div>
     );
   }
@@ -146,11 +129,9 @@ export function ContactsTable({
     <div className="flex flex-col h-[calc(100vh-12rem)]">
       <ContactsTableActions
         selectedCount={selectedContacts.size}
-        onCallSelected={handleCallSelected}
         onRemoveSelected={handleRemoveSelected}
         onImport={() => setShowUploader(true)}
         isRemoving={isRemoving}
-        isCallInProgress={isCallInProgress}
         canEdit={canEdit}
       />
 

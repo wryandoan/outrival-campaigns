@@ -14,7 +14,7 @@ export function Button({
   className = '', 
   ...props 
 }: ButtonProps) {
-  const baseStyles = "flex justify-center items-center py-2 px-4 rounded-lg text-sm font-medium transition-colors";
+  const baseStyles = "h-8 flex justify-center items-center px-4 rounded-lg text-sm font-medium transition-colors";
   
   const variants = {
     primary: "text-dark-600 bg-dark-100 hover:bg-dark-200 dark:bg-dark-100 dark:hover:bg-dark-400 focus:outline-none focus:ring-2 focus:ring-dark-200 dark:focus:ring-offset-dark-50",

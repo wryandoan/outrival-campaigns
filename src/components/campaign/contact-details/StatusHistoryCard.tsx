@@ -49,7 +49,7 @@ export function StatusHistoryCard({ entry }: StatusHistoryCardProps) {
         </div>
 
         {isExpanded && isFollowUpStatus && entry.notes && (
-          <FollowUpDetails notes={entry.notes} />
+          <FollowUpDetails notes={entry.notes} type={entry.contact_status} />
         )}
 
         {entry.notes && !isFollowUpStatus && (

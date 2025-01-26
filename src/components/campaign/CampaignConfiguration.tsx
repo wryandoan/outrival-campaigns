@@ -1,23 +1,25 @@
 import React from 'react';
 import { FunnelStages } from './FunnelStages';
-import { ScriptViewer } from './ScriptViewer';
+import { ConfigViewer } from './ConfigViewer';
 import { PhoneNumbersCard } from './PhoneNumbersCard';
 import { useCampaignConfiguration } from '../../hooks/useCampaignConfiguration';
 import { ErrorMessage } from '../ui/ErrorMessage';
 import type { Campaign } from '../../types';
+import type { CampaignConfiguration } from '../../types/config';
 
 interface CampaignConfigurationProps {
   campaign: Campaign;
   onUpdate?: (campaign: Campaign) => void;
+  disabled?: boolean;
 }
 
-export function CampaignConfiguration({ campaign, onUpdate }: CampaignConfigurationProps) {
+export function CampaignConfiguration({ campaign, onUpdate, disabled }: CampaignConfigurationProps) {
   const { updateConfiguration, publishToLive, isUpdating, error } = useCampaignConfiguration({
     campaign,
     onUpdate
   });
 
-  const handleConfigUpdate = async (updates: Partial<Campaign['configuration']>) => {
+  const handleConfigUpdate = async (updates: Partial<CampaignConfiguration>) => {
     if (!campaign.configuration) return;
 
     try {
@@ -46,10 +48,10 @@ export function CampaignConfiguration({ campaign, onUpdate }: CampaignConfigurat
     <div className="space-y-8">
       {error && <ErrorMessage message={error} />}
 
-      <ScriptViewer
-        scripts={campaign.configuration?.scripts}
+      <ConfigViewer
+        configuration={campaign.configuration}
         campaign={campaign}
-        onUpdate={(scripts) => handleConfigUpdate({ scripts })}
+        onUpdate={handleConfigUpdate}
         onPublish={handlePublishToLive}
         disabled={isUpdating || isLiveCampaign}
       />

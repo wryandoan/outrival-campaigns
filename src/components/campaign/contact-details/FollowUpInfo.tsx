@@ -6,11 +6,13 @@ interface FollowUpInfoProps {
   followupDetails: {
     type: 'call' | 'sms';
     time: string;
+    isReattempt: boolean; 
   };
 }
 
 export function FollowUpInfo({ followupDetails }: FollowUpInfoProps) {
   const Icon = followupDetails.type === 'call' ? PhoneOutgoing : MessageSquare;
+  const actionText = followupDetails.isReattempt ? 'Re-attempt' : 'Follow-up';
 
   return (
     <div className="space-y-2">
@@ -20,7 +22,7 @@ export function FollowUpInfo({ followupDetails }: FollowUpInfoProps) {
           <div className="flex items-center gap-2">
             <Icon className="w-4 h-4 text-gray-400 dark:text-dark-400" />
             <p className="text-sm font-medium text-gray-700 dark:text-dark-600">
-              {`Follow-up ${followupDetails.type} scheduled for:`}
+              {`${actionText} ${followupDetails.type} scheduled for:`}
             </p>
           </div>
           <p className="text-sm text-gray-600 dark:text-dark-400">
