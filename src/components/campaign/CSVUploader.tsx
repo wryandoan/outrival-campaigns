@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { Upload } from 'lucide-react';
 import { processCSVImport } from '../../services/contacts/process-import';
 import { uploadContacts } from '../../services/contacts/upload';
-import { checkExistingSystemContacts, checkExistingCampaignContacts, categorizeContacts } from '../../services/contacts/preview';
+import { previewContactImport } from '../../services/contacts/preview';
 import { parseCSV } from '../../utils/csv/parser';
 import { CSVMappingStep } from '../csv/CSVMappingStep';
 import { ImportSummary } from './ImportSummary';
@@ -24,34 +24,28 @@ export function CSVUploader({ campaignId, onError, onSuccess }: CSVUploaderProps
     if (!csvData) return;
 
     try {
+      // Process CSV and get initial results including errors
       const result = processCSVImport(csvData, mapping);
       
-      if (result.contacts.length === 0) {
-        onError('No valid contacts found in the file');
+      if (result.contacts.length === 0 && result.failed === 0) {
+        onError('No valid contacts found in the CSV file');
         return;
       }
 
-      // Check existing contacts
-      const phoneNumbers = result.contacts.map(c => c.phone_number);
-      const [existingSystem, existingCampaign] = await Promise.all([
-        checkExistingSystemContacts(phoneNumbers),
-        checkExistingCampaignContacts(campaignId, phoneNumbers)
-      ]);
+      console.log("Processed contacts:", result.contacts);
 
-      // Categorize contacts
-      const categorized = categorizeContacts(
-        result.contacts,
-        existingSystem,
-        existingCampaign
-      );
+      // Get preview from backend
+      const preview = await previewContactImport(campaignId, result.contacts);
+      
+      console.log("Preview response:", preview);
 
       setImportPreview({
         ...result,
-        contacts: categorized.toImport,
-        successful: categorized.toImport.length,
-        existing: categorized.inSystem.length,
-        inCampaign: categorized.inCampaign,
-        inSystem: categorized.inSystem
+        contacts: preview.to_import,
+        successful: preview.to_import.length,
+        existing: preview.in_system.length,
+        inCampaign: preview.in_campaign,
+        inSystem: preview.in_system
       });
     } catch (err) {
       onError(err instanceof Error ? err.message : 'Failed to process file');
@@ -76,7 +70,7 @@ export function CSVUploader({ campaignId, onError, onSuccess }: CSVUploaderProps
 
     try {
       const text = await file.text();
-      const parsedData = parseCSV(text, fileType as 'csv' | 'xlsx');
+      const parsedData = parseCSV(text);
       setCSVData(parsedData);
     } catch (err) {
       onError('Failed to read file');

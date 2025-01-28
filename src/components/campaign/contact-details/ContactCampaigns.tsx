@@ -12,29 +12,59 @@ interface CampaignStatusProps {
 
 function CampaignStatus({ campaignId, contactId }: CampaignStatusProps) {
   const [campaignContactId, setCampaignContactId] = useState<string | null>(null);
-  const { history, loading: historyLoading, error: historyError } = useStatusHistory(campaignContactId || '');
-  const [loading, setLoading] = useState(true);
+  const [fetchError, setFetchError] = useState<Error | null>(null);
+  const [isFetching, setIsFetching] = useState(true);
+
+  // Only call useStatusHistory when we have a valid campaignContactId
+  const { 
+    history: statusHistory, 
+    loading: statusLoading, 
+    error: statusError 
+  } = useStatusHistory(campaignContactId);
 
   useEffect(() => {
+    let mounted = true;
+
     async function fetchCampaignContactId() {
+      setIsFetching(true);
+      setFetchError(null);
+      
       try {
+        console.log('[CampaignStatus] Fetching campaign contact ID:', { campaignId, contactId });
         const id = await getCampaignContactId(campaignId, contactId);
-        setCampaignContactId(id);
+        
+        // Only update state if component is still mounted
+        if (mounted) {
+          console.log('[CampaignStatus] Got campaign contact ID:', id);
+          setCampaignContactId(id);
+        }
       } catch (err) {
-        console.error('Error fetching campaign contact ID:', err);
+        if (mounted) {
+          console.error('[CampaignStatus] Error fetching campaign contact ID:', err);
+          setFetchError(err instanceof Error ? err : new Error('Failed to fetch campaign contact ID'));
+        }
       } finally {
-        setLoading(false);
+        if (mounted) {
+          setIsFetching(false);
+        }
       }
     }
 
     fetchCampaignContactId();
+
+    // Cleanup function to prevent setting state on unmounted component
+    return () => {
+      mounted = false;
+    };
   }, [campaignId, contactId]);
 
-  if (loading || historyLoading) {
+  // Show loading state while either fetching the ID or loading status history
+  if (isFetching || (campaignContactId && statusLoading)) {
     return <div className="animate-pulse h-6 w-20 bg-gray-200 dark:bg-dark-200 rounded"></div>;
   }
 
-  if (historyError || !history.length || !campaignContactId) {
+  // Show default state if there's an error or no status history
+  if (fetchError || statusError || !campaignContactId || !statusHistory.length) {
     return (
       <span className={`px-2 py-1 text-xs font-medium rounded-full ${statusConfig.awaiting_contact.color}`}>
         {statusConfig.awaiting_contact.label}
@@ -42,7 +72,7 @@ function CampaignStatus({ campaignId, contactId }: CampaignStatusProps) {
     );
   }
 
-  const latestStatus = history[0];
+  const latestStatus = statusHistory[0];
   const statusDetails = statusConfig[latestStatus.contact_status as keyof typeof statusConfig];
 
   return (

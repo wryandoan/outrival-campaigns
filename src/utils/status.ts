@@ -1,3 +1,15 @@
+export const ALL_CONTACT_STATUSES = [
+  'awaiting_contact',
+  'awaiting_reattempt',
+  'awaiting_followup',
+  'completed',
+  'do_not_contact',
+  'failed',
+  'in_progress'
+] as const;
+
+export type ContactStatus = typeof ALL_CONTACT_STATUSES[number];
+
 export const statusConfig = {
   'awaiting_contact': {
     label: 'Awaiting Contact',

@@ -1,4 +1,4 @@
-import type { FieldMapping, PersonalizationField } from '../../types/import';
+import type { FieldMapping } from '../../types/import';
 import { validateAndFormatPhone } from '../phone/formatter';
 
 interface ValidationError {
@@ -24,16 +24,13 @@ export function validateContact(
     throw new Error('Row is missing required columns');
   }
 
-  const firstName = values[firstNameIndex].trim();
-  const lastName = values[lastNameIndex].trim();
-  const rawPhone = values[phoneIndex].trim();
+  const firstName = values[firstNameIndex]?.trim() || '';
+  const lastName = values[lastNameIndex]?.trim() || '';
+  const rawPhone = values[phoneIndex]?.trim() || '';
 
   // Validate name fields
-  if (!firstName) {
-    errors.push({ field: 'firstName', message: 'First name is required' });
-  }
-  if (!lastName) {
-    errors.push({ field: 'lastName', message: 'Last name is required' });
+  if (!firstName && !lastName) {
+    errors.push({ field: 'name', message: 'At least one name field is required' });
   }
 
   // Validate phone

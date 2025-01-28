@@ -1,54 +1,45 @@
-import { supabase } from '../../lib/supabase/client';
+import { API_BASE_URL } from '../api';
+import { getAuthToken } from '../api';
 import type { ImportContact } from '../../types/import';
 
-export async function checkExistingSystemContacts(phoneNumbers: string[]) {
-  const { data, error } = await supabase
-    .from('contacts')
-    .select('phone_number')
-    .in('phone_number', phoneNumbers);
-
-  if (error) throw error;
-  return new Set(data?.map(c => c.phone_number) || []);
+interface ImportPreview {
+  to_import: ImportContact[];
+  in_system: ImportContact[];
+  in_campaign: ImportContact[];
 }
 
-export async function checkExistingCampaignContacts(
+export async function previewContactImport(
   campaignId: string,
-  phoneNumbers: string[]
-) {
-  const { data, error } = await supabase
-    .from('campaign_contacts')
-    .select(`
-      contact_id,
-      contacts!inner (
-        phone_number
-      )
-    `)
-    .eq('campaign_id', campaignId)
-    .in('contacts.phone_number', phoneNumbers);
+  contacts: ImportContact[]
+): Promise<ImportPreview> {
+  try {
+    const token = await getAuthToken();
+    const response = await fetch(
+      `${API_BASE_URL}/api/v1/campaigns/${campaignId}/contacts/preview`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ contacts })
+      }
+    );
 
-  if (error) throw error;
-  
-  // Extract phone numbers from the joined data
-  return new Set(data?.map(row => row.contacts.phone_number) || []);
-}
-
-export function categorizeContacts(
-  contacts: ImportContact[],
-  existingSystem: Set<string>,
-  existingCampaign: Set<string>
-) {
-  return contacts.reduce((acc, contact) => {
-    if (existingCampaign.has(contact.phone_number)) {
-      acc.inCampaign.push(contact);
-    } else if (existingSystem.has(contact.phone_number)) {
-      acc.inSystem.push(contact);
-    } else {
-      acc.toImport.push(contact);
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.detail || 'Failed to preview contacts');
     }
-    return acc;
-  }, {
-    toImport: [] as ImportContact[],
-    inSystem: [] as ImportContact[],
-    inCampaign: [] as ImportContact[]
-  });
+
+    const data: ImportPreview = await response.json();
+    
+    return {
+      to_import: data.to_import || [],
+      in_system: data.in_system || [],
+      in_campaign: data.in_campaign || []
+    };
+  } catch (error) {
+    console.error('Error previewing contacts:', error);
+    throw error;
+  }
 }

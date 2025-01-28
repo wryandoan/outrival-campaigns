@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useContacts } from './contacts/useContacts';
+import { useContacts } from '../../hooks/useContacts';
 import { ContactsTableActions } from './contacts/ContactsTableActions';
 import { ContactsTableContent } from './contacts/ContactsTableContent';
 import { ImportModal } from './contacts/ImportModal';
@@ -7,11 +7,11 @@ import { ContactStatusDetails } from './ContactStatusDetails';
 import { ContactRemovalUploader } from './contacts/ContactRemovalUploader';
 import { SearchBar } from './contacts/SearchBar';
 import { StatusFilter } from './contacts/StatusFilter';
-import { RefreshCw } from 'lucide-react';
-import { useContactFilters } from './contacts/useContactFilters';
+import { RefreshCw, ChevronLeft, ChevronRight } from 'lucide-react';
 import { removeContactsFromCampaign, removeContactsByPhoneNumbers } from '../../services/contacts/remove';
 import type { ImportResult } from '../../types/import';
 import type { CampaignMemberRole } from '../../services/campaigns/members';
+import type { CampaignContact } from '../../services/contacts/types';
 
 interface ContactsTableProps {
   campaignId: string;
@@ -21,6 +21,11 @@ interface ContactsTableProps {
   userRole: CampaignMemberRole | 'owner' | null;
 }
 
+interface SelectedStatus {
+  status: string;
+  contactId: string;
+}
+
 export function ContactsTable({ 
   campaignId, 
   refreshTrigger, 
@@ -28,23 +33,44 @@ export function ContactsTable({
   uploadComponent,
   userRole
 }: ContactsTableProps) {
-  const { contacts, loading, error, refresh, isRefreshing } = useContacts(campaignId, refreshTrigger);
+  console.log('[ContactsTable] Rendering:', { campaignId, refreshTrigger });
+
+  const { 
+    contacts, 
+    loading, 
+    error, 
+    refresh, 
+    isRefreshing,
+    pagination,
+    filters,
+    updateFilters
+  } = useContacts(campaignId, refreshTrigger);
+
+  console.log('[ContactsTable] Contact data:', {
+    contactsCount: contacts?.length,
+    loading,
+    error,
+    pagination,
+    filters
+  });
+
   const [selectedContacts, setSelectedContacts] = useState<Set<string>>(new Set());
   const [showUploader, setShowUploader] = useState(false);
   const [showRemovalUploader, setShowRemovalUploader] = useState(false);
-  const [selectedStatus, setSelectedStatus] = useState<{ status: string; contactId: string } | null>(null);
+  const [selectedStatus, setSelectedStatus] = useState<SelectedStatus | null>(null);
   const [isRemoving, setIsRemoving] = useState(false);
-
-  const {
-    searchTerm,
-    setSearchTerm,
-    statusFilter,
-    setStatusFilter,
-    filteredContacts
-  } = useContactFilters(contacts);
 
   // Check if user has edit permissions
   const canEdit = userRole === 'owner' || userRole === 'editor' || userRole === 'admin';
+
+  const handleStatusClick = (status: string, contactId: string) => {
+    console.log('[ContactsTable] Status clicked, setting selected status:', { status, contactId });
+    if (contactId) {
+      setSelectedStatus({ status, contactId });
+    } else {
+      console.error('[ContactsTable] No contact ID provided for status click');
+    }
+  };
 
   const handleRemoveSelected = async () => {
     if (!canEdit) return;
@@ -73,7 +99,7 @@ export function ContactsTable({
       setIsRemoving(true);
       
       if (result.removeOthers && result.toRemoveIfEnabled) {
-        const contactIdsToRemove = result.toRemoveIfEnabled.map(c => c.contact_id);
+        const contactIdsToRemove = result.toRemoveIfEnabled.map(c => c.campaign_user_id);
         if (contactIdsToRemove.length > 0) {
           await removeContactsFromCampaign(campaignId, contactIdsToRemove);
         }
@@ -92,7 +118,14 @@ export function ContactsTable({
   };
 
   if (loading) {
-    return <div className="text-center py-4 text-gray-600 dark:text-dark-600">Loading contacts...</div>;
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="animate-pulse space-y-4">
+          <div className="h-4 bg-gray-200 dark:bg-dark-200 rounded w-48"></div>
+          <div className="h-4 bg-gray-200 dark:bg-dark-200 rounded w-32"></div>
+        </div>
+      </div>
+    );
   }
 
   if (error) {
@@ -104,24 +137,15 @@ export function ContactsTable({
   }
 
   if (selectedStatus) {
+    console.log('[ContactsTable] Rendering ContactStatusDetails with:', selectedStatus);
     return (
       <ContactStatusDetails
         contactId={selectedStatus.contactId}
-        onBack={() => setSelectedStatus(null)}
+        onBack={() => {
+          console.log('[ContactsTable] Back clicked, clearing selected status');
+          setSelectedStatus(null);
+        }}
       />
-    );
-  }
-
-  if (contacts.length === 0) {
-    return (
-      <div className="bg-white dark:bg-dark-50 rounded-lg shadow-sm p-8">
-        <div className="text-center">
-          <h3 className="text-lg font-medium text-gray-900 dark:text-dark-600 mb-2">
-            No contacts added yet
-          </h3>
-          {canEdit && uploadComponent}
-        </div>
-      </div>
     );
   }
 
@@ -136,10 +160,13 @@ export function ContactsTable({
       />
 
       <div className="mb-4 flex items-center gap-4">
-        <SearchBar value={searchTerm} onChange={setSearchTerm} />
+        <SearchBar 
+          value={filters.search} 
+          onChange={(value) => updateFilters({ search: value })} 
+        />
         <StatusFilter 
-          value={statusFilter} 
-          onChange={setStatusFilter}
+          value={filters.status} 
+          onChange={(value) => updateFilters({ status: value })}
           contacts={contacts}
         />
         <button
@@ -157,15 +184,10 @@ export function ContactsTable({
         </button>
       </div>
 
-      <div className="flex-1 overflow-hidden rounded-lg">
+      <div className="flex-1 overflow-hidden rounded-lg bg-white dark:bg-dark-50 shadow-sm">
         <ContactsTableContent
-          contacts={filteredContacts}
+          contacts={contacts}
           selectedContacts={selectedContacts}
-          onSelectAll={(checked) => {
-            if (canEdit) {
-              setSelectedContacts(checked ? new Set(filteredContacts.map(c => c.contact_id)) : new Set())
-            }
-          }}
           onSelectContact={(contactId, checked) => {
             if (canEdit) {
               const newSelected = new Set(selectedContacts);
@@ -178,10 +200,63 @@ export function ContactsTable({
             }
           }}
           onContactClick={onSelectContact}
-          onStatusClick={(status, contactId) => setSelectedStatus({ status, contactId })}
+          onStatusClick={handleStatusClick}
           canEdit={canEdit}
         />
+
+        {contacts.length === 0 && (
+          <div className="flex flex-col items-center justify-center p-8 text-center">
+            <p className="text-gray-500 dark:text-dark-400 mb-4">
+              No contacts found
+            </p>
+            {canEdit && (
+              <div className="max-w-sm">
+                {uploadComponent}
+              </div>
+            )}
+          </div>
+        )}
       </div>
+
+      {pagination && pagination.totalPages > 0 && (
+        <div className="mt-4 flex items-center justify-between px-4 py-3 bg-white dark:bg-dark-50 border-t border-gray-200 dark:border-dark-200">
+          <div className="flex items-center">
+            <p className="text-sm text-gray-700 dark:text-dark-400">
+              Showing{' '}
+              <span className="font-medium">
+                {((pagination.page - 1) * pagination.pageSize) + 1}
+              </span>
+              {' '}-{' '}
+              <span className="font-medium">
+                {Math.min(pagination.page * pagination.pageSize, pagination.totalCount)}
+              </span>
+              {' '}of{' '}
+              <span className="font-medium">{pagination.totalCount}</span>
+              {' '}results
+            </p>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => pagination.changePage(pagination.page - 1)}
+              disabled={pagination.page <= 1}
+              className="p-2 rounded-lg border border-gray-300 dark:border-dark-300 disabled:opacity-50"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <span className="text-sm text-gray-700 dark:text-dark-400">
+              Page {pagination.page} of {pagination.totalPages}
+            </span>
+            <button
+              onClick={() => pagination.changePage(pagination.page + 1)}
+              disabled={pagination.page >= pagination.totalPages}
+              className="p-2 rounded-lg border border-gray-300 dark:border-dark-300 disabled:opacity-50"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+      )}
 
       {showUploader && canEdit && (
         <ImportModal onClose={() => setShowUploader(false)} title="Import Contacts To Add">

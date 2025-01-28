@@ -1,5 +1,6 @@
 import React from 'react';
 import { Filter } from 'lucide-react';
+import { ALL_CONTACT_STATUSES, statusConfig } from '../../../utils/status';
 import type { CampaignContact } from '../../../services/contacts/types';
 
 interface StatusFilterProps {
@@ -9,8 +10,6 @@ interface StatusFilterProps {
 }
 
 export function StatusFilter({ value, onChange, contacts }: StatusFilterProps) {
-  const uniqueStatuses = Array.from(new Set(contacts.map(c => c.contact_status)));
-
   return (
     <div className="relative">
       <select
@@ -19,9 +18,9 @@ export function StatusFilter({ value, onChange, contacts }: StatusFilterProps) {
         className="appearance-none pl-10 pr-8 py-2 rounded-lg border border-gray-300 dark:border-dark-300 bg-white dark:bg-dark-50 text-gray-900 dark:text-dark-600"
       >
         <option value="all">All Statuses</option>
-        {uniqueStatuses.map(status => (
+        {ALL_CONTACT_STATUSES.map(status => (
           <option key={status} value={status}>
-            {status.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+            {statusConfig[status].label}
           </option>
         ))}
       </select>

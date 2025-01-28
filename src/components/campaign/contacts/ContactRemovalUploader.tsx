@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { Upload } from 'lucide-react';
 import { processCSVImport } from '../../../services/contacts/process-import';
-import { checkExistingCampaignContacts } from '../../../services/contacts/preview';
+import { previewContactImport } from '../../../services/contacts/preview';
 import { getCampaignContacts } from '../../../services/contacts/campaign-contacts';
 import { RemovalSummary } from './RemovalSummary';
 import { CSVMappingStep } from '../../csv/CSVMappingStep';
@@ -26,7 +26,7 @@ export function ContactRemovalUploader({ campaignId, onError, onSuccess }: Conta
 
     try {
       // Process CSV and get initial results including errors
-      const result = processCSVImport(csvData, mapping);
+      const result = await processCSVImport(csvData, mapping);
       
       if (result.contacts.length === 0 && result.failed === 0) {
         onError('No valid contacts found in the CSV file');
@@ -36,20 +36,26 @@ export function ContactRemovalUploader({ campaignId, onError, onSuccess }: Conta
       // Get phone numbers from valid contacts
       const csvPhoneNumbers = new Set(result.contacts.map(c => c.phone_number));
       
-      // Check which contacts exist in the campaign
-      const existingInCampaign = await checkExistingCampaignContacts(campaignId, Array.from(csvPhoneNumbers));
+      // Get preview of contacts to be removed
+      const previewResult = await previewContactImport(campaignId, result.contacts);
       
       // Get all campaign contacts if removing others
-      const allCampaignContacts = await getCampaignContacts(campaignId);
-      const toRemoveIfEnabled = allCampaignContacts.filter(c => !csvPhoneNumbers.has(c.phone_number));
+      const campaignContacts = await getCampaignContacts(campaignId);
+      
+      // Filter contacts not in CSV
+      const toRemoveIfEnabled = removeOthers ? campaignContacts.data.filter(contact => {
+        return contact.phone_number && !csvPhoneNumbers.has(contact.phone_number);
+      }) : [];
 
       // Find contacts that exist in CSV but not in campaign
-      const notInCampaign = result.contacts.filter(c => !existingInCampaign.has(c.phone_number));
+      const notInCampaign = result.contacts.filter(c => {
+        return !previewResult.in_campaign.some(ic => ic.phone_number === c.phone_number);
+      });
 
       setRemovalPreview({
         ...result,
-        contacts: result.contacts.filter(c => existingInCampaign.has(c.phone_number)),
-        successful: existingInCampaign.size,
+        contacts: previewResult.in_campaign,
+        successful: previewResult.in_campaign.length,
         existing: 0,
         notInCampaign,
         toRemoveIfEnabled,

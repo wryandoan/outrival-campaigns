@@ -1,4 +1,5 @@
 import { API_BASE_URL } from '../api';
+import { getAuthToken } from '../api';
 import type { Campaign, NewCampaign, CampaignUpdate } from './types';
 import { supabase } from '../../lib/supabase/client';
 
@@ -19,22 +20,13 @@ async function withTimeout<T>(promise: Promise<T>, timeoutMs: number = 90000): P
   return Promise.race([promise, timeoutPromise]);
 }
 
-// Helper to get auth token
-async function getAuthToken(): Promise<string> {
-  const { data: { session } } = await supabase.auth.getSession();
-  if (!session?.access_token) {
-    throw new Error('Not authenticated');
-  }
-  return session.access_token;
-}
-
 export async function createCampaign(campaign: CreateCampaignRequest): Promise<Campaign> {
   try {
     console.log('[Campaigns] Creating campaign:', campaign.name);
     
     // Get auth token and user in parallel
     const [token, { data: { user } }] = await Promise.all([
-      getAuthToken(),
+      await getAuthToken(),
       supabase.auth.getUser()
     ]);
     
@@ -99,7 +91,7 @@ export async function getCampaigns(): Promise<Campaign[]> {
     
     // Get auth token and user in parallel
     const [token, { data: { user } }] = await Promise.all([
-      getAuthToken(),
+      await getAuthToken(),
       supabase.auth.getUser()
     ]);
     
@@ -154,20 +146,12 @@ export async function updateCampaign(
     console.error('[Campaigns] Error updating campaign:', error);
     throw error;
   }
-}
 
+}
 export async function launchCampaign(campaignId: string): Promise<Campaign> {
-  // Add 30 second timeout for launch
-  return withTimeout(
-    updateCampaign(campaignId, { status: 'Active' }),
-    90000
-  );
+  return updateCampaign(campaignId, { status: 'Active' });
 }
 
 export async function pauseCampaign(campaignId: string): Promise<Campaign> {
-  // Add 30 second timeout for pause
-  return withTimeout(
-    updateCampaign(campaignId, { status: 'Paused' }),
-    90000
-  );
+  return updateCampaign(campaignId, { status: 'Paused' });
 }

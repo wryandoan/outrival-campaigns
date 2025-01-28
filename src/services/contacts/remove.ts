@@ -1,79 +1,67 @@
-import { supabase } from '../../lib/supabase/client';
+import { API_BASE_URL } from '../api';
+import { getAuthToken } from '../api';
 
 interface RemoveContactsResult {
-  removedFromCampaign: number;
-  deletedContacts: number;
+  removed_from_campaign: number;
+  deleted_contacts: number;
 }
 
 export async function removeContactsFromCampaign(
   campaignId: string,
   contactIds: string[]
 ): Promise<RemoveContactsResult> {
-  // First remove contacts from the campaign
-  const { error: removeError, count: removedCount } = await supabase
-    .from('campaign_contacts')
-    .delete()
-    .eq('campaign_id', campaignId)
-    .in('contact_id', contactIds);
+  try {
+    const token = await getAuthToken();
+    const response = await fetch(
+      `${API_BASE_URL}/api/v1/campaigns/${campaignId}/contacts`,
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ contact_ids: contactIds })
+      }
+    );
 
-  if (removeError) throw removeError;
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.detail || 'Failed to remove contacts');
+    }
 
-  // For each contact, check if they're in any other campaigns
-  const { data: remainingCampaigns, error: checkError } = await supabase
-    .from('campaign_contacts')
-    .select('contact_id')
-    .in('contact_id', contactIds);
-
-  if (checkError) throw checkError;
-
-  // Get contacts that aren't in any other campaigns
-  const contactsToDelete = contactIds.filter(id => 
-    !remainingCampaigns?.some(c => c.contact_id === id)
-  );
-
-  // Delete contacts that aren't in any other campaigns
-  if (contactsToDelete.length > 0) {
-    const { error: deleteError, count: deletedCount } = await supabase
-      .from('contacts')
-      .delete()
-      .in('id', contactsToDelete);
-
-    if (deleteError) throw deleteError;
-
-    return {
-      removedFromCampaign: removedCount || 0,
-      deletedContacts: deletedCount || 0
-    };
+    return await response.json();
+  } catch (error) {
+    console.error('Error removing contacts:', error);
+    throw error;
   }
-
-  return {
-    removedFromCampaign: removedCount || 0,
-    deletedContacts: 0
-  };
 }
 
 export async function removeContactsByPhoneNumbers(
   campaignId: string,
   phoneNumbers: string[]
 ): Promise<RemoveContactsResult> {
-  // First get contact IDs from phone numbers
-  const { data: contacts, error: lookupError } = await supabase
-    .from('contacts')
-    .select('id')
-    .in('phone_number', phoneNumbers);
+  try {
+    const token = await getAuthToken();
+    const response = await fetch(
+      `${API_BASE_URL}/api/v1/campaigns/${campaignId}/contacts/by-phone`,
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ phone_numbers: phoneNumbers })
+      }
+    );
 
-  if (lookupError) throw lookupError;
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.detail || 'Failed to remove contacts');
+    }
 
-  if (!contacts || contacts.length === 0) {
-    return {
-      removedFromCampaign: 0,
-      deletedContacts: 0
-    };
+    return await response.json();
+  } catch (error) {
+    console.error('Error removing contacts by phone:', error);
+    throw error;
   }
-
-  // Remove contacts using their IDs
-  return removeContactsFromCampaign(
-    campaignId,
-    contacts.map(c => c.id)
-  );
 }

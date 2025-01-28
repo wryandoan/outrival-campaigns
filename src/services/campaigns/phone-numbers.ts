@@ -1,19 +1,35 @@
-import { supabase } from '../../lib/supabase/client';
-import type { Campaign } from '../../types';
+import { API_BASE_URL } from '../api';
+import type { Campaign } from './types';
+import { getAuthToken } from '../api';
 
 export async function updateCampaignPhoneNumbers(
   campaignId: string,
   phoneNumbers: Campaign['phone_numbers']
 ): Promise<Campaign> {
-  const { data, error } = await supabase
-    .from('campaigns')
-    .update({ phone_numbers: phoneNumbers })
-    .eq('campaign_id', campaignId)
-    .select()
-    .single();
+  try {
+    const token = await getAuthToken();
+    const response = await fetch(
+      `${API_BASE_URL}/api/v1/campaigns/${campaignId}/phone-numbers`,
+      {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          phone_numbers: phoneNumbers
+        })
+      }
+    );
 
-  if (error) throw error;
-  if (!data) throw new Error('Campaign not found');
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.detail || 'Failed to update phone numbers');
+    }
 
-  return data;
+    return response.json();
+  } catch (error) {
+    console.error('Error updating phone numbers:', error);
+    throw error;
+  }
 }

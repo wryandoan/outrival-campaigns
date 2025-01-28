@@ -73,7 +73,10 @@ export function ContactDetails({ contact, onBack }: ContactDetailsProps) {
       <div className="space-y-6">
         <ContactBasicInfo details={details} />
         <ContactPreferences details={details} />
-        <ContactCampaigns campaigns={campaigns} />
+        <ContactCampaigns 
+          campaigns={campaigns} 
+          contactId={contact.contact_id}
+        />
       </div>
     </div>
   );

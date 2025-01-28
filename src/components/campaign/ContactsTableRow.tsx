@@ -8,7 +8,7 @@ interface ContactsTableRowProps {
   selected: boolean;
   onSelect: (checked: boolean) => void;
   onClick: () => void;
-  onStatusClick: (status: string) => void;
+  onStatusClick: (status: string, contactId: string) => void;
   canEdit: boolean;
 }
 
@@ -20,12 +20,34 @@ export function ContactsTableRow({
   onStatusClick,
   canEdit
 }: ContactsTableRowProps) {
+  console.log('[ContactsTableRow] Rendering with contact:', {
+    id: contact.campaign_user_id,
+    name: `${contact.first_name} ${contact.last_name}`,
+    status: contact.contact_status
+  });
+
   const status = statusConfig[contact.contact_status as keyof typeof statusConfig];
 
   const handleRowClick = () => {
     if (canEdit) {
       onSelect(!selected);
     }
+  };
+
+  const handleStatusClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const campaignUserId = contact.campaign_user_id;
+    console.log('[ContactsTableRow] Status clicked:', {
+      contactId: campaignUserId,
+      name: `${contact.first_name} ${contact.last_name}`,
+      currentStatus: contact.contact_status,
+      statusLabel: status?.label || 'Unknown'
+    });
+    if (!campaignUserId) {
+      console.error('[ContactsTableRow] Missing campaign_user_id for contact:', contact);
+      return;
+    }
+    onStatusClick(contact.contact_status, campaignUserId);
   };
 
   return (
@@ -62,10 +84,7 @@ export function ContactsTableRow({
 
       <td className="w-[140px] px-6 py-4 whitespace-nowrap">
         <button
-          onClick={(e) => {
-            e.stopPropagation();
-            onStatusClick(contact.contact_status);
-          }}
+          onClick={handleStatusClick}
           className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${status?.color} hover:opacity-100 hover:shadow-md hover:scale-105 transition-all`}
         >
           {status?.label || 'Awaiting Contact'}
@@ -76,6 +95,10 @@ export function ContactsTableRow({
         <button
           onClick={(e) => {
             e.stopPropagation();
+            console.log('[ContactsTableRow] View contact clicked:', {
+              contactId: contact.campaign_user_id,
+              name: `${contact.first_name} ${contact.last_name}`
+            });
             onClick();
           }}
           className="text-sm text-blue-600 dark:text-dark-400 hover:text-dark-800 dark:hover:text-dark-600"
