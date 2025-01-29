@@ -23,7 +23,7 @@ export function PersonalizationTab({ campaign }: PersonalizationTabProps) {
     async function loadContacts() {
       try {
         const campaignContacts = await getCampaignContacts(campaign.campaign_id);
-        setContacts(campaignContacts);
+        setContacts(campaignContacts.data);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Failed to load contacts');
       } finally {
