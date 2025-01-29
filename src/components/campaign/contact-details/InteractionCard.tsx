@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Phone, MessageSquare, Mail, Clock, ChevronDown, ChevronRight, AlertCircle } from 'lucide-react';
+import { Phone, Info, MessageSquare, Mail, Clock, ChevronDown, ChevronRight, AlertCircle } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import { ConversationContent } from './ConversationContent';
 import { RecordingPlayer } from '../../recordings/RecordingPlayer';
@@ -9,6 +9,12 @@ import type { Interaction } from '../../../services/interactions/types';
 
 interface InteractionCardProps {
   interaction: Interaction;
+}
+
+interface InteractionNotes {
+  room_name?: string;
+  notes?: string;
+  error?: string;
 }
 
 export function InteractionCard({ interaction }: InteractionCardProps) {
@@ -28,20 +34,19 @@ export function InteractionCard({ interaction }: InteractionCardProps) {
 
   const Icon = getIcon();
   
-  // Parse notes to get room_name and errors if available
-  let roomName: string | null = null;
-  let errors: string | null = null;
+  // Parse notes to get structured data
+  let parsedNotes: InteractionNotes = {};
   if (interaction.notes) {
     try {
-      const notes = JSON.parse(interaction.notes);
-      roomName = notes.room_name;
-      errors = notes.error;
+      parsedNotes = JSON.parse(interaction.notes);
     } catch (e) {
       console.error('Failed to parse interaction notes:', e);
+      // If parsing fails, treat the entire notes as a string message
+      parsedNotes = { notes: interaction.notes };
     }
   }
 
-  const hasExpandableContent = roomName || interaction.content;
+  const hasExpandableContent = parsedNotes.room_name || interaction.content;
 
   return (
     <div className="relative pl-8 pb-8 border-l-2 border-gray-200 dark:border-dark-200 last:border-0 last:pb-0">
@@ -98,21 +103,32 @@ export function InteractionCard({ interaction }: InteractionCardProps) {
           )}
         </div>
 
-        {errors && (
+        {/* Show error if present */}
+        {parsedNotes.error && (
           <div className="flex items-start gap-2 mt-2 bg-gray-50 dark:bg-dark-100 p-3 rounded-lg">
             <AlertCircle className="w-4 h-4 text-gray-400 dark:text-dark-400 mt-0.5" />
             <p className="text-sm text-gray-600 dark:text-dark-400">
-              {errors}
+              {parsedNotes.error}
+            </p>
+          </div>
+        )}
+
+        {/* Show notes if present */}
+        {parsedNotes.notes && (
+          <div className="flex items-start gap-2 mt-2 bg-gray-50 dark:bg-dark-100 p-3 rounded-lg">
+            <Info className="w-4 h-4 text-gray-400 dark:text-dark-400 mt-0.5" />
+            <p className="text-sm text-gray-600 dark:text-dark-400">
+              {parsedNotes.notes}
             </p>
           </div>
         )}
 
         {isExpanded && (
           <div className="space-y-3 pt-0">
-            {roomName && (
+            {parsedNotes.room_name && (
               <div className="mt-2">
                 <RecordingPlayer 
-                  roomName={roomName} 
+                  roomName={parsedNotes.room_name} 
                   interactionId={interaction.interaction_id}
                 />
               </div>

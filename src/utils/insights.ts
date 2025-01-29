@@ -57,6 +57,20 @@ export const insightMap = {
   'unreachable': {
     label: 'Unreachable',
     color: 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-200'
+  },
+
+  // Other Insights
+  'call_ignored': {
+    label: 'Call Ignored',
+    color: 'bg-gray-100 dark:bg-gray-900/30 text-gray-800 dark:text-gray-200'
+  },
+  'no_user_engagement': {
+    label: 'No User Engagement',
+    color: 'bg-gray-100 dark:bg-gray-900/30 text-gray-800 dark:text-gray-200'
+  },
+  'ai_not_responsive': {
+    label: 'AI Not Responsive',
+    color: 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-200'
   }
 } as const;
 
