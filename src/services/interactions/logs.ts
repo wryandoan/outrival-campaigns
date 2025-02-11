@@ -13,7 +13,10 @@ export interface LogEntry {
 export async function getInteractionLogs(interactionId: string): Promise<LogEntry[]> {
   const { data, error } = await supabase
     .from('interactions')
-    .select('logs')
+    .select(`
+      logs,
+      transfer_logs
+    `)
     .eq('interaction_id', interactionId)
     .single();
 

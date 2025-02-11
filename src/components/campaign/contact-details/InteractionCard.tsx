@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Phone, Info, MessageSquare, Mail, Clock, ChevronDown, ChevronRight, AlertCircle, Loader2 } from 'lucide-react';
+import { Phone, Info, MessageSquare, Mail, Clock, ChevronDown, ChevronRight, AlertCircle, Loader2, PhoneForwarded, Copy, Check } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import { ConversationContent } from './ConversationContent';
 import { RecordingPlayer } from '../../recordings/RecordingPlayer';
@@ -25,6 +25,8 @@ export function InteractionCard({ interaction }: InteractionCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [logs, setLogs] = useState<LogEntry[] | null>(null);
   const [loadingLogs, setLoadingLogs] = useState(false);
+  const [copiedMain, setCopiedMain] = useState(false);
+  const [copiedTransfer, setCopiedTransfer] = useState(false);
 
   const getIcon = () => {
     switch (interaction.communication_type) {
@@ -51,7 +53,8 @@ export function InteractionCard({ interaction }: InteractionCardProps) {
     }
   }
 
-  const hasExpandableContent = parsedNotes.room_name || interaction.content;
+  const hasExpandableContent = parsedNotes.room_name || interaction.content || 
+    interaction.transfer_logs?.length > 0 || interaction.transfer_content;
 
   const handleExpand = async () => {
     const newExpandedState = !isExpanded;
@@ -68,6 +71,17 @@ export function InteractionCard({ interaction }: InteractionCardProps) {
       } finally {
         setLoadingLogs(false);
       }
+    }
+  };
+
+  const copyLogs = async (logs: LogEntry[], setCopied: (value: boolean) => void) => {
+    try {
+      const logsText = JSON.stringify(logs, null, 2);
+      await navigator.clipboard.writeText(logsText);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy logs:', err);
     }
   };
 
@@ -111,7 +125,7 @@ export function InteractionCard({ interaction }: InteractionCardProps) {
             )}
           </div>
 
-          {(hasExpandableContent || interaction.logs) && (
+          {hasExpandableContent && (
             <button
               onClick={handleExpand}
               className="flex items-center space-x-2 p-1 hover:bg-gray-100 dark:hover:bg-dark-200 rounded-full transition-colors"
@@ -168,11 +182,68 @@ export function InteractionCard({ interaction }: InteractionCardProps) {
               </div>
             )}
 
-            {/* Logs Section */}
+            {/* Transfer Content Section */}
+            {interaction.transfer_content && (
+              <div className="bg-gray-50 dark:bg-dark-100 p-3 rounded-lg">
+                <div className="flex items-center gap-2 mb-3">
+                  <PhoneForwarded className="w-4 h-4 text-gray-400 dark:text-dark-400" />
+                  <h4 className="text-sm font-medium text-gray-700 dark:text-dark-600">
+                    Transfer Conversation
+                  </h4>
+                </div>
+                <ConversationContent 
+                  content={interaction.transfer_content} 
+                  contactName={contactName}
+                />
+              </div>
+            )}
+
+            {/* Transfer Logs Section */}
+            {interaction.transfer_logs && interaction.transfer_logs.length > 0 && (
+              <div className="bg-gray-50 dark:bg-dark-100 p-3 rounded-lg">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    <PhoneForwarded className="w-4 h-4 text-gray-400 dark:text-dark-400" />
+                    <h4 className="text-sm font-medium text-gray-700 dark:text-dark-600">
+                      Transfer Logs
+                    </h4>
+                  </div>
+                  <button
+                    onClick={() => copyLogs(interaction.transfer_logs!, setCopiedTransfer)}
+                    className="p-1 hover:bg-gray-200 dark:hover:bg-dark-200 rounded transition-colors"
+                    title="Copy logs"
+                  >
+                    {copiedTransfer ? (
+                      <Check className="w-4 h-4 text-green-500" />
+                    ) : (
+                      <Copy className="w-4 h-4 text-gray-400 dark:text-dark-400" />
+                    )}
+                  </button>
+                </div>
+                <LogViewer logs={interaction.transfer_logs} />
+              </div>
+            )}
+
+            {/* Main Interaction Logs Section */}
             <div className="bg-gray-50 dark:bg-dark-100 p-3 rounded-lg">
-              <h4 className="text-sm font-medium text-gray-700 dark:text-dark-600 mb-3">
-                Interaction Logs
-              </h4>
+              <div className="flex items-center justify-between mb-3">
+                <h4 className="text-sm font-medium text-gray-700 dark:text-dark-600">
+                  Interaction Logs
+                </h4>
+                {logs && (
+                  <button
+                    onClick={() => copyLogs(logs, setCopiedMain)}
+                    className="p-1 hover:bg-gray-200 dark:hover:bg-dark-200 rounded transition-colors"
+                    title="Copy logs"
+                  >
+                    {copiedMain ? (
+                      <Check className="w-4 h-4 text-green-500" />
+                    ) : (
+                      <Copy className="w-4 h-4 text-gray-400 dark:text-dark-400" />
+                    )}
+                  </button>
+                )}
+              </div>
               
               {loadingLogs ? (
                 <div className="flex justify-center py-4">

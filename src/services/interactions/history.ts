@@ -1,7 +1,7 @@
 import { supabase } from '../../lib/supabase/client';
 import type { Interaction } from './types';
 
-export async function getInteractionHistory(campaignContactId: string): Promise<Interaction[]> {
+export async function getInteractionHistory(contactId: string): Promise<Interaction[]> {
   const { data, error } = await supabase
     .from('interactions')
     .select(`
@@ -19,9 +19,11 @@ export async function getInteractionHistory(campaignContactId: string): Promise<
       phone_number,
       type,
       created_at,
-      updated_at
+      updated_at,
+      transfer_content,
+      transfer_logs
     `)
-    .eq('campaign_contact_id', campaignContactId)
+    .eq('campaign_contact_id', contactId)
     .order('sent_date_time', { ascending: false });
 
   if (error) throw error;

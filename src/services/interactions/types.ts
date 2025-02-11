@@ -12,4 +12,6 @@ export interface Interaction {
   notes?: string;
   phone_number: string;
   type: 'inbound' | 'outbound';
+  transfer_logs?: any[];
+  transfer_content?: string;
 }
