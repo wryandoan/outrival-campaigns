@@ -1,58 +1,41 @@
 import React, { useCallback, useState } from 'react';
 import { Upload } from 'lucide-react';
 import { processCSVImport } from '../../services/contacts/process-import';
-import { uploadContacts } from '../../services/contacts/upload';
+import { uploadContacts, uploadFile, getFileHeaders } from '../../services/contacts/upload';
 import { previewContactImport } from '../../services/contacts/preview';
 import { parseCSV } from '../../utils/csv/parser';
 import { CSVMappingStep } from '../csv/CSVMappingStep';
 import { ImportSummary } from './ImportSummary';
-import type { ImportResult, FieldMapping, CSVParseResult } from '../../types/import';
+import type { PreviewResult, FieldMapping, CSVParseResult } from '../../types/import';
 
 interface CSVUploaderProps {
   campaignId: string;
   onError: (error: string) => void;
-  onSuccess: (result: ImportResult) => void;
+  onSuccess: (result: PreviewResult) => void;
 }
 
 export function CSVUploader({ campaignId, onError, onSuccess }: CSVUploaderProps) {
   const [isDragging, setIsDragging] = useState(false);
   const [csvData, setCSVData] = useState<CSVParseResult | null>(null);
-  const [importPreview, setImportPreview] = useState<ImportResult | null>(null);
+  const [previewResult, setPreviewResult] = useState<PreviewResult | null>(null);
   const [isUploading, setIsUploading] = useState(false);
 
-  const processUpload = useCallback(async (mapping: FieldMapping) => {
+  const getPreview = useCallback(async (mapping: FieldMapping) => {
     if (!csvData) return;
 
     try {
-      // Process CSV and get initial results including errors
-      const result = processCSVImport(csvData, mapping);
-      
-      if (result.contacts.length === 0 && result.failed === 0) {
-        onError('No valid contacts found in the CSV file');
-        return;
-      }
-
-      console.log("Processed contacts:", result.contacts);
-
       // Get preview from backend
       const preview = await previewContactImport(campaignId, result.contacts);
       
       console.log("Preview response:", preview);
 
-      setImportPreview({
-        ...result,
-        contacts: preview.to_import,
-        successful: preview.to_import.length,
-        existing: preview.in_system.length,
-        inCampaign: preview.in_campaign,
-        inSystem: preview.in_system
-      });
+      setPreviewResult(preview);
     } catch (err) {
       onError(err instanceof Error ? err.message : 'Failed to process file');
     }
   }, [campaignId, csvData, onError]);
 
-  const handleDrop = useCallback(async (e: React.DragEvent<HTMLDivElement>) => {
+const handleDrop = useCallback(async (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     setIsDragging(false);
 
@@ -62,27 +45,35 @@ export function CSVUploader({ campaignId, onError, onSuccess }: CSVUploaderProps
       return;
     }
 
+    const MAX_FILE_SIZE = 1 * 1024 * 1024 * 1024; // 1GB in bytes
+    if (file.size > MAX_FILE_SIZE) {
+      onError('File size must be less than 1GB');
+      return;
+    }
+
     const fileType = file.name.split('.').pop()?.toLowerCase();
-    if (!['csv', 'xlsx'].includes(fileType || '')) {
-      onError('Please upload a CSV or Excel file');
+    if (!['csv'].includes(fileType || '')) {
+      onError('Please upload a CSV file');
       return;
     }
 
     try {
-      const text = await file.text();
-      const parsedData = parseCSV(text);
-      setCSVData(parsedData);
+      // Instead of reading file content, upload to Supabase
+      const filePath = await uploadFile(file, campaignId);
+      
+      // Now we'd likely want to store this path or trigger processing
+      setCSVData({ filePath, headers: await getFileHeaders(file) });
     } catch (err) {
-      onError('Failed to read file');
+      onError('Failed to upload file');
     }
   }, [onError]);
 
   const handleConfirmUpload = async () => {
-    if (!importPreview) return;
+    if (!previewResult) return;
 
     try {
       setIsUploading(true);
-      const result = await uploadContacts(campaignId, importPreview);
+      const result = await uploadContacts(campaignId, previewResult);
       onSuccess(result);
     } catch (err) {
       onError(err instanceof Error ? err.message : 'Failed to upload contacts');
@@ -100,11 +91,11 @@ export function CSVUploader({ campaignId, onError, onSuccess }: CSVUploaderProps
     setIsDragging(false);
   }, []);
 
-  if (importPreview) {
+  if (previewResult) {
     return (
       <ImportSummary
-        result={importPreview}
-        onClose={() => setImportPreview(null)}
+        result={previewResult}
+        onClose={() => setPreviewResult(null)}
         onConfirm={handleConfirmUpload}
         isUploading={isUploading}
       />
@@ -116,7 +107,7 @@ export function CSVUploader({ campaignId, onError, onSuccess }: CSVUploaderProps
       <CSVMappingStep
         csvHeaders={csvData.headers}
         onBack={() => setCSVData(null)}
-        onNext={processUpload}
+        onNext={getPreview}
       />
     );
   }

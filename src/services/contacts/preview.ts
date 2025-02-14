@@ -1,28 +1,39 @@
 import { API_BASE_URL } from '../api';
 import { getAuthToken } from '../api';
-import type { ImportContact } from '../../types/import';
+import type { FieldMapping, ImportError, ImportContact, PreviewResult } from '../../types/import';
 
-interface ImportPreview {
-  to_import: ImportContact[];
-  in_system: ImportContact[];
-  in_campaign: ImportContact[];
+interface CSVUploadRequest {
+  file_path: string;
+  headers: string[];
+  mapping: FieldMapping;
+}
+
+interface PreviewResult {
+  existingSystemContactsToAddSample: ImportContact[];
+  existingCampaignContactsToNotAddSample: ImportContact[];
+  newContactsToAddSample: ImportContact[];
+  failedToAddContactsSample: ImportError[];
+  existingSystemContactsToAddCount: number;
+  existingCampaignContactsToNotAddCount: number;
+  newContactsToAddCount: number;
+  failedContactsToNotAddCount: number;
 }
 
 export async function previewContactImport(
   campaignId: string,
-  contacts: ImportContact[]
-): Promise<ImportPreview> {
+  request: CSVUploadRequest
+): Promise<PreviewResult> {
   try {
     const token = await getAuthToken();
     const response = await fetch(
-      `${API_BASE_URL}/api/v1/campaigns/${campaignId}/contacts/preview`,
+      `${API_BASE_URL}/api/v1/campaigns/${campaignId}/get-preview`,
       {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({ contacts })
+        body: JSON.stringify(request)
       }
     );
 
@@ -31,12 +42,17 @@ export async function previewContactImport(
       throw new Error(error.detail || 'Failed to preview contacts');
     }
 
-    const data: ImportPreview = await response.json();
+    const data: PreviewResult = await response.json();
     
     return {
-      to_import: data.to_import || [],
-      in_system: data.in_system || [],
-      in_campaign: data.in_campaign || []
+      existingSystemContactsToAddSample: data.existingSystemContactsToAddSample || [],
+      existingCampaignContactsToNotAddSample: data.existingCampaignContactsToNotAddSample || [],
+      newContactsToAddSample: data.newContactsToAddSample || [],
+      failedToAddContactsSample: data.failedToAddContactsSample || [],
+      existingSystemContactsToAddCount: data.existingSystemContactsToAddCount || 0,
+      existingCampaignContactsToNotAddCount: data.existingCampaignContactsToNotAddCount || 0,
+      newContactsToAddCount: data.newContactsToAddCount || 0,
+      failedContactsToNotAddCount: data.failedContactsToNotAddCount || 0
     };
   } catch (error) {
     console.error('Error previewing contacts:', error);

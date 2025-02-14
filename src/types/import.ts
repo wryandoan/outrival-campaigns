@@ -14,15 +14,15 @@ export interface ImportError {
   };
 }
 
-export interface ImportResult {
-  contacts: ImportContact[];
-  successful: number;
-  existing: number;
-  failed: number;
-  errors: ImportError[];
-  inSystem?: ImportContact[];
-  inCampaign?: ImportContact[];
-  notInCampaign?: ImportContact[];
+export interface PreviewResult {
+  newContactsToAddSample: ImportContact[];
+  failedToAddContactsSample: ImportError[];
+  existingSystemContactsToAddSample: ImportContact[];
+  existingCampaignContactsToNotAddSample: ImportContact[];
+  existingSystemContactsToAddCount: ImportContact[];
+  newContactsToAddCount: number;
+  existingCampaignContactsToNotAddCount: number;
+  failedContactsToNotAddCount: number;
   toRemoveIfEnabled?: CampaignContact[];
   removeOthers?: boolean;
 }
@@ -45,4 +45,9 @@ export interface CSVParseResult {
     values: string[];
     rowNumber: number;
   }[];
+}
+
+export interface CSVUpload {
+  filePath: string;
+  headers: string[];
 }

@@ -2,6 +2,50 @@ import { supabase } from '../../lib/supabase/client';
 import { getAreaCodeInfo, getTimeZoneFromAreaCode } from '../../utils/location';
 import type { ImportResult } from '../../types/import';
 
+export async function getFileHeaders(file: File): Promise<string[]> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    
+    reader.onload = (e) => {
+      try {
+        const text = e.target?.result as string;
+        // Get first line and split by comma
+        const firstLine = text.split('\n')[0];
+        // Split by comma and trim whitespace from each header
+        const headers = firstLine
+          .split(',')
+          .map(header => header.trim())
+          .filter(header => header.length > 0);
+        
+        resolve(headers);
+      } catch (err) {
+        reject(new Error('Failed to parse CSV headers'));
+      }
+    };
+
+    reader.onerror = () => {
+      reject(new Error('Failed to read file'));
+    };
+
+    // Read just the first chunk of the file (enough for headers)
+    const blob = file.slice(0, 5120); // Read first 5KB which should be enough for headers
+    reader.readAsText(blob);
+  });
+}
+
+export async function uploadFile(file: File, campaignId: string): Promise<string> {
+  const filename = `${campaignId}/${auth.user().id}/${file.name}-${Date.now()}`;
+  
+  const { data, error } = await supabase.storage
+    .from('csv-imports')
+    .upload(filename, file, {
+      cacheControl: '3600',
+      upsert: false
+    });
+  if (error) throw error;
+  return data.path;
+}
+
 async function checkExistingContacts(phoneNumbers: string[]): Promise<Array<{ id: string; phone_number: string }>> {
   const { data, error } = await supabase
     .from('contacts')

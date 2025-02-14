@@ -1,11 +1,13 @@
 import { validateContact } from '../../utils/csv/validation';
 import type { ImportResult, FieldMapping, CSVParseResult } from '../../types/import';
 
-export function processCSVImport(csvData: CSVParseResult, mapping: FieldMapping): ImportResult {
+export function processCSVImport(csvData: CSVUpload, mapping: FieldMapping): ImportResult {
   const validContacts = [];
   const errors = [];
 
-  for (const row of csvData.rows) {
+  // fetch csv data (results) from supabase storage based on csvData.filePath
+
+  for (const row of results.rows) {
     try {
       const contact = validateContact(row.values, csvData.headers, mapping, row.rowNumber);
       if (contact) {
